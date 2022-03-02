@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# 🚀 ĐỒ ÁN REACTJS - BOOKING TICKET MOVIE USING REACTJS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+## 🍀 Phần 1: Giới Thiệu Về Dự Án vs Mục Tiêu
 
-In the project directory, you can run:
+- Project Booking Tickets Movie là một trong đồ án lớn tốt nghiệp đại học đối với bản thân mình. Đây là dự án mình thực hiện sau khoảng thời gian tự học reactjs. Nó là đồ án về việc Đặt vé xem phim. Nó cung cấp các chức năng và giao diện **cơ bản** của một một dự án thông thường.
 
-### `npm start`
+- ĐỒ ÁN TỐT NGHIỆP - MOVIE TICKET BOOKING WEBSITE để thực hiện đồ án, dự kiến sử dụng thêm giao diện tận dụng hết mức css thuần, sử dụng scss, tận dụng Boostrap hết cỡ. Đặc biệt Đồ án có thao tác với form vô cùng đơn giản rõ ràng đề cao UI/UX. Mục tiêu hướng đến của mình là phần giao diện sống động bắt mắt gây hứng thú với người dùng.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Đồ án được mình thiết kế và tổ chức phân chia theo từng components, nếu bạn thấy dự án của bọn mình có chỗ thiết kế nào chưa được tối ưu hoặc chưa phù hợp thì bạn hoàn toàn có thể đóng góp ý kiến với bọn mình để hoàn thiện dự án một cách tốt nhất.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🍀 Phần 2: Tính năng nổi bật
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Responsive bắt mắt
+- Chia folders SASS và sử dụng SASS
+- Validation
+- Sử dụng API với data chất lượng - độc - lạ
+- API chạy được và trả về nhiều states
+- Chi tiết đặt vé - thông tin phòng vé được thiết kế bắt mắt
+- Update thường xuyên
+- Scroll to top
+- Xác thực: Đăng nhập, Đăng ký và Đăng xuất
+- Xem thông tin chi tiết phim: Hình ảnh, Trailer, Diễn viên, Đánh giá
+- Đặt vé realtime
+- Xem danh sách phim đang chiếu hoặc phim sắp chiếu
