@@ -6,7 +6,7 @@ const Page404 = () => {
         <div className="text">
           <p>404</p>
         </div>
-        <div className="container">
+        <div className="containers">
           {/* caveman left */}
           <div className="caveman">
             <div className="leg">
