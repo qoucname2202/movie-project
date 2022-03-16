@@ -1,0 +1,61 @@
+.footer {
+  font-family: 'Poppins', sans-serif;
+  .footer-infor {
+    background-color: #101010;
+    color: #4a4a4a;
+    padding: 50px 0;
+    .ttl-4 {
+      @include text($subtitle2, $medium, $cwhite);
+      margin-bottom: 15px;
+    }
+    p {
+      @include text($body1, $bold, #4a4a4a);
+      display: flex;
+      justify-content: space-between;
+      a {
+        color: #4a4a4a;
+        text-decoration: none;
+        &:hover {
+          background: linear-gradient(90deg, $bgorange, $secondary);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+    }
+    .col {
+      margin-bottom: 10px;
+      img {
+        background: $primary;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+      }
+    }
+    .social {
+      text-align: center;
+      a {
+        display: inline-block;
+        margin-right: 10px;
+      }
+      img {
+        height: 30px;
+        width: auto;
+      }
+    }
+  }
+  .f-infor-bottom {
+    border-top: 1px solid #4a4a4a;
+    padding-top: 20px;
+    margin-top: 50px;
+    .ttl-4 {
+      @include text($subtitle2, $medium, $cwhite);
+      margin-bottom: 15px;
+    }
+    p {
+      @include text(13px, $bold, #949494);
+      justify-content: start;
+    }
+  }
+}
