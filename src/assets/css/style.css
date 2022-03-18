@@ -894,6 +894,50 @@ a {
   text-align: center;
 }
 
+.search-home {
+  font-family: "Poppins", sans-serif;
+  transform: translateY(-60%);
+  position: relative;
+}
+.search-home .form-search {
+  background: #fff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  display: flex;
+  border-radius: 10px;
+  margin: 0 -10px;
+}
+.search-home .form-search .select-item {
+  border-right: 1px solid #b7b7a4;
+}
+.search-home .form-search .select-item:last-child {
+  border-right: none;
+}
+.search-home .form-search select {
+  background: transparent;
+  border: none;
+  padding: 25px;
+  font-size: 15px;
+  min-width: 200px;
+  color: #333;
+  font-weight: 500;
+}
+.search-home .form-search .item-booking {
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-home .form-search .btn-booking {
+  background: linear-gradient(270deg, #fb4226, #ce3017);
+  color: #fff;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
 .footer {
   font-family: "Poppins", sans-serif;
 }
