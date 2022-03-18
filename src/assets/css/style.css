@@ -918,7 +918,7 @@ a {
   padding: 25px;
   font-size: 15px;
   min-width: 200px;
-  color: #333;
+  color: #4a4a4a;
   font-weight: 500;
 }
 .search-home .form-search .item-booking {
@@ -1482,6 +1482,53 @@ a:hover {
 .inner-bg-user .form-user .registernow p a {
   color: #ec7532;
   font-weight: 700;
+}
+
+.admin-main {
+  padding-top: 30px;
+}
+
+.profile-admin {
+  margin-bottom: 50px;
+}
+.profile-admin .nav-pills {
+  border-bottom: 1px solid #dee2e6;
+}
+.profile-admin .nav-pills .nav-link {
+  color: #000;
+  margin-bottom: -1px;
+  border: 1px solid transparent;
+}
+.profile-admin .nav-pills .nav-link.active {
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+  color: #ec7532;
+}
+.profile-admin thead {
+  background: #f8f9fa;
+}
+.profile-admin thead th {
+  border: 1px solid #dee2e6;
+  border-bottom: none;
+}
+.profile-admin td {
+  border: 1px solid #dee2e6;
+}
+.profile-admin .form-profile .inner-btn {
+  display: block;
+  margin: 20px auto 0;
+}
+.profile-admin .form-profile .inner-btn .btn-all-form {
+  background: linear-gradient(to right, #fbbd61, #ec7532);
+  border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -ms-border-radius: 25px;
+  -o-border-radius: 25px;
+  padding: 7px 25px;
+  color: #fff;
+  font-weight: 600;
+  width: 200px;
 }
 
 /*# sourceMappingURL=style.css.map */
