@@ -11,7 +11,7 @@ const Home = () => {
       <CarouselHome />
       <SearchHome />
       <ListMovie />
-      {/* <ShowTimeMovie /> */}
+      <ShowTimeMovie />
       <News />
     </main>
   );

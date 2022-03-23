@@ -500,7 +500,6 @@ a:hover {
 }
 // Cinema Block
 .cinema-block {
-  font-family: "Poppins", sans-serif;
   .sroll-tab {
     max-height: 650px;
     height: 650px;
@@ -616,8 +615,8 @@ a:hover {
         margin-bottom: 10px;
       }
       .wrap-infor {
-        max-width: 86%; // 88%
-        // margin-left: 10px;
+        max-width: 88%;
+        margin-left: 10px;
         p {
           font-weight: bold;
           margin-bottom: 0;
@@ -646,11 +645,11 @@ a:hover {
           border-radius: 7px;
           color: #9b9b9b;
           border: 1px solid #e4e4e4;
-          width: 25%; // width: 100%
+          width: 100%;
           padding: 5px 10px;
           margin-bottom: 15px;
           text-align: center;
-          display: inline-block;
+          display: block;
           p {
             color: #9b9b9b;
             span {
@@ -661,6 +660,7 @@ a:hover {
           }
         }
       }
+
       .ttl {
         font-size: 16px;
         font-weight: bold;
@@ -670,8 +670,8 @@ a:hover {
 }
 // News
 .block-news {
-  margin-bottom: 50px;
   font-family: "Poppins", sans-serif;
+  margin-bottom: 50px;
   .nav-pills {
     justify-content: center;
     margin-bottom: 20px;
@@ -722,6 +722,7 @@ a:hover {
         -o-border-radius: 4px;
         width: 50px;
         height: 50px;
+        object-fit: cover;
       }
       .ttl {
         color: #000;
@@ -812,4 +813,36 @@ a:hover {
       justify-content: start;
     }
   }
+}
+.backtop {
+  position: fixed;
+  right: 40px;
+  bottom: 50px;
+  z-index: 9999;
+  cursor: pointer;
+  transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+  -moz-transition: all ease 0.5s;
+  -ms-transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  visibility: hidden;
+  opacity: 0;
+  .fa-angle-up {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border: solid 2px #ec7532;
+    color: #ec7532;
+    font-size: 35px;
+    line-height: 34px;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+  }
+}
+.eventbacktotop {
+  opacity: 1;
+  visibility: visible;
 }
