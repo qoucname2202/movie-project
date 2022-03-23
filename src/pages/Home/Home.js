@@ -1,4 +1,5 @@
 import React from "react";
+import Application from "../../components/Application/Application";
 import CarouselHome from "../../components/CarouselHome/CarouselHome";
 import ListMovie from "../../components/ListMovie/ListMovie";
 import News from "../../components/News/News";
@@ -13,6 +14,7 @@ const Home = () => {
       <ListMovie />
       <ShowTimeMovie />
       <News />
+      <Application />
     </main>
   );
 };

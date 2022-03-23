@@ -5,6 +5,7 @@
 }
 
 .footer-inner {
+  font-family: "Poppins", sans-serif;
   background: url(../../images/backapp.jpg) no-repeat center;
   background-size: cover;
   padding: 120px 0px;
@@ -40,6 +41,7 @@
     text-align: center;
     .img-wrap {
       width: 44%;
+      margin-left: 150px;
       height: auto;
       overflow: hidden;
       position: relative;
