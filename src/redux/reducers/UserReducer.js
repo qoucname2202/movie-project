@@ -1,7 +1,16 @@
-import { LOGIN } from '../../configs/settings';
+import { LOGIN, taiKhoan, accessToken } from '../../configs/settings';
+
 let taiKhoanNguoiDung = '';
 let tokenlocal = '';
 
+// Kiểm tra tài khoản có trong localStorage hay không ?
+if (localStorage.getItem(taiKhoan)) {
+  let userNameStorage = localStorage.getItem('taiKhoan');
+  taiKhoanNguoiDung = JSON.parse(userNameStorage).taiKhoan;
+  tokenlocal = JSON.parse(taiKhoanNguoiDung).accessToken;
+}
+
+// State
 const stateDefault = {
   taiKhoan: taiKhoanNguoiDung,
   accessToken: tokenlocal,
