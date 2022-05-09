@@ -28,8 +28,14 @@ const Application = () => {
               App miễn phí - Tải về ngay!
             </button>
             <p className="txt-update">
-              BOOKING FILM có hai phiên bản <a href="#">iOS</a> &amp;{" "}
-              <a href="#">Android</a>
+              BOOKING FILM có hai phiên bản{" "}
+              <a href="https://apps.apple.com/vn/app/galaxy-cinema/id593312549?l=vi">
+                iOS
+              </a>{" "}
+              &amp;{" "}
+              <a href="https://play.google.com/store/apps/details?id=com.galaxy.cinema&hl=vi">
+                Android
+              </a>
             </p>
           </div>
           <div className="footer-right col-md-6">

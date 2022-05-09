@@ -166,7 +166,7 @@ a {
 }
 .footer-inner .footer-left .txt-update a {
   color: #fff;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .footer-inner .footer-left .txt-update a:hover {
   color: #ec7532;
@@ -1557,7 +1557,7 @@ a:hover {
 .footer .footer-infor .ttl-4 {
   font-size: 16px;
   font-weight: 500;
-  color: #fff;
+  color: #ec7532;
   margin-bottom: 15px;
 }
 .footer .footer-infor p {
@@ -1593,6 +1593,7 @@ a:hover {
 .footer .footer-infor .social a {
   display: inline-block;
   margin-right: 10px;
+  text-decoration: none;
 }
 .footer .footer-infor .social img {
   height: 30px;
@@ -1606,7 +1607,7 @@ a:hover {
 .footer .f-infor-bottom .ttl-4 {
   font-size: 16px;
   font-weight: 500;
-  color: #fff;
+  color: #ec7532;
   margin-bottom: 15px;
 }
 .footer .f-infor-bottom p {

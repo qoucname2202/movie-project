@@ -760,7 +760,7 @@ a:hover {
     color: #4a4a4a;
     padding: 50px 0;
     .ttl-4 {
-      @include text($subtitle2, $medium, $cwhite);
+      @include text($subtitle2, $medium, #ec7532);
       margin-bottom: 15px;
     }
     p {
@@ -793,6 +793,7 @@ a:hover {
       a {
         display: inline-block;
         margin-right: 10px;
+        text-decoration: none;
       }
       img {
         height: 30px;
@@ -805,7 +806,7 @@ a:hover {
     padding-top: 20px;
     margin-top: 50px;
     .ttl-4 {
-      @include text($subtitle2, $medium, $cwhite);
+      @include text($subtitle2, $medium, #ec7532);
       margin-bottom: 15px;
     }
     p {
