@@ -12,13 +12,13 @@ const Login = () => {
         <h1 className="ttl">Đăng nhập</h1>
         <div className="form-group mb-3">
           <label className="form-label">Username</label>
-          <i class="far fa-user user"></i>
-          <input type="text" className="form-control" name="username" />
+          <i className="far fa-user user"></i>
+          <input type="text" className="form-control" name="username" autoComplete="off" />
         </div>
         <div className="form-group">
           <label className="form-label">Password</label>
-          <i class="fas fa-lock user"></i>
-          <input type="password" className="form-control" name="password" />
+          <i className="fas fa-lock user"></i>
+          <input type="password" className="form-control" name="password" autoComplete="off" />
         </div>
         <div className="form-group mb-3">
           <button type="submit" className="btn btnsubmit">

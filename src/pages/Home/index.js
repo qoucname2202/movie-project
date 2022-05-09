@@ -1,10 +1,10 @@
-import React from "react";
-import Application from "../../components/Application/Application";
-import CarouselHome from "../../components/CarouselHome/CarouselHome";
-import ListMovie from "../../components/ListMovie/ListMovie";
-import News from "../../components/News/News";
-import SearchHome from "../../components/SearchHome/SearchHome";
-import ShowTimeMovie from "../../components/ShowTimeMovie/ShowTimeMovie";
+import React from 'react';
+// import Application from '../../components/Application/Application';
+import CarouselHome from '../../components/CarouselHome/CarouselHome';
+import ListMovie from '../../components/ListMovie/ListMovie';
+// import News from '../../components/News/News';
+import SearchHome from '../../components/SearchHome/SearchHome';
+// import ShowTimeMovie from '../../components/ShowTimeMovie/ShowTimeMovie';
 
 const Home = () => {
   return (
@@ -12,9 +12,9 @@ const Home = () => {
       <CarouselHome />
       <SearchHome />
       <ListMovie />
-      <ShowTimeMovie />
-      <News />
-      <Application />
+      {/* <ShowTimeMovie /> */}
+      {/* <News /> */}
+      {/* <Application /> */}
     </main>
   );
 };

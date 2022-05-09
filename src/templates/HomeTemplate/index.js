@@ -4,11 +4,11 @@ import Header from '../../components/Header/Header';
 
 const HomeTemplated = ({ children }) => {
   return (
-    <div>
+    <Fragment>
       <Header />
       <Fragment>{children}</Fragment>
       <Footer />
-    </div>
+    </Fragment>
   );
 };
 

@@ -1,7 +1,6 @@
-import React from 'react';
-
-const Admin = () => {
-  return <div></div>;
+import React, { Fragment } from 'react';
+const Admin = ({ children }) => {
+  return <Fragment>{children}</Fragment>;
 };
 
 export default Admin;

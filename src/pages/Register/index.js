@@ -12,23 +12,23 @@ const Register = () => {
         <h1 className="ttl">Đăng ký</h1>
         <div className="form-group mb-3">
           <label className="form-label">Username</label>
-          <input type="text" className="form-control" name="username" />
+          <input type="text" className="form-control" name="username" autoComplete="off" />
         </div>
         <div className="form-group mb-3">
           <label className="form-label">Password</label>
-          <input type="password" className="form-control" name="password" />
+          <input type="password" className="form-control" name="password" autoComplete="off" />
         </div>
         <div className="form-group mb-3">
           <label className="form-label">Fullname</label>
-          <input type="text" className="form-control" name="fullname" />
+          <input type="text" className="form-control" name="fullname" autoComplete="off" />
         </div>
         <div className="form-group mb-3">
           <label className="form-label">Phone number</label>
-          <input type="text" className="form-control" name="phone" />
+          <input type="text" className="form-control" name="phone" autoComplete="off" />
         </div>
         <div className="form-group">
           <label className="form-label">Email</label>
-          <input type="email" className="form-control" name="email" />
+          <input type="email" className="form-control" name="email" autoComplete="off" />
         </div>
         <div className="form-group">
           <button type="submit" className="btn btnsubmit">

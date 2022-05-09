@@ -1,14 +1,20 @@
+// Pages
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
-import Admin from '../pages/Admin';
 
-const publicRoutes = [
+// Componnent
+import Dashboard from '../components/Admin';
+import Page404 from '../components/Page404';
+
+// Layout
+import { AdminTemplate } from '../templates/';
+
+export const publicRoutes = [
   { path: '/', component: Home },
-  { path: '/login', component: Login },
-  { path: '/register', component: Register },
+  { path: '/home', component: Home },
+  { path: '/login', component: Login, layout: null },
+  { path: '/register', component: Register, layout: null },
+  { path: '/admin', component: Dashboard, layout: AdminTemplate },
+  { path: '*', component: Page404, layout: null },
 ];
-
-const privateRoutes = [{ path: '/admin', component: Admin }];
-
-export { publicRoutes, privateRoutes };
