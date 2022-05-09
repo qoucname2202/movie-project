@@ -1,4 +1,4 @@
-import { LOGIN, taiKhoan, accessToken } from '../../configs/settings';
+import { LOGIN, taiKhoan, accessToken, REGISTER } from '../../configs/settings';
 
 let taiKhoanNguoiDung = '';
 let tokenlocal = '';
@@ -22,6 +22,10 @@ const stateDefault = {
 const UserReducer = (state = stateDefault, action) => {
   switch (action.type) {
     case LOGIN: {
+      state.taiKhoan = action.taiKhoan;
+      return { ...state };
+    }
+    case REGISTER: {
       state.taiKhoan = action.taiKhoan;
       return { ...state };
     }
