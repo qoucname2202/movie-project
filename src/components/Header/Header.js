@@ -1,13 +1,18 @@
-import React from 'react';
-
+import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
+import { LOGOUT } from '../../configs/settings';
 const Header = () => {
+  let dispatch = useDispatch();
+
+  const { taiKhoan } = useSelector((state) => state.UserReducer);
   return (
     <div>
       <header className="header">
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="#!">
+          <Link className="navbar-brand" to="/">
             <img src="./images/logo_1.png" alt="Logo-Movie" className="logo" />
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -22,50 +27,60 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="#!">
+                <Link className="nav-link" to="showdate">
                   Lịch chiếu
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#!">
+                <Link className="nav-link" to="theater">
                   Cụm rạp
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#!">
+                <Link className="nav-link" to="view">
                   Tin tức
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#!">
+                <Link className="nav-link" to="application">
                   Ứng dụng
-                </a>
+                </Link>
               </li>
               <li className="nav-item user">
-                <div>
-                  <span className="nav-link" style={{ display: 'flex' }}>
-                    <img
-                      src="../images/avatar.png"
-                      alt="avatar"
-                      className="img-avatar"
-                    />
-                    Quốc Nam
-                  </span>
-                  {/* <div className="logout">
-                    <button className="btn btn-logout">Đăng xuất</button>
-                    <div className="profile">
-                      <a href="!#">Profile</a>
+                {taiKhoan !== '' ? (
+                  <div>
+                    <span
+                      className="nav-link"
+                      style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                    >
+                      {' '}
+                      <img src="../images/avatar.png" alt="avatar" className="img-avatar" />
+                      {taiKhoan}
+                    </span>
+                    <div className="logout">
+                      <button
+                        className="btn btn-logout"
+                        onClick={() => {
+                          dispatch({ type: LOGOUT });
+                        }}
+                      >
+                        Đăng xuất
+                      </button>
+                      <div className="profile">
+                        <NavLink to={'/profile'}>Profile</NavLink>
+                      </div>
                     </div>
-                  </div> */}
-                </div>
-                {/* <a className="nav-link" href="#!">
-                  <img
-                    src="../images/avatar.png"
-                    alt="avatar"
-                    className="img-avatar"
-                  />
-                  Đăng nhập
-                </a> */}
+                  </div>
+                ) : (
+                  <NavLink
+                    className="nav-link"
+                    to="/login"
+                    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                  >
+                    <img src="../images/avatar.png" alt="avatar" className="img-avatar" />
+                    Đăng nhập
+                  </NavLink>
+                )}
               </li>
             </ul>
           </div>

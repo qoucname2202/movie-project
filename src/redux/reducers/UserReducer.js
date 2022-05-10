@@ -1,4 +1,4 @@
-import { LOGIN, taiKhoan, accessToken, REGISTER } from '../../configs/settings';
+import { LOGIN, taiKhoan, accessToken, REGISTER, LOGOUT } from '../../configs/settings';
 
 let taiKhoanNguoiDung = '';
 let tokenlocal = '';
@@ -7,7 +7,7 @@ let tokenlocal = '';
 if (localStorage.getItem(taiKhoan)) {
   let userNameStorage = localStorage.getItem('taiKhoan');
   taiKhoanNguoiDung = JSON.parse(userNameStorage).taiKhoan;
-  tokenlocal = JSON.parse(taiKhoanNguoiDung).accessToken;
+  tokenlocal = JSON.parse(userNameStorage).accessToken;
 }
 
 // State
@@ -28,6 +28,10 @@ const UserReducer = (state = stateDefault, action) => {
     case REGISTER: {
       state.taiKhoan = action.taiKhoan;
       return { ...state };
+    }
+    case LOGOUT: {
+      localStorage.clear();
+      return { ...state, taiKhoan: '' };
     }
     default: {
       return state;

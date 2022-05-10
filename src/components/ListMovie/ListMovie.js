@@ -1,9 +1,9 @@
-import React from "react";
-import LightLity from "lity";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-const ListMovie = () => {
+import React from 'react';
+import LightLity from 'lity';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
+const ListMovie = ({ reful }) => {
   const listMovie = {
     infinite: true,
     speed: 300,
@@ -38,7 +38,7 @@ const ListMovie = () => {
     ],
   };
   return (
-    <section className="listmovie container" id="showdate">
+    <section className="listmovie container" id="showdate" ref={reful}>
       <ul className="nav nav-pills" id="pills-tab" role="tablist">
         <li className="nav-item" role="presentation">
           <a
@@ -66,19 +66,11 @@ const ListMovie = () => {
         </li>
       </ul>
       <div className="tab-content listmovie-content" id="pills-tabcontent">
-        <div
-          className="tab-pane fade content-item active show"
-          id="pills-nowshow"
-          role="tabpanel"
-        >
+        <div className="tab-pane fade content-item active show" id="pills-nowshow" role="tabpanel">
           <div className="content-show">
             <Slider {...listMovie}>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -92,7 +84,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -110,11 +102,7 @@ const ListMovie = () => {
                 </div>
               </div>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -128,7 +116,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -146,11 +134,7 @@ const ListMovie = () => {
                 </div>
               </div>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -164,7 +148,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -182,11 +166,7 @@ const ListMovie = () => {
                 </div>
               </div>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -200,7 +180,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -218,11 +198,7 @@ const ListMovie = () => {
                 </div>
               </div>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -236,7 +212,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -254,11 +230,7 @@ const ListMovie = () => {
                 </div>
               </div>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -272,7 +244,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -290,11 +262,7 @@ const ListMovie = () => {
                 </div>
               </div>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -308,7 +276,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -326,11 +294,7 @@ const ListMovie = () => {
                 </div>
               </div>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -344,7 +308,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -362,11 +326,7 @@ const ListMovie = () => {
                 </div>
               </div>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -380,7 +340,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -398,11 +358,7 @@ const ListMovie = () => {
                 </div>
               </div>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -416,7 +372,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -434,11 +390,7 @@ const ListMovie = () => {
                 </div>
               </div>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -452,7 +404,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -470,11 +422,7 @@ const ListMovie = () => {
                 </div>
               </div>
               <div className="movie-item" id="movieitem">
-                <a
-                  className="video"
-                  data-lity
-                  href="https://www.youtube.com/embed/1HpZevFifuo"
-                >
+                <a className="video" data-lity href="https://www.youtube.com/embed/1HpZevFifuo">
                   <div className="movie-img">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/antman.jpg"
@@ -488,7 +436,7 @@ const ListMovie = () => {
                       5<span>/10</span>
                       <i className="fa fa-star icon-start" />
                     </div>
-                    <div className="dateshow" style={{ display: "none" }}>
+                    <div className="dateshow" style={{ display: 'none' }}>
                       2019-07-29T00:00:00
                     </div>
                     <div className="overlay" />
@@ -509,11 +457,7 @@ const ListMovie = () => {
           </div>
         </div>
         {/*star show*/}
-        <div
-          className="tab-pane fade content-item"
-          id="pills-comming"
-          role="tabpanel"
-        >
+        <div className="tab-pane fade content-item" id="pills-comming" role="tabpanel">
           <div className="content-show">
             <Slider {...listMovie}></Slider>
           </div>

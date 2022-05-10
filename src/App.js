@@ -3,12 +3,27 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import { HomeTemplate } from './templates/';
 import { Fragment } from 'react';
+// History
+import { createBrowserHistory } from 'history';
+import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
+import ScroollTemplate from './templates/ScrollTemplate';
+import Home from './pages/Home';
+
+export const history = createBrowserHistory();
 
 function App() {
   return (
-    <Router>
+    <HistoryRouter history={history}>
       <div className="App">
         <Routes>
+          <Route
+            path="/home"
+            element={
+              <ScroollTemplate>
+                <Home />
+              </ScroollTemplate>
+            }
+          />
           {publicRoutes.map((route, index) => {
             let Layout = HomeTemplate;
             if (route.layout) {
@@ -31,7 +46,7 @@ function App() {
           })}
         </Routes>
       </div>
-    </Router>
+    </HistoryRouter>
   );
 }
 

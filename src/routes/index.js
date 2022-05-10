@@ -12,7 +12,7 @@ import { AdminTemplate } from '../templates/';
 
 export const publicRoutes = [
   { path: '/', component: Home },
-  { path: '/home', component: Home },
+  // { path: '/home', component: Home },
   { path: '/login', component: Login, layout: null },
   { path: '/register', component: Register, layout: null },
   { path: '/admin', component: Dashboard, layout: AdminTemplate },

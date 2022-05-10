@@ -16,16 +16,16 @@ const Login = () => {
       matKhau: yup.string().required('Mật khẩu không được bỏ trống!').min(6, 'Mật khẩu tối đa 6 ký tự'),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      dispatch(UserAction(values));
     },
   });
 
   return (
     <div className="inner-bg-user">
       <nav className="navbar navbar-light">
-        <a className="navbar-brand" href="#!">
+        <Link className="navbar-brand" to="/home">
           <img src="../images/logo_1.png" alt="logo" />
-        </a>
+        </Link>
       </nav>
       <form className="form-user" onSubmit={formik.handleSubmit}>
         <h1 className="ttl">Đăng nhập</h1>
