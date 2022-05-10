@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { UserAction } from '../../redux/actions/UserAction';
+import { RegisterAction } from '../../redux/actions/UserAction';
 const Register = () => {
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -25,16 +25,12 @@ const Register = () => {
         .required('Số điện thoại không được bỏ trống!')
         .min(10, 'Số điện thoại tối thiểu phải 10 số')
         .max(10, 'Số điện thoại tối đa phải 10 số'),
-      email: yup
-        .string()
-        .required('Email không được bỏ trống!')
-        .matches(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-          'Email không hợp lệ',
-        ),
+      email: yup.string().required('Email không được bỏ trống!').email('Email không đúng định dạng'),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      values.maNhom = 'GP01';
+      values.maLoaiNguoiDung = 'KhachHang';
+      dispatch(RegisterAction(values));
     },
   });
   return (
