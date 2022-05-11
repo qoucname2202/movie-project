@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-// import Application from '../../components/Application/Application';
+import Application from '../../components/Application';
 import CarouselHome from '../../components/CarouselHome/CarouselHome';
 import ListMovie from '../../components/ListMovie/';
 import News from '../../components/News/';
@@ -128,9 +128,10 @@ const Home = () => {
         <SearchHome />
         <ListMovie reful={state.lichChieu} />
         <News reful={state.tinTuc} />
+        <Application reful={state.ungDung} />
         {/* <ShowTimeMovie />
 
-        <Application /> */}
+         */}
       </main>
     </Fragment>
   );
