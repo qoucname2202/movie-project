@@ -1,4 +1,4 @@
-import { LOGIN, taiKhoan, accessToken, REGISTER, LOGOUT } from '../../configs/settings';
+import { LOGIN, taiKhoan, accessToken, REGISTER, LOGOUT, PROFILE_USER, EDIT_USER } from '../../configs/settings';
 
 let taiKhoanNguoiDung = '';
 let tokenlocal = '';
@@ -32,6 +32,14 @@ const UserReducer = (state = stateDefault, action) => {
     case LOGOUT: {
       localStorage.clear();
       return { ...state, taiKhoan: '' };
+    }
+    case PROFILE_USER: {
+      state.thongTinUser = { ...action.thongTinUser };
+      return { ...state };
+    }
+    case EDIT_USER: {
+      state.taiKhoan = action.taiKhoan;
+      return { ...state };
     }
     default: {
       return state;

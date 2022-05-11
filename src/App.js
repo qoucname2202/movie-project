@@ -8,6 +8,7 @@ import { createBrowserHistory } from 'history';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import ScroollTemplate from './templates/ScrollTemplate';
 import Home from './pages/Home';
+// import Loading from './components/Loading/Loading';
 
 export const history = createBrowserHistory();
 

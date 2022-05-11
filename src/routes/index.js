@@ -2,7 +2,7 @@
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
-
+import Profile from '../pages/Profile';
 // Componnent
 import Dashboard from '../components/Admin';
 import Page404 from '../components/Page404';
@@ -12,9 +12,9 @@ import { AdminTemplate } from '../templates/';
 
 export const publicRoutes = [
   { path: '/', component: Home },
-  // { path: '/home', component: Home },
   { path: '/login', component: Login, layout: null },
   { path: '/register', component: Register, layout: null },
+  { path: '/profile', component: Profile },
   { path: '/admin', component: Dashboard, layout: AdminTemplate },
   { path: '*', component: Page404, layout: null },
 ];
