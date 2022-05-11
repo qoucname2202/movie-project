@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 // import Application from '../../components/Application/Application';
 import CarouselHome from '../../components/CarouselHome/CarouselHome';
 import ListMovie from '../../components/ListMovie/';
-// import News from '../../components/News/News';
+import News from '../../components/News/';
 import SearchHome from '../../components/SearchHome/SearchHome';
 // import ShowTimeMovie from '../../components/ShowTimeMovie/ShowTimeMovie';
 import { LOGOUT } from '../../configs/settings';
@@ -127,8 +127,9 @@ const Home = () => {
         <CarouselHome />
         <SearchHome />
         <ListMovie reful={state.lichChieu} />
+        <News reful={state.tinTuc} />
         {/* <ShowTimeMovie />
-        <News />
+
         <Application /> */}
       </main>
     </Fragment>

@@ -1,30 +1,28 @@
 import React, { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { editUserAction, profileUserAction } from '../../redux/actions/UserAction';
 import moment from 'moment';
 import { taiKhoan } from '../../configs/settings';
-import { history } from '../../App';
-import { editUserAction, profileUserAction } from '../../redux/actions/UserAction';
 import { useFormik } from 'formik';
-const Profile = () => {
-  // Lấy thông tin useser từ UserReducer
+import { history } from '../../App';
+
+export default function Profile(props) {
   const { thongTinUser } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Kiểm tra trong localStorage có tồn tại thông tin user không
     if (!localStorage.getItem(taiKhoan)) {
       history.replace('/login');
     }
-    // Lấy thông tin user từ localStorage
     let userLogin = JSON.parse(localStorage.getItem(taiKhoan));
-    // dispatch tên tài khoản
     let profileUser = {
       taiKhoan: userLogin.taiKhoan,
     };
+
     dispatch(profileUserAction(profileUser));
   }, []);
 
-  let updateUser = JSON.parse(localStorage.getItem('taiKhoan'));
+  let updateUser = JSON.parse(localStorage.getItem(taiKhoan));
   const { handleSubmit, handleChange } = useFormik({
     initialValues: {
       soDt: '',
@@ -43,7 +41,7 @@ const Profile = () => {
   return (
     <div className="main-height admin-main profile-admin">
       <div className="container">
-        <ul className="nav nav-pills mb-3" style={{ marginTop: '120px' }} id="pills-tab" role="tablist">
+        <ul className="nav nav-pills mb-3 mt-5" id="pills-tab" role="tablist">
           <li className="nav-item" role="presentation">
             <a
               className="nav-link active"
@@ -85,8 +83,8 @@ const Profile = () => {
                   <th>Tên Phim</th>
                   <th>Tên Cụm Rạp</th>
                   <th>Ngày Đặt</th>
+                  {/* <th>Tổng Tiền</th> */}
                 </tr>
-                {/* <th>Tổng Tiền</th> */}
               </thead>
               <tbody>
                 {thongTinUser.thongTinDatVe?.map((user, index) => {
@@ -95,12 +93,13 @@ const Profile = () => {
                       {user.danhSachGhe?.map((ghe, index) => {
                         return (
                           <tr key={index}>
-                            <td>{index + 1}</td>
+                            <td></td>
                             <td>{user.tenPhim}</td>
                             <td>
                               {ghe.tenRap} - {ghe.tenGhe}
                             </td>
                             <td>{moment(user.ngayDat).format('DD/MM/YYYY')}</td>
+                            {/* <td>{ghe.tongTien}</td> */}
                           </tr>
                         );
                       })}
@@ -176,6 +175,4 @@ const Profile = () => {
       </div>
     </div>
   );
-};
-
-export default Profile;
+}
