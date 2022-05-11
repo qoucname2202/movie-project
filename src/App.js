@@ -8,7 +8,7 @@ import { createBrowserHistory } from 'history';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import ScroollTemplate from './templates/ScrollTemplate';
 import Home from './pages/Home';
-// import Loading from './components/Loading/Loading';
+import Loading from './components/Loading';
 
 export const history = createBrowserHistory();
 
@@ -16,6 +16,7 @@ function App() {
   return (
     <HistoryRouter history={history}>
       <div className="App">
+        <Loading />
         <Routes>
           <Route
             path="/home"

@@ -1,8 +1,18 @@
 import React from 'react';
 import axios from 'axios';
-import { domain, LIST_MOVIE_NOW_SHOW, maNhom, LIST_MOVIE_COMING_SOON } from '../../configs/settings';
+import {
+  domain,
+  LIST_MOVIE_NOW_SHOW,
+  maNhom,
+  LIST_MOVIE_COMING_SOON,
+  OPENlOADING,
+  CLOSELOADING,
+} from '../../configs/settings';
 export const listMovieShowAction = () => {
   return async (dispatch) => {
+    dispatch({
+      type: OPENlOADING,
+    });
     setTimeout(async () => {
       try {
         const result = await axios({
@@ -17,6 +27,9 @@ export const listMovieShowAction = () => {
       } catch (errors) {
         console.log(errors);
       }
+      dispatch({
+        type: CLOSELOADING,
+      });
     }, 700);
   };
 };

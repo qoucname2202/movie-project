@@ -37,6 +37,8 @@ export default function Loading() {
           </div>
         </div>
       );
+    } else {
+      return '';
     }
   };
 
