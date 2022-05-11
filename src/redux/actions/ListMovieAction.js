@@ -49,3 +49,50 @@ export const listMovieComingSoonAction = () => {
     }
   };
 };
+export const deleteMovieAction = (maPhim, token) => {
+  return async (dispatch) => {
+    try {
+      let result = await axios({
+        url: `${domain}/api/QuanLyPhim/XoaPhim?MaPhim=${maPhim}`,
+        method: 'DELETE',
+        data: maPhim,
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      });
+      if (result.status === 200) {
+        alert('Xóa phim thành công');
+        window.location.reload();
+      }
+    } catch (errors) {
+      alert(errors.response?.data);
+    }
+  };
+};
+
+/**Add Movie */
+export const addMovieAction = (film) => {
+  return async (dispatch) => {
+    dispatch({ type: 'openLoading' });
+    setTimeout(async () => {
+      let result = await axios({
+        url: `${domain}/api/quanlyphim/ThemPhimUploadHinh`,
+        method: 'POST',
+        data: film,
+      })
+        // .then((result) =>{
+        //     console.log(result);
+        // })
+
+        .catch((errors) => {
+          console.log(errors.response.data);
+        });
+      if (result.status === 200) {
+        alert('Thêm phim thành công');
+      }
+      dispatch({
+        type: 'closeLoading',
+      });
+    }, 700);
+  };
+};

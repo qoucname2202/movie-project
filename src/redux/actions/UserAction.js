@@ -8,6 +8,8 @@ import {
   CLOSELOADING,
   PROFILE_USER,
   EDIT_USER,
+  INFOR_ALL_USER,
+  maNhom,
 } from '../../configs/settings';
 import { history } from '../../App';
 export const UserAction = (nguoiDung) => {
@@ -103,6 +105,65 @@ export const editUserAction = (user) => {
       });
     } catch (errors) {
       console.log(errors);
+    }
+  };
+};
+/**Get all infor user */
+export const inforUserAllAction = () => {
+  return async (dispatch) => {
+    try {
+      let result = await axios({
+        url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01`,
+        method: 'GET',
+      });
+      dispatch({
+        type: INFOR_ALL_USER,
+        thongTinUserAll: result.data,
+      });
+    } catch (errors) {
+      console.log(errors);
+    }
+  };
+};
+/**Add user */
+export const addUserAction = (value, token) => {
+  return async () => {
+    try {
+      const result = await axios({
+        url: `${domain}/api/QuanLyNguoiDung/ThemNguoiDung`,
+        method: 'POST',
+        data: value,
+        headers: { Authorization: 'Bearer ' + token },
+      });
+      window.location.reload();
+      if (result.status === 200) {
+        alert('Tạo Tài Khoản Thành Công');
+      }
+    } catch (err) {
+      alert(err.response?.data);
+    }
+  };
+};
+
+/**Delete user */
+export const deleteUserAction = (taiKhoan, token) => {
+  return async () => {
+    try {
+      const result = await axios({
+        url: `${domain}/api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`,
+        method: 'DELETE',
+        data: taiKhoan,
+        headers: {
+          Authorization: 'Bearer  ' + token,
+        },
+      });
+
+      if (result.status === 200) {
+        alert('Xóa thành công');
+        window.location.reload();
+      }
+    } catch (err) {
+      alert(err.response?.data);
     }
   };
 };

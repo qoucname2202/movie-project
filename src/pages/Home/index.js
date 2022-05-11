@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import Application from '../../components/Application';
 import CarouselHome from '../../components/CarouselHome/CarouselHome';
-import ListMovie from '../../components/ListMovie/';
+import ListMovie from '../../components/ListMovie';
 import News from '../../components/News/';
 import SearchHome from '../../components/SearchHome/SearchHome';
-// import ShowTimeMovie from '../../components/ShowTimeMovie/ShowTimeMovie';
+import ShowTimeMovie from '../../components/ShowTimeMovie/ShowTimeMovie';
 import { LOGOUT } from '../../configs/settings';
 const Home = () => {
   let dispatch = useDispatch();
@@ -127,11 +127,9 @@ const Home = () => {
         <CarouselHome />
         <SearchHome />
         <ListMovie reful={state.lichChieu} />
+        <ShowTimeMovie />
         <News reful={state.tinTuc} />
         <Application reful={state.ungDung} />
-        {/* <ShowTimeMovie />
-
-         */}
       </main>
     </Fragment>
   );

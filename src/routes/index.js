@@ -3,8 +3,8 @@ import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Profile from '../pages/Profile';
+import Admin from '../pages/Admin/Admin';
 // Componnent
-import Dashboard from '../components/Admin';
 import Page404 from '../components/Page404';
 
 // Layout
@@ -15,6 +15,6 @@ export const publicRoutes = [
   { path: '/login', component: Login, layout: null },
   { path: '/register', component: Register, layout: null },
   { path: '/profile', component: Profile },
-  { path: '/admin', component: Dashboard, layout: AdminTemplate },
+  { path: '/admin', component: Admin, layout: AdminTemplate },
   { path: '*', component: Page404, layout: null },
 ];
