@@ -66,7 +66,7 @@ exports.hoTen = hoTen;
 var accessToken = 'accessToken';
 exports.accessToken = accessToken;
 // Mã nhóm
-var maNhom = 'GP06';
+var maNhom = 'GP04';
 exports.maNhom = maNhom;
 // Thông tin chi tiết phim
 var DETAIL_MOVIES = 'DETAIL_MOVIES';

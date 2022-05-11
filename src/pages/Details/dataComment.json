@@ -1,0 +1,27 @@
+[
+  {
+    "comment": "Phim này hay lắm, rất đáng để coi!",
+    "rating": 10,
+    "user": "huy123"
+  },
+  {
+    "comment": "phim hơi nhạt, mọi người cân nhắc trước khi coi phim!",
+    "rating": 5,
+    "user": "DuongNam"
+  },
+  {
+    "comment": "phim hay quá nha mọi người ơi",
+    "rating": 5,
+    "user": "NghiaTruong"
+  },
+  {
+    "comment": "Phim hay",
+    "rating": 8,
+    "user": "Tan@123"
+  },
+  {
+    "comment": "Phim hay xuất sắc",
+    "rating": 10,
+    "user": "KhaiPham"
+  }
+]

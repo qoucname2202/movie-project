@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 // import Application from '../../components/Application/Application';
 import CarouselHome from '../../components/CarouselHome/CarouselHome';
-import ListMovie from '../../components/ListMovie/ListMovie';
+import ListMovie from '../../components/ListMovie/';
 // import News from '../../components/News/News';
 import SearchHome from '../../components/SearchHome/SearchHome';
 // import ShowTimeMovie from '../../components/ShowTimeMovie/ShowTimeMovie';

@@ -24,7 +24,7 @@ export const hoTen = 'hoTen';
 
 export const accessToken = 'accessToken';
 
-export const maNhom = 'GP06';
+export const maNhom = 'GP04';
 
 export const DETAIL_MOVIES = 'DETAIL_MOVIES';
 
