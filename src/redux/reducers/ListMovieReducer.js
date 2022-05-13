@@ -1,11 +1,17 @@
 import React from 'react';
-import { LIST_MOVIE_COMING_SOON, LIST_MOVIE_NOW_SHOW } from '../../configs/settings';
 import DataComment from '../../pages/Details/dataComment.json';
+import {
+  BOOK_TICKET,
+  COMMENT_MOVIE,
+  DETAIL_MOVIES,
+  LIST_MOVIE_COMING_SOON,
+  LIST_MOVIE_NOW_SHOW,
+} from '../../configs/settings';
 const stateDefault = {
   listMovieShow: [],
   listMovieComingSoon: [],
-  detailMovies: {},
-  bookTickets: {},
+  detailsMovies: {},
+  bookTicket: {},
   rating: 0,
   listComment: DataComment,
 };
@@ -18,6 +24,22 @@ const ListMovieReducer = (state = stateDefault, actions) => {
     }
     case LIST_MOVIE_COMING_SOON: {
       state.listMovieComingSoon = [...actions.listMovieComingSoon];
+      return { ...state };
+    }
+    case DETAIL_MOVIES: {
+      state.detailsMovies = actions.detailsMovies;
+      return { ...state };
+    }
+
+    case BOOK_TICKET: {
+      state.bookTicket = actions.bookTicket;
+      return { ...state };
+    }
+    case COMMENT_MOVIE: {
+      if (localStorage.getItem('userHome')) {
+        let info = JSON.parse(localStorage.getItem('userHome'));
+        state.listComment = [{ user: info.hoTen, comment: actions.cmt, rating: state.rating }, ...state.listComment];
+      }
       return { ...state };
     }
     default: {

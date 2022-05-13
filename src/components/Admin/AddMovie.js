@@ -65,13 +65,7 @@ export default function AddMovie(props) {
                     Mã phim
                   </label>
                   <div className="col-md-10">
-                    <input
-                      value="maPhim"
-                      type="text"
-                      placeholder="Nhập số"
-                      {...register('maPhim', {})}
-                      className="form-control"
-                    />
+                    <input type="text" placeholder="Nhập số" {...register('maPhim', {})} className="form-control" />
                   </div>
                 </div>
                 <div className="form-group row">

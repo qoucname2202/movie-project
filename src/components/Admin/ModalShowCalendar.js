@@ -114,14 +114,13 @@ export default function ModalShowCalendar(props) {
 
   // Submit form
   const onSubmit = (data) => {
-    let formarDate = moment(data['date-input']).format('DD/MM/YYYY hh:mm:ss');
+    let formarDate = moment(data['date-input']).format('DD/MM/YYYY HH:mm:ss');
     let newTimeShow = {
       maPhim: parseInt(maPhim),
       ngayChieuGioChieu: formarDate.toString(),
       maRap: parseInt(data.rap),
       giaVe: data.giaVe,
     };
-    console.log(newTimeShow);
     dispatch(CreateMovieShowTimeAction(newTimeShow));
   };
 
@@ -152,7 +151,7 @@ export default function ModalShowCalendar(props) {
                 <div className="col-md-6">
                   <div className="row form-group">
                     <div className="item-label col-md-3">
-                      <label for="">Hệ thống rạp</label>
+                      <label htmlFor="">Hệ thống rạp</label>
                     </div>
                     <div className="select-setion col-md-9">
                       <select
@@ -167,7 +166,7 @@ export default function ModalShowCalendar(props) {
                   </div>
                   <div className="row form-group">
                     <div className="item-label col-md-3">
-                      <label for="">Cụm rạp</label>
+                      <label htmlFor="">Cụm rạp</label>
                     </div>
                     <div className="select-setion col-md-9">
                       <select
@@ -182,7 +181,7 @@ export default function ModalShowCalendar(props) {
                   </div>
                   <div className="row form-group">
                     <div className="item-label col-md-3">
-                      <label for="">Rạp</label>
+                      <label htmlFor="">Rạp</label>
                     </div>
                     <div className="select-setion col-md-9">
                       <select className="form-control" {...rapVal} placeholder="Chọn rạp">
@@ -218,7 +217,7 @@ export default function ModalShowCalendar(props) {
                   </div>
                   <div className="row form-group">
                     <div className="item-label col-md-3">
-                      <label for="">Thời lượng</label>
+                      <label htmlFor="">Thời lượng</label>
                     </div>
                     <div className="select-setion col-md-9">
                       <select className="form-control" {...thoiGianChieuVal} placeholder="Chọn thời lượng">
@@ -229,7 +228,7 @@ export default function ModalShowCalendar(props) {
 
                   <div className="row form-group">
                     <div className="item-label col-md-3">
-                      <label for="">Giá vé</label>
+                      <label htmlFor="">Giá vé</label>
                     </div>
                     <div className="select-setion col-md-9">
                       <select className="form-control" placeholder="Chọn giá vé" {...giaVeVal}>
@@ -256,7 +255,7 @@ export default function ModalShowCalendar(props) {
                   <div className="col-md-6">
                     <div className="row form-group">
                       <div className="item-label col-md-3">
-                        <label for="">Hệ thống rạp</label>
+                        <label htmlFor="">Hệ thống rạp</label>
                       </div>
                       <div className="select-setion col-md-9">
                         <select className="form-control">
@@ -268,7 +267,7 @@ export default function ModalShowCalendar(props) {
                   <div className="col-md-6">
                     <div className="row form-group">
                       <div className="item-label col-md-3">
-                        <label for="">Cụm rạp</label>
+                        <label htmlFor="">Cụm rạp</label>
                       </div>
                       <div className="select-setion col-md-9">
                         <select className="form-control">
@@ -287,7 +286,7 @@ export default function ModalShowCalendar(props) {
                       <th>Thời lượng</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  {/* <tbody>
                     {listTimeShowMovie &&
                       listTimeShowMovie.heThongRapChieu[0].cumRapChieu[0].lichChieuPhim.map((item, index) => {
                         return (
@@ -299,7 +298,7 @@ export default function ModalShowCalendar(props) {
                           </tr>
                         );
                       })}
-                  </tbody>
+                  </tbody> */}
                 </table>
               </div>
               {/* end show infor calendar */}

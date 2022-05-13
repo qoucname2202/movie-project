@@ -1,4 +1,14 @@
-import { LOGIN, taiKhoan, accessToken, REGISTER, LOGOUT, PROFILE_USER, EDIT_USER } from '../../configs/settings';
+import {
+  LOGIN,
+  taiKhoan,
+  accessToken,
+  REGISTER,
+  LOGOUT,
+  PROFILE_USER,
+  EDIT_USER,
+  INFOR_ALL_USER,
+  DELETE_USER,
+} from '../../configs/settings';
 
 let taiKhoanNguoiDung = '';
 let tokenlocal = '';
@@ -16,7 +26,7 @@ const stateDefault = {
   accessToken: tokenlocal,
   thongTinUser: {},
   thongTinUserAll: [],
-  listUser: null,
+  listUser: [],
 };
 
 const UserReducer = (state = stateDefault, action) => {
@@ -39,6 +49,21 @@ const UserReducer = (state = stateDefault, action) => {
     }
     case EDIT_USER: {
       state.taiKhoan = action.taiKhoan;
+      return { ...state };
+    }
+    case INFOR_ALL_USER: {
+      state.thongTinUserAll = [...action.thongTinUserAll];
+      return { ...state };
+    }
+    case DELETE_USER: {
+      let index = state.thongTinUserAll.findIndex((user) => user.taiKhoan === action.item.taiKhoan);
+      console.log(index);
+      if (index !== -1) {
+        state.thongTinUserAll.splice(index, 1);
+      } else {
+        state.thongTinUserAll.push(action.item);
+      }
+      state.thongTinUserAll = [...state.thongTinUserAll];
       return { ...state };
     }
     default: {

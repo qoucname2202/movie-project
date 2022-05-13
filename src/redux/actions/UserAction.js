@@ -98,7 +98,9 @@ export const editUserAction = (user) => {
         url: `${domain}/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
         method: 'PUT',
         data: user,
+        headers: { Authorization: 'Bearer ' + localStorage.getItem(accessToken) },
       });
+      console.log(result);
       dispatch({
         type: EDIT_USER,
         taiKhoan: result.data.taiKhoan,
@@ -113,7 +115,7 @@ export const inforUserAllAction = () => {
   return async (dispatch) => {
     try {
       let result = await axios({
-        url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01`,
+        url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung`,
         method: 'GET',
       });
       dispatch({

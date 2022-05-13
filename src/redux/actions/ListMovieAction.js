@@ -7,6 +7,7 @@ import {
   LIST_MOVIE_COMING_SOON,
   OPENlOADING,
   CLOSELOADING,
+  DETAIL_MOVIES,
 } from '../../configs/settings';
 export const listMovieShowAction = () => {
   return async (dispatch) => {
@@ -73,25 +74,47 @@ export const deleteMovieAction = (maPhim, token) => {
 /**Add Movie */
 export const addMovieAction = (film) => {
   return async (dispatch) => {
-    dispatch({ type: 'openLoading' });
+    dispatch({
+      type: OPENlOADING,
+    });
     setTimeout(async () => {
       let result = await axios({
         url: `${domain}/api/quanlyphim/ThemPhimUploadHinh`,
         method: 'POST',
         data: film,
-      })
-        // .then((result) =>{
-        //     console.log(result);
-        // })
-
-        .catch((errors) => {
-          console.log(errors.response.data);
-        });
+      }).catch((errors) => {
+        console.log(errors.response.data);
+      });
       if (result.status === 200) {
         alert('Thêm phim thành công');
       }
       dispatch({
-        type: 'closeLoading',
+        type: CLOSELOADING,
+      });
+    }, 700);
+  };
+};
+
+export const detailsMoviesAction = (maPhim) => {
+  return async (dispatch) => {
+    dispatch({
+      type: OPENlOADING,
+    });
+    setTimeout(async () => {
+      try {
+        const result = await axios({
+          url: `${domain}/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`,
+          method: 'GET',
+        });
+        dispatch({
+          type: DETAIL_MOVIES,
+          detailsMovies: result.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      dispatch({
+        type: CLOSELOADING,
       });
     }, 700);
   };

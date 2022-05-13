@@ -6,8 +6,8 @@ import ShowLogoMovie from './ShowLogoMovie';
 import { NavLink } from 'react-router-dom';
 
 export default function ShowTimeMovie(props) {
-  const { listCinema, maHeThongRap, listMovie, maCumRap } = useSelector((state) => state.ShowTimeMovieReducer);
   const dispatch = useDispatch();
+  const { listCinema, maHeThongRap, listMovie, maCumRap } = useSelector((state) => state.ShowTimeMovieReducer);
 
   useEffect(() => {
     dispatch(ListMovieShowTimeAction());
@@ -109,7 +109,10 @@ export default function ShowTimeMovie(props) {
                                         <h5 className="ttl">2D Digital</h5>
                                         <div className="row">
                                           {movie.lstLichChieuTheoPhim?.slice(0, 8).map((timeShow, index) => {
-                                            if (moment() <= moment(timeShow.ngayChieuGioChieu)) {
+                                            if (
+                                              moment() <= moment(timeShow.ngayChieuGioChieu) &&
+                                              moment().isSame(moment(timeShow.ngayChieuGioChieu), 'day')
+                                            ) {
                                               return (
                                                 <div key={index} className="block-time">
                                                   <NavLink

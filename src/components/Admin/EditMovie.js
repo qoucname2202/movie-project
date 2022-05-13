@@ -85,19 +85,6 @@ export default function EditMovie(props) {
                       })}
                       className="form-control"
                     />
-                    {/* {errors?.maPhim?.type === "required" && (
-                                            <p className="text-danger">
-                                            Không được để trống
-                                            </p>
-                                        )}
-                                        {errors?.maPhim?.type === "maxLength" && (
-                                            <p className="text-danger">
-                                            Mã Phim dưới 20 ký tự
-                                            </p>
-                                        )}
-                                        {errors?.maPhim?.type === "pattern" && (
-                                            <p className="text-danger">Nhập số</p>
-                                        )} */}
                   </div>
                 </div>
                 <div className="form-group row">

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { addUserAction } from '../../redux/actions/UserAction';
-import { maNhom } from '../../configs/settings';
 
 export default function AddUser(props) {
   // const [dsUser, setDSUser] = useState(null);
@@ -12,7 +11,7 @@ export default function AddUser(props) {
 
   const { handleChange, handleSubmit, errors, handleBlur, touched, isValid } = useFormik({
     initialValues: {
-      maNhom: 'GP06',
+      maNhom: '',
       taiKhoan: '',
       matKhau: '',
       email: '',
@@ -68,8 +67,7 @@ export default function AddUser(props) {
                       type="text"
                       name="maNhom"
                       className="form-control"
-                      value={maNhom}
-                      disabled
+                      placeholder="Nhập mã nhóm"
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />

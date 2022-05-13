@@ -65,9 +65,6 @@ export default function Admin() {
               <button className="btn btn-toggle" id="sidebarToggle">
                 <i class="fas fa-bars"></i>
               </button>
-              {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon" />
-                        </button> */}
               <div className="header  navbar-collapse">
                 <ul className="navbar-nav ms-auto mt-2 mt-lg-0 navbar-collapse">
                   <li className="nav-item user">

@@ -14,7 +14,6 @@ export default function ManagerFilm(props) {
 
   /**seach movie */
   // const [keyWord, setKeyWord] = useState('');
-
   const [dsFilm, setDSFilm] = useState([]);
   const [keyWord, setKeyWord] = useState(null);
   const [temp, setTemp] = useState(-1);
@@ -50,8 +49,6 @@ export default function ManagerFilm(props) {
   };
 
   const handleChangeSearch = (e) => {
-    // console.log(keyWord);
-    // console.log(event.target.value);
     setKeyWord(e.target.value);
   };
 
@@ -231,21 +228,7 @@ export default function ManagerFilm(props) {
       <div className="user-header inner-button ad-movie">
         <AddMovie />
       </div>
-      <Table className="table table-manageruser" columns={columns} dataSource={dsFilm}>
-        {/* <thead>
-                <tr>
-                    <th>Mã phim</th>
-                    <th>Tên phim</th>
-                    <th>Hinh ảnh</th>
-                    <th>Đánh giá</th>
-                    <th>Ngày khởi chiếu</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                    {listFilm()}
-                </tbody> */}
-      </Table>
+      <Table className="table table-manageruser" columns={columns} dataSource={dsFilm}></Table>
     </div>
   );
 }
