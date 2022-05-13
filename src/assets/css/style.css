@@ -2520,6 +2520,179 @@ body.sb-sidenav-toggled .wrapper .sidebar-wrapper {
   padding: 15px 10px;
 }
 
+.chooseseat {
+  margin: 0 15px;
+  position: relative;
+}
+.chooseseat .seatnumber .seattitle {
+  box-shadow: -10px 0 15px rgba(0, 0, 0, 0.7);
+  padding: 20px 30px;
+  margin: 0 -15px 20px;
+}
+.chooseseat .seatnumber .seattitle .titleleft {
+  display: flex;
+}
+.chooseseat .seatnumber .seattitle .ttl2 {
+  color: #ec7532;
+  font-size: 16px;
+}
+.chooseseat .seatnumber .seattitle .ttl3 {
+  color: #000;
+  font-size: 16px;
+  margin-left: 30px;
+}
+.chooseseat .seatnumber .seattitle .user {
+  color: #ec7532;
+}
+.chooseseat .seatnumber .seattitle .out {
+  color: #000;
+}
+.chooseseat .seatnumber .seattitle .out {
+  font-style: italic;
+}
+.chooseseat .chooseseat-infor .infor-theater {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.chooseseat .chooseseat-infor .infor-theater .infor-left {
+  display: flex;
+}
+.chooseseat .chooseseat-infor .infor-theater .infor-left .logoimg {
+  max-width: 70px;
+  margin-right: 15px;
+}
+.chooseseat .chooseseat-infor .infor-theater .infor-left .infor-theater-it {
+  font-size: 13px;
+}
+.chooseseat .chooseseat-infor .infor-theater .chooseseat-time {
+  text-align: center;
+}
+.chooseseat .chooseseat-infor .infor-theater .chooseseat-time span {
+  color: #ec7532;
+  font-size: 25px;
+  font-weight: 600;
+}
+.chooseseat .chooseseat-infor .bookseat {
+  padding: 0 100px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.chooseseat .chooseseat-infor .bookseat .seat {
+  width: 35px;
+  height: 35px;
+  margin: 4px;
+  border: none;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  background: #686565;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+}
+.chooseseat .chooseseat-infor .bookseat .status-seat {
+  background: #686565;
+}
+.chooseseat .chooseseat-infor .bookseat .status-choose {
+  background: #1ab81a !important;
+}
+.chooseseat .chooseseat-infor .bookseat .status-someone {
+  background: #d9d5d5 !important;
+  cursor: no-drop;
+  color: #eee;
+}
+.chooseseat .chooseseat-infor .bookseat .seatvip {
+  background: #b15b09;
+}
+.chooseseat .chooseseat-infor .bookseat .setbookticket {
+  background: whitesmoke !important;
+  cursor: no-drop !important;
+  color: #000;
+}
+.chooseseat .chooseseat-infor .chooseseat-note .infor-seat {
+  text-align: center;
+}
+.chooseseat .chooseseat-infor .chooseseat-note .status {
+  width: 15px;
+  height: 15px;
+  display: block;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  margin: 5px auto 0;
+}
+.chooseseat .chooseseat-infor .chooseseat-note .status-seat {
+  background: #686565;
+}
+.chooseseat .chooseseat-infor .chooseseat-note .status-choose {
+  background: #1ab81a;
+}
+.chooseseat .chooseseat-infor .chooseseat-note .status-someone {
+  background: whitesmoke;
+}
+.chooseseat .chooseseat-infor .chooseseat-note .seatvip {
+  background: #b15b09;
+}
+.chooseseat .chooseseat-buy {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  right: 0;
+  height: 100%;
+  padding-top: 5px;
+  margin-right: -15px;
+}
+.chooseseat .chooseseat-buy .ttl-4 {
+  border-bottom: 1px solid #eee;
+  color: #44c020;
+  font-size: 50px;
+  text-align: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+.chooseseat .chooseseat-buy .informovie {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+}
+.chooseseat .chooseseat-buy .informovie p {
+  margin-bottom: 5px;
+}
+.chooseseat .chooseseat-buy .form-buy .form-control {
+  border: none;
+  border-bottom: 1px solid #ced4da;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  padding: 8px 0;
+  line-height: auto;
+  height: auto;
+}
+.chooseseat .chooseseat-buy .form-buy .form-control:focus {
+  box-shadow: none;
+}
+.chooseseat .chooseseat-buy .form-buy .btn-buy {
+  background: #28a745;
+  display: block;
+  color: #fff;
+  padding: 7px 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  margin-top: 80px;
+  text-align: center;
+}
+.chooseseat .chooseseat-buy .form-buy .notification {
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+}
+
 @media screen and (min-width: 992px) and (max-width: 1999px) {
   .search-home .form-search select {
     min-width: 200px;

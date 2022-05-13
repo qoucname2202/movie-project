@@ -5,6 +5,7 @@ import Register from '../pages/Register';
 import Profile from '../pages/Profile';
 import Details from '../pages/Details';
 import Admin from '../pages/Admin/Admin';
+import Checkout from '../pages/Checkout';
 // Componnent
 import Page404 from '../components/Page404';
 
@@ -13,10 +14,11 @@ import { AdminTemplate } from '../templates/';
 
 export const publicRoutes = [
   { path: '/', component: Home },
+  { path: '/profile', component: Profile },
   { path: '/login', component: Login, layout: null },
   { path: '/register', component: Register, layout: null },
-  { path: '/profile', component: Profile },
   { path: '/details/:id', component: Details, layout: null },
+  { path: '/checkout/:id', component: Checkout, layout: null },
   { path: '/admin', component: Admin, layout: AdminTemplate },
   { path: '*', component: Page404, layout: null },
 ];

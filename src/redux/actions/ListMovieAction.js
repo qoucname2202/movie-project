@@ -8,7 +8,9 @@ import {
   OPENlOADING,
   CLOSELOADING,
   DETAIL_MOVIES,
+  BOOK_TICKET,
 } from '../../configs/settings';
+import { history } from '../../App';
 export const listMovieShowAction = () => {
   return async (dispatch) => {
     dispatch({
@@ -109,6 +111,33 @@ export const detailsMoviesAction = (maPhim) => {
         dispatch({
           type: DETAIL_MOVIES,
           detailsMovies: result.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      dispatch({
+        type: CLOSELOADING,
+      });
+    }, 700);
+  };
+};
+export const bookTicketAction = (maLichChieu) => {
+  if (!localStorage.getItem('taiKhoan') && !localStorage.getItem('accessToken')) {
+    history.replace('/login');
+  }
+  return async (dispatch) => {
+    dispatch({
+      type: OPENlOADING,
+    });
+    setTimeout(async () => {
+      try {
+        const result = await axios({
+          url: `${domain}/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`,
+          method: 'GET',
+        });
+        dispatch({
+          type: BOOK_TICKET,
+          bookTicket: result.data,
         });
       } catch (error) {
         console.log(error);

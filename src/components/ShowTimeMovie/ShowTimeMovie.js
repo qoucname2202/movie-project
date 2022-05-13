@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
-import { ListCenemaShowAction, ListMovieShowTimeAction } from '../../redux/actions/ShowTimeMovieAction';
+import { ListMovieShowTimeAction } from '../../redux/actions/ShowTimeMovieAction';
 import ShowLogoMovie from './ShowLogoMovie';
 import { NavLink } from 'react-router-dom';
 
-export default function ShowTimeMovie(props) {
+export default function ShowTimeMovie({ reful }) {
   const dispatch = useDispatch();
-  const { listCinema, maHeThongRap, listMovie, maCumRap } = useSelector((state) => state.ShowTimeMovieReducer);
-
+  const { listMovie } = useSelector((state) => state.ShowTimeMovieReducer);
   useEffect(() => {
     dispatch(ListMovieShowTimeAction());
   }, []);
 
   return (
-    <section className="cinema-block" id="theater">
+    <section className="cinema-block" id="theater" ref={reful}>
       <div className="container">
         <div className="cinema-inner">
           <div className="row">
@@ -87,6 +86,14 @@ export default function ShowTimeMovie(props) {
                                   aria-labelledby="v-pills-messages-tab"
                                 >
                                   {inforTheater.danhSachPhim?.map((movie, index) => {
+                                    if (
+                                      // Check xem có phải ngày hôm nay có lịch chiếu hay không
+                                      movie.lstLichChieuTheoPhim.some((timeShow) => {
+                                        return !moment().isSame(moment(timeShow.ngayChieuGioChieu), 'day');
+                                      })
+                                    ) {
+                                      return '';
+                                    }
                                     return (
                                       <div key={index} className="showtime-movie-it">
                                         <div className="row">
@@ -123,7 +130,10 @@ export default function ShowTimeMovie(props) {
                                                       <span>
                                                         {moment(timeShow.ngayChieuGioChieu).format('hh:mm A')}
                                                       </span>{' '}
-                                                      ~ 12:10
+                                                      ~{' '}
+                                                      {moment(timeShow.ngayChieuGioChieu)
+                                                        .add('120', 'minutes')
+                                                        .format('hh:mm A')}
                                                     </p>
                                                   </NavLink>
                                                 </div>

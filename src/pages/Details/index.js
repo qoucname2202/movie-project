@@ -9,10 +9,11 @@ import DateOfYear from '../../components/DateOfYear';
 import { COMMENT_MOVIE } from '../../configs/settings';
 import Comment from '../../components/Comment';
 import { Link } from 'react-scroll';
+import MomentTZ from 'moment-timezone';
 
 export default function Details(props) {
   const { detailsMovies } = useSelector((state) => state.ListMovieReducer);
-
+  const [date, setDate] = useState(Date.now());
   const { listComment } = useSelector((state) => state.ListMovieReducer);
 
   const dispatch = useDispatch();
@@ -27,54 +28,30 @@ export default function Details(props) {
   //Set date
   let dayTime = [];
   const findDate = () => {
-    var date = new Date();
-    let t = date.getDay() + 1;
-    let n = date.getDay() + 1;
-    var longDate = 0;
-    let d = date.getDate() - 1;
-    if (
-      date.getMonth() + 1 === 4 ||
-      date.getMonth() + 1 === 6 ||
-      date.getMonth() + 1 === 9 ||
-      date.getMonth() + 1 === 11
-    ) {
-      longDate = 30;
-    } else {
-      if (date.getMonth() + 1 === 2) {
-        if (date.getFullYear() % 400 === 0) {
-          longDate = 29;
-        } else {
-          longDate = 28;
-        }
-      } else {
-        longDate = 31;
-      }
-    }
-    for (var i = 0; i <= 9; i++) {
-      if (t + i > 7 && t + i < 15) {
-        n = t + i - 7;
-      } else if (t + i >= 15) {
-        n = t + i - 14;
-      } else {
-        n = t + i;
-      }
-      d++;
-      if (d > longDate) {
-        d = d - longDate;
-      }
-
-      dayTime.push({ thu: n, ngay: d });
+    for (let i = 0; i < 7; i++) {
+      let day = MomentTZ().tz('Asia/Ho_Chi_Minh');
+      let nextDay = day.add(i, 'days');
+      // Lấy ngày
+      let d = nextDay.format('DD');
+      // Lấy thứ
+      let n = nextDay.isoWeekday();
+      dayTime.push({ thu: n + 1, ngay: d, day: nextDay });
     }
   };
 
   findDate();
-
   const renderDate = () => {
     if (dayTime && dayTime.length > 0) {
       return dayTime.map((item, index) => {
-        return <DateOfYear key={item.ngay} Item={item} active={false} index={index} />;
+        return (
+          <DateOfYear handelDateChange={handelDateChange} key={item.ngay} Item={item} active={false} index={index} />
+        );
       });
     }
+  };
+
+  const handelDateChange = (day) => {
+    setDate(day);
   };
 
   //Comment
@@ -236,16 +213,19 @@ export default function Details(props) {
                             >
                               <div className="showtime-movie-it">
                                 {details.cumRapChieu?.map((theater, index) => {
+                                  if (
+                                    // Check xem có phải ngày hôm nay có lịch chiếu hay không
+                                    theater.lichChieuPhim.some((timeShow) => {
+                                      return !moment(date).isSame(moment(timeShow.ngayChieuGioChieu), 'day');
+                                    })
+                                  ) {
+                                    return '';
+                                  }
                                   return (
                                     <Fragment key={index}>
                                       <div className="row">
                                         <div className="movie-img col-2-img">
-                                          <img
-                                            src="http://movie0706.cybersoft.edu.vn/hinhanh/jurassic-world_gp05.jpg"
-                                            class="img-fluid"
-                                            width="50px"
-                                            alt="img"
-                                          />
+                                          <img src={detailsMovies.hinhAnh} class="img-fluid" width="50px" alt="img" />
                                         </div>
                                         <div className="wrap-infor pl-0 col-10-infor">
                                           <p>
@@ -258,15 +238,22 @@ export default function Details(props) {
                                       <h5 className="ttl">2D Digital</h5>
                                       <div className="row">
                                         {theater.lichChieuPhim?.slice(0, 8).map((time, index) => {
-                                          return (
-                                            <div className="block-time" key={index}>
-                                              <NavLink to={`/checkout/${time.maLichChieu}`} className="time-movie">
-                                                <p>
-                                                  <span>{moment(time.ngayChieuGioChieu).format('hh:mm A')}</span>
-                                                </p>
-                                              </NavLink>
-                                            </div>
-                                          );
+                                          if (
+                                            moment() <= moment(time.ngayChieuGioChieu) &&
+                                            moment(date).isSame(moment(time.ngayChieuGioChieu), 'day')
+                                          ) {
+                                            return (
+                                              <div className="block-time" key={index}>
+                                                <NavLink to={`/checkout/${time.maLichChieu}`} className="time-movie">
+                                                  <p>
+                                                    <span>{moment(time.ngayChieuGioChieu).format('hh:mm A')}</span>
+                                                  </p>
+                                                </NavLink>
+                                              </div>
+                                            );
+                                          } else {
+                                            return '';
+                                          }
                                         })}
                                       </div>
                                     </Fragment>

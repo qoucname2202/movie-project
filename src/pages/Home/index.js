@@ -127,7 +127,7 @@ const Home = () => {
         <CarouselHome />
         <SearchHome />
         <ListMovie reful={state.lichChieu} />
-        <ShowTimeMovie />
+        <ShowTimeMovie reful={state.cumRap} />
         <News reful={state.tinTuc} />
         <Application reful={state.ungDung} />
       </main>
