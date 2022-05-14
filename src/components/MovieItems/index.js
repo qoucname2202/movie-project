@@ -25,7 +25,7 @@ const MovieItems = (props) => {
       <div className="movie-info">
         <p className="namemovie">{movie.tenPhim}</p>
         <span className="timeshow">120 phút</span>
-        <NavLink to={`details/${movie.maPhim}`}>
+        <NavLink to={`/details/${movie.maPhim}`}>
           <div className="btn-buyticket">
             Mua vé
             <i className="fa fa-arrow-circle-down icon-down" />

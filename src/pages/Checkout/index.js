@@ -59,24 +59,60 @@ export default function Checkout(props) {
   }, [temp]);
 
   useEffect(() => {
+    // Gui danh sach ghe disable tai
+    socket.emit('RECEIVE_DISABLE_SEAT', { taiKhoan, maLichChieu: id });
+    // Nhan danh sach ghe disable tu server
+    socket.on('SEND_DISABLE_SEAT_NOW', (data) => {
+      let { maLichChieu, listDisablesCurrent } = data;
+      if (maLichChieu === id) {
+        setdisableSeats([...listDisablesCurrent]);
+      }
+    });
+    socket.on('SEND_REMOVE_SELECT_SEAT', (data) => {
+      let user = JSON.parse(localStorage.getItem('taiKhoan'));
+      if (user.taiKhoan !== data.taiKhoan && data.maLichChieu === id) {
+        for (let i = 0; i < data.listSeat.length; i++) {
+          let index = disableSeats.findIndex((item) => item.maGhe === data.seat.maGhe);
+          if (index !== -1) {
+            disableSeats.splice(index, 1);
+          }
+        }
+        setdisableSeats([...disableSeats]);
+      }
+    });
+    return () => {
+      socket.off('SEND_REMOVE_SELECT_SEAT');
+      let listSeat = danhSachGheDangDat.map((item) => item.maGhe);
+      socket.emit('REMOVE_SELECT_SEAT', { taiKhoan: taiKhoan.taiKhoan, maLichChieu: id, listSeat });
+    };
+  }, []);
+  useEffect(() => {
     //Nguoi khac bat dau chon ghe
     socket.on('RECEIVE_CHON_GHE_SELECT', (data) => {
       let user = JSON.parse(localStorage.getItem('taiKhoan'));
       if (user.taiKhoan !== data.taiKhoan && data.maLichChieu === id) {
         // Disable seat
-        setdisableSeats([...disableSeats, data.seat.maGhe]);
+        let newDisable = [...disableSeats];
+        newDisable.push(data.seat.maGhe);
+        setdisableSeats([...newDisable]);
       }
     });
     //Nguoi khac bo ghe da chon
     socket.on('RECEIVE_BO_CHON_GHE_SELECT', (data) => {
       let user = JSON.parse(localStorage.getItem('taiKhoan'));
       if (user.taiKhoan !== data.taiKhoan && data.maLichChieu === id) {
-        let index = disableSeats.findIndex((item) => item.maGhe === data.seat.maGhe);
-        disableSeats.splice(index, 1);
-        setdisableSeats([...disableSeats]);
+        let index = disableSeats.findIndex((item) => item === data.seat.maGhe);
+        if (index !== -1) {
+          disableSeats.splice(index, 1);
+          setdisableSeats([...disableSeats]);
+        }
       }
     });
-  }, []);
+    return () => {
+      socket.off('RECEIVE_CHON_GHE_SELECT');
+      socket.off('RECEIVE_BO_CHON_GHE_SELECT');
+    };
+  }, [disableSeats]);
   const handleTime = () => {
     let tempTime = timeS;
     let time = setInterval(() => {
