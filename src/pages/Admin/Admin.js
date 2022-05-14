@@ -1,21 +1,24 @@
 import React, { useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import ManagerFilm from '../../components/Admin/ManagerFilm';
 import ManagerUser from '../../components/Admin/ManagerUser';
+import Swal from 'sweetalert2';
 import { useSelector, useDispatch } from 'react-redux';
 import { CLOSELOADING, LOGOUT } from '../../configs/settings';
 import { history } from '../../App';
 
 export default function Admin() {
   let dispatch = useDispatch();
+  const navigate = useNavigate();
   const { taiKhoan } = useSelector((state) => state.UserReducer);
+
   useEffect(() => {
+    if (!localStorage.getItem('taiKhoan')) {
+      navigate('/login');
+    }
     dispatch({ type: CLOSELOADING });
   }, []);
 
-  if (!localStorage.getItem('taiKhoan')) {
-    history.replace('/login');
-  }
   let tokenLocal = JSON.parse(localStorage.getItem('taiKhoan'));
   if (tokenLocal.maLoaiNguoiDung === 'QuanTri') {
     return (
@@ -115,7 +118,18 @@ export default function Admin() {
       </div>
     );
   } else {
-    alert('Trang này giành cho quản trị viên.');
-    return history.replace('/home');
+    Swal.fire({
+      title: 'Tài khoản không thể truy cập',
+      text: 'Trang này giành cho quản trị viên',
+      icon: 'warning',
+      showCancelButton: false,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Back home',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/home');
+      }
+    });
+    return '';
   }
 }

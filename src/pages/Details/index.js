@@ -215,7 +215,7 @@ export default function Details(props) {
                                 {details.cumRapChieu?.map((theater, index) => {
                                   if (
                                     // Check xem có phải ngày hôm nay có lịch chiếu hay không
-                                    theater.lichChieuPhim.some((timeShow) => {
+                                    theater.lichChieuPhim.every((timeShow) => {
                                       return !moment(date).isSame(moment(timeShow.ngayChieuGioChieu), 'day');
                                     })
                                   ) {
@@ -237,24 +237,35 @@ export default function Details(props) {
                                       </div>
                                       <h5 className="ttl">2D Digital</h5>
                                       <div className="row">
-                                        {theater.lichChieuPhim?.slice(0, 8).map((time, index) => {
-                                          if (
-                                            moment() <= moment(time.ngayChieuGioChieu) &&
-                                            moment(date).isSame(moment(time.ngayChieuGioChieu), 'day')
-                                          ) {
-                                            return (
-                                              <div className="block-time" key={index}>
-                                                <NavLink to={`/checkout/${time.maLichChieu}`} className="time-movie">
-                                                  <p>
-                                                    <span>{moment(time.ngayChieuGioChieu).format('hh:mm A')}</span>
-                                                  </p>
-                                                </NavLink>
-                                              </div>
-                                            );
-                                          } else {
-                                            return '';
-                                          }
-                                        })}
+                                        {theater.lichChieuPhim
+                                          ?.sort((current, next) =>
+                                            moment(next.ngayChieuGioChieu).isBefore(moment(current.ngayChieuGioChieu))
+                                              ? 1
+                                              : -1,
+                                          )
+                                          .slice(0, 8)
+                                          .map((time, index) => {
+                                            console.log(moment(time.ngayChieuGioChieu), moment());
+                                            if (
+                                              moment().isBefore(moment(time.ngayChieuGioChieu)) &&
+                                              moment(date).isSame(moment(time.ngayChieuGioChieu), 'day')
+                                            ) {
+                                              return (
+                                                <div className="block-time" key={index}>
+                                                  <NavLink to={`/checkout/${time.maLichChieu}`} className="time-movie">
+                                                    <p>
+                                                      <span>{moment(time.ngayChieuGioChieu).format('hh:mm A')}</span> ~{' '}
+                                                      {moment(time.ngayChieuGioChieu)
+                                                        .add(time.thoiLuong, 'minutes')
+                                                        .format('hh:mm A')}
+                                                    </p>
+                                                  </NavLink>
+                                                </div>
+                                              );
+                                            } else {
+                                              return '';
+                                            }
+                                          })}
                                       </div>
                                     </Fragment>
                                   );
