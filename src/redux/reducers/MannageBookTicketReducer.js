@@ -2,6 +2,7 @@ import { BOOKTICKET_MOVIE } from '../../configs/settings';
 
 const stateDefault = {
   danhSachGheDangDat: [],
+  maLichChieuDangDat: '',
 };
 
 const MannageBookTicketReducer = (state = stateDefault, action) => {
@@ -21,6 +22,10 @@ const MannageBookTicketReducer = (state = stateDefault, action) => {
       }
       //Cập nhật lại state
       state.danhSachGheDangDat = [...state.danhSachGheDangDat];
+      return { ...state };
+    }
+    case 'CAP_NHAT_LICH_CHIEU_DANG_DAT': {
+      state.maLichChieuDangDat = action.maLichChieu;
       return { ...state };
     }
 

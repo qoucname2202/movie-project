@@ -6,11 +6,11 @@ import { Fragment } from 'react';
 import moment from 'moment';
 import { NavLink, useParams } from 'react-router-dom';
 import DateOfYear from '../../components/DateOfYear';
-import { COMMENT_MOVIE } from '../../configs/settings';
 import Comment from '../../components/Comment';
 import { Link } from 'react-scroll';
 import MomentTZ from 'moment-timezone';
-
+import { history } from '../../App';
+// import { addNewComment } from '../../utils/db';
 export default function Details(props) {
   const { detailsMovies } = useSelector((state) => state.ListMovieReducer);
   const [date, setDate] = useState(Date.now());
@@ -23,8 +23,18 @@ export default function Details(props) {
   const { id } = useParams();
   useEffect(() => {
     dispatch(detailsMoviesAction(id));
+    // getComment()
+    //   .then((data) => {
+    //     console.log(data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }, []);
 
+  const handelLogin = () => {
+    history.replace('/login?redirectTo=/details/' + id);
+  };
   //Set date
   let dayTime = [];
   const findDate = () => {
@@ -59,10 +69,10 @@ export default function Details(props) {
     setComment(event.target.value);
   };
   const handleSubmitRating = () => {
-    dispatch({
-      type: COMMENT_MOVIE,
-      listComment,
-    });
+    if (comment.length > 0) {
+      // addNewComment(id, localStorage.getItem('taiKhoan').taiKhoan, comment);
+      setComment('');
+    }
   };
 
   const renderComment = () => {
@@ -78,6 +88,7 @@ export default function Details(props) {
     offset: -90,
     duration: 400,
   };
+
   return (
     <div>
       <section className="detail-mv">
@@ -316,23 +327,29 @@ export default function Details(props) {
             </div>
             {/* review */}
             <div className="tab-pane fade review" id="review" role="tabpanel" aria-labelledby="review">
-              <div className="myreview" data-toggle="modal" data-target="#reviewModal">
-                <div className="row">
-                  <div className="col-1">
-                    <i className="fa fa-user user"></i>
-                  </div>
-                  <div className="col-md-8">
-                    <span className="txt-think">Bạn nghĩ gì về phim này?</span>
-                  </div>
-                  <div className="col-md-3 comment">
-                    <i className="fa fa-star" />
-                    <i className="fa fa-star" />
-                    <i className="fa fa-star" />
-                    <i className="fa fa-star" />
-                    <i className="fa fa-star" />
+              {localStorage.getItem('taiKhoan') ? (
+                <div className="myreview" data-toggle="modal" data-target="#reviewModal">
+                  <div className="row">
+                    <div className="col-1">
+                      <i className="fa fa-user user"></i>
+                    </div>
+                    <div className="col-md-8">
+                      <span className="txt-think">Bạn nghĩ gì về phim này?</span>
+                    </div>
+                    <div className="col-md-3 comment">
+                      <i className="fa fa-star" />
+                      <i className="fa fa-star" />
+                      <i className="fa fa-star" />
+                      <i className="fa fa-star" />
+                      <i className="fa fa-star" />
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div className="btn btn-success text-center btn-block" onClick={handelLogin}>
+                  Đăng nhập để đánh giá
+                </div>
+              )}
               {renderComment()}
               <div className="modal fade reviewmodal" id="reviewModal">
                 <div className="modal-dialog modal-dialog-centered">

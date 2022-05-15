@@ -11,6 +11,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import socketio from 'socket.io-client';
+import paymentUrl from '../../utils/payment';
 //Socket IO Library
 const socket = socketio.connect('http://localhost:8000');
 export default function Checkout(props) {
@@ -39,7 +40,6 @@ export default function Checkout(props) {
 
     onSubmit: (values) => {},
   });
-
   const [timeM, setTimeM] = useState(5);
   const [timeS, setTimeS] = useState(0);
   const [temp, setTemp] = useState(0);
@@ -52,12 +52,14 @@ export default function Checkout(props) {
   let { id } = useParams();
   useEffect(() => {
     dispatch(bookTicketAction(id));
+    dispatch({
+      type: 'CAP_NHAT_LICH_CHIEU_DANG_DAT',
+      maLichChieu: id,
+    });
   }, []);
-
   useEffect(() => {
     handleTime();
   }, [temp]);
-
   useEffect(() => {
     // Gui danh sach ghe disable tai
     socket.emit('RECEIVE_DISABLE_SEAT', { taiKhoan, maLichChieu: id });
@@ -322,13 +324,24 @@ export default function Checkout(props) {
                   className="btn btn-buy"
                   onClick={() => {
                     let userLogin = JSON.parse(localStorage.getItem(taiKhoan));
-
+                    let danhSachVe = danhSachGheDangDat.map((ghe) => {
+                      return { maGhe: ghe.maGhe, giaVe: ghe.giaVe };
+                    });
                     let thongTinDatVe = {
-                      maLichChieu: props.match.params.id,
-                      danhSachVe: danhSachGheDangDat,
+                      maLichChieu: id,
+                      danhSachVe,
                       taiKhoanNguoiDung: userLogin.taiKhoan,
                     };
-                    dispatch(bookTicketsAction(thongTinDatVe));
+                    localStorage.setItem('thongTinDatVe', JSON.stringify(thongTinDatVe));
+                    //Ds ghe dat,
+                    let listGhe = danhSachGheDangDat.map((item) => item.stt).join(',');
+                    //Payment
+                    let payment = paymentUrl({
+                      amount: toTal(),
+                      bankCode: '',
+                      orderDescription: `${userLogin.hoTen} các ghế đã đặt ${listGhe} phim :  ${bookTicket.thongTinPhim.tenPhim} vào lúc ${bookTicket.thongTinPhim.gioChieu}`,
+                    });
+                    window.location.href = payment;
                   }}
                 >
                   Đặt vé

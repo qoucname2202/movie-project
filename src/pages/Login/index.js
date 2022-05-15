@@ -1,11 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { UserAction } from '../../redux/actions/UserAction';
+import qs from 'qs';
+
 const Login = () => {
   const dispatch = useDispatch();
+  const search = useLocation().search.substring(1);
+  const { redirectTo } = qs.parse(search);
+
   const formik = useFormik({
     initialValues: {
       taiKhoan: '',
@@ -16,7 +21,7 @@ const Login = () => {
       matKhau: yup.string().required('Mật khẩu không được bỏ trống!').min(6, 'Mật khẩu tối đa 6 ký tự'),
     }),
     onSubmit: (values) => {
-      dispatch(UserAction(values));
+      dispatch(UserAction(values, redirectTo));
     },
   });
 

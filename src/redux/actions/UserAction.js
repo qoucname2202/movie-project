@@ -12,7 +12,7 @@ import {
   maNhom,
 } from '../../configs/settings';
 import { history } from '../../App';
-export const UserAction = (nguoiDung) => {
+export const UserAction = (nguoiDung, redirectTo) => {
   return async (dispatch) => {
     try {
       const result = await axios({
@@ -25,7 +25,12 @@ export const UserAction = (nguoiDung) => {
       localStorage.setItem('accessToken', result.data.accessToken);
       localStorage.setItem('taiKhoan', JSON.stringify(result.data));
       // If login success redirect Honme
-      history.replace('/home');
+      if (redirectTo) {
+        history.replace(redirectTo);
+      } else {
+        history.replace('/home');
+      }
+
       // Dispatch action
       dispatch({
         type: LOGIN,

@@ -5,6 +5,7 @@ export default function Comment(props) {
   const handleLike = () => {
     setLike(!like);
   };
+
   return (
     <div className="myreview">
       <div className="row">
