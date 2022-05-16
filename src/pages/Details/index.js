@@ -10,26 +10,38 @@ import Comment from '../../components/Comment';
 import { Link } from 'react-scroll';
 import MomentTZ from 'moment-timezone';
 import { history } from '../../App';
-// import { addNewComment } from '../../utils/db';
+import { addNewComment, getComment } from '../../utils/db';
+import { Rate } from 'antd';
+import { v4 as uuidv4 } from 'uuid';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '../../utils/db';
+
+const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+
 export default function Details(props) {
   const { detailsMovies } = useSelector((state) => state.ListMovieReducer);
   const [date, setDate] = useState(Date.now());
-  const { listComment } = useSelector((state) => state.ListMovieReducer);
 
   const dispatch = useDispatch();
 
-  const [comment, setComment] = useState('');
+  // star
+  const [rating, setRating] = useState(5);
 
+  const handleChange = (value) => {
+    setRating(value);
+  };
+
+  const [comment, setComment] = useState('');
+  const [listComment, setListComment] = useState([]);
   const { id } = useParams();
   useEffect(() => {
+    let document = doc(db, 'comment', id);
+    onSnapshot(document, (snapshot) => {
+      if (snapshot.exists) {
+        setListComment(snapshot.data().comment);
+      }
+    });
     dispatch(detailsMoviesAction(id));
-    // getComment()
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   }, []);
 
   const handelLogin = () => {
@@ -60,6 +72,7 @@ export default function Details(props) {
     }
   };
 
+  // Handel Date change
   const handelDateChange = (day) => {
     setDate(day);
   };
@@ -68,17 +81,39 @@ export default function Details(props) {
   const handleChangeComment = (event) => {
     setComment(event.target.value);
   };
+
+  // Handel Submit Rating
   const handleSubmitRating = () => {
     if (comment.length > 0) {
-      // addNewComment(id, localStorage.getItem('taiKhoan').taiKhoan, comment);
+      let idComment = uuidv4();
+      addNewComment(id, JSON.parse(localStorage.getItem('taiKhoan')).taiKhoan, comment, rating, idComment);
+      // let newComment = {
+      //   idComment: idComment,
+      //   user: JSON.parse(localStorage.getItem('taiKhoan')).taiKhoan,
+      //   comment: comment,
+      //   rating: rating,
+      //   like: [],
+      //   timestamp: new Date().getTime(),
+      // };
+      // setListComment([...listComment, newComment]);
       setComment('');
     }
   };
 
   const renderComment = () => {
-    return listComment.map((item, index) => {
-      return <Comment key={index} cmt={item} />;
+    return listComment
+      .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
+      .map((item, index) => {
+        return <Comment cmt={item} key={item.idComment} idMovie={id} />;
+      });
+  };
+
+  const renderTotalRating = () => {
+    let totalRating = 0;
+    [...listComment].map((item) => {
+      totalRating += item.rating;
     });
+    return (totalRating / listComment.length).toFixed(1);
   };
 
   let setting = {
@@ -125,15 +160,11 @@ export default function Details(props) {
                     <circle cx={60} cy={60} r={40} />
                   </svg>
                   <div className="number">
-                    <h2>8.8</h2>
+                    <h2>{renderTotalRating()}</h2>
                   </div>
                 </div>
                 <div className="icon-start">
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star" />
-                  <i className="fa fa-star" />
+                  <Rate onChange={handleChange} value={renderTotalRating()} allowHalf={true} />
                 </div>
               </div>
             </div>
@@ -336,13 +367,6 @@ export default function Details(props) {
                     <div className="col-md-8">
                       <span className="txt-think">Bạn nghĩ gì về phim này?</span>
                     </div>
-                    <div className="col-md-3 comment">
-                      <i className="fa fa-star" />
-                      <i className="fa fa-star" />
-                      <i className="fa fa-star" />
-                      <i className="fa fa-star" />
-                      <i className="fa fa-star" />
-                    </div>
                   </div>
                 </div>
               ) : (
@@ -350,20 +374,18 @@ export default function Details(props) {
                   Đăng nhập để đánh giá
                 </div>
               )}
-              {renderComment()}
+              {listComment && renderComment()}
               <div className="modal fade reviewmodal" id="reviewModal">
                 <div className="modal-dialog modal-dialog-centered">
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title">
-                        <div className="box-root">4.0</div>
+                        <div className="box-root">{`${rating}.0`}</div>
                         <div className="muirating-root">
                           <div className="comment">
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star" />
-                            <i className="fa fa-star" />
+                            <span>
+                              <Rate tooltips={desc} onChange={handleChange} value={rating} />
+                            </span>
                           </div>
                         </div>
                       </h5>
@@ -381,13 +403,8 @@ export default function Details(props) {
                       />
                     </div>
                     <div className="modal-footer">
-                      <label className="upload">
-                        <input type="file" className="file" />
-                        <img src="../images/buttonmedia.png" alt="" />
-                        Ảnh/Video
-                      </label>
                       <button
-                        className="btn btn-submit"
+                        className="btn btn-submit btn-block"
                         type="button"
                         data-dismiss="modal"
                         onClick={handleSubmitRating}

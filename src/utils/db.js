@@ -1,7 +1,8 @@
 // JavaScript
 // src/firebase.js
-import { initializeApp } from 'firebase';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, doc, updateDoc, arrayUnion, getDoc, deleteDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import { taiKhoan } from '../configs/settings';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBgwkuqdK32zkCSqWH9mMcqPBGOqbw8_xo',
@@ -16,23 +17,62 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const addNewComment = (idMovie, taiKhoan, content) => {
-  addDoc(collection(db, 'comment', idMovie), {
-    user: taiKhoan,
+const addNewComment = async (idMovie, taiKhoan, content, rating, idComment) => {
+  let data = {
+    idComment: idComment,
     comment: content,
+    timestamp: new Date().getTime(),
+    rating: rating,
+    user: taiKhoan,
     like: [],
-    rating: 5,
+  };
+  let document = doc(db, 'comment', idMovie);
+  updateDoc(document, {
+    comment: arrayUnion(data),
   });
 };
 
-const getComment = (idMovie) => {
-  return db.collection('comment').doc(idMovie).get();
-};
-
-const updateLike = (idMovie, like) => {
-  db.collection('comment').doc(idMovie).update({
-    like: like,
+const getComment = async (idMovie) => {
+  let document = doc(db, 'comment', idMovie);
+  onSnapshot(document, (snapshot) => {
+    if (snapshot.exists) {
+      return snapshot.data().comment;
+    }
   });
 };
 
-export { addNewComment };
+const updateLike = async (idMovie, idComment) => {
+  let TK = JSON.parse(localStorage.getItem('taiKhoan')).taiKhoan;
+  let document = doc(db, 'comment', idMovie);
+  const snapshot = await getDoc(document);
+  let arrcmt = snapshot.data().comment;
+  snapshot.data().comment.map((comment, index) => {
+    if (comment.idComment === idComment) {
+      if (comment.like.includes(TK)) {
+        arrcmt[index].like.splice(comment.like.indexOf(TK), 1);
+        setDoc(
+          snapshot.ref,
+          {
+            comment: arrcmt,
+          },
+          {
+            merge: false,
+          },
+        );
+      } else {
+        arrcmt[index].like.push(TK);
+        setDoc(
+          snapshot.ref,
+          {
+            comment: arrcmt,
+          },
+          {
+            merge: false,
+          },
+        );
+      }
+    }
+  });
+};
+
+export { db, addNewComment, getComment, updateLike };

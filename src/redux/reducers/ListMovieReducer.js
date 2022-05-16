@@ -13,7 +13,7 @@ const stateDefault = {
   detailsMovies: {},
   bookTicket: {},
   rating: 0,
-  listComment: DataComment,
+  listComment: [],
 };
 
 const ListMovieReducer = (state = stateDefault, actions) => {
