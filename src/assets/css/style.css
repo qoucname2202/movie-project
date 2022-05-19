@@ -63,6 +63,8 @@ a {
   flex-direction: row-reverse;
 }
 .header .navbar-collapse .nav-item {
+  display: flex;
+  align-items: center;
   position: relative;
 }
 .header .navbar-collapse .nav-item.active::after {
@@ -87,10 +89,13 @@ a {
 }
 .header .navbar-collapse .nav-item .nav-link {
   font-size: 16px;
-  font-weight: 500;
-  color: #9b9b9b;
   padding: 0 20px 10px;
-  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+.header .navbar-collapse .nav-item.user .nav-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .header .img-avatar {
   width: 30px;
@@ -121,7 +126,6 @@ a {
 }
 .header .user .logout .profile a {
   color: #fff;
-  text-decoration: none;
 }
 .header .user:hover .logout {
   display: block;

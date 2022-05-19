@@ -22,7 +22,6 @@ export const listMovieShowAction = () => {
           url: `${domain}/api/QuanLyPhim/LayDanhSachPhim?maNhom=${maNhom}`,
           method: 'GET',
         });
-        console.log(result);
         dispatch({
           type: LIST_MOVIE_NOW_SHOW,
           listMovieShow: result.data,
@@ -135,6 +134,7 @@ export const bookTicketAction = (maLichChieu) => {
           url: `${domain}/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`,
           method: 'GET',
         });
+        console.log(result.data);
         dispatch({
           type: BOOK_TICKET,
           bookTicket: result.data,

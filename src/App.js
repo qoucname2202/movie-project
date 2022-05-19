@@ -6,8 +6,6 @@ import { Fragment } from 'react';
 // History
 import { createBrowserHistory } from 'history';
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
-import ScroollTemplate from './templates/ScrollTemplate';
-import Home from './pages/Home';
 import Loading from './components/Loading';
 
 export const history = createBrowserHistory();
@@ -18,14 +16,6 @@ function App() {
       <div className="App">
         <Loading />
         <Routes>
-          <Route
-            path="/home"
-            element={
-              <ScroollTemplate>
-                <Home />
-              </ScroollTemplate>
-            }
-          />
           {publicRoutes.map((route, index) => {
             let Layout = HomeTemplate;
             if (route.layout) {

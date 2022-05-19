@@ -115,6 +115,7 @@ export default function Checkout(props) {
       socket.off('RECEIVE_BO_CHON_GHE_SELECT');
     };
   }, [disableSeats]);
+
   const handleTime = () => {
     let tempTime = timeS;
     let time = setInterval(() => {
@@ -346,10 +347,6 @@ export default function Checkout(props) {
                 >
                   Đặt vé
                 </button>
-                <p className="notification">
-                  Vé đã mua không thể đổi hoặc hoàn tiền Mã vé sẽ được gửi qua tin nhắn ZMS (tin nhắn Zalo) và Email đã
-                  nhập.
-                </p>
               </form>
             </div>
           </div>

@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import MomentTZ from 'moment-timezone';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   ListLogoAction,
@@ -47,6 +48,7 @@ export default function ModalShowCalendar(props) {
     dispatch(GetTimeShowMovieAction(maPhim));
     // dispatch(detailsMoviesAction())
   }, [maPhim]);
+
   useEffect(() => {
     if (listCinema && listCinema.length > 0) {
       setListRap([...listCinema[0].danhSachRap]);
@@ -127,6 +129,7 @@ export default function ModalShowCalendar(props) {
   const handleOnShow = () => {
     console.log(listTimeShowMovie);
   };
+  // console.log(listTimeShowMovie);
   return (
     <div
       onClick={handleOnShow}
@@ -146,111 +149,8 @@ export default function ModalShowCalendar(props) {
             </button>
           </div>
           <div className="modal-body">
-            <form className="form" onSubmit={handleSubmit(onSubmit)}>
-              <div className="row">
-                <div className="col-md-6">
-                  <div className="row form-group">
-                    <div className="item-label col-md-3">
-                      <label htmlFor="">Hệ thống rạp</label>
-                    </div>
-                    <div className="select-setion col-md-9">
-                      <select
-                        onChange={handleChangeHeThong}
-                        className="form-control"
-                        {...heThongRapVal}
-                        placeholder="Chọn hệ thống rạp"
-                      >
-                        {renderHeThongRap()}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="row form-group">
-                    <div className="item-label col-md-3">
-                      <label htmlFor="">Cụm rạp</label>
-                    </div>
-                    <div className="select-setion col-md-9">
-                      <select
-                        onChange={handleChangeCumRap}
-                        className="form-control"
-                        {...cumRapVal}
-                        placeholder="Chọn cụm rạp"
-                      >
-                        {renderCumRap()}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="row form-group">
-                    <div className="item-label col-md-3">
-                      <label htmlFor="">Rạp</label>
-                    </div>
-                    <div className="select-setion col-md-9">
-                      <select className="form-control" {...rapVal} placeholder="Chọn rạp">
-                        {renderRap()}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="row form-group">
-                    <div className="item-label col-md-3">
-                      <label for="ngayChieuGioChieu">Ngày Chiếu</label>
-                    </div>
-                    <div className="select-setion col-md-9">
-                      <Controller
-                        control={control}
-                        name="date-input"
-                        render={({ field }) => (
-                          <DatePicker
-                            placeholderText="Vui lòng chọn"
-                            onChange={(date) => {
-                              field.onChange(date);
-                            }}
-                            showTimeSelect
-                            timeFormat="HH:mm"
-                            timeIntervals={15}
-                            selected={field.value}
-                            dateFormat="dd/MM/yyyy"
-                          />
-                        )}
-                      />
-                    </div>
-                  </div>
-                  <div className="row form-group">
-                    <div className="item-label col-md-3">
-                      <label htmlFor="">Thời lượng</label>
-                    </div>
-                    <div className="select-setion col-md-9">
-                      <select className="form-control" {...thoiGianChieuVal} placeholder="Chọn thời lượng">
-                        <option value={120}>120 phút</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="row form-group">
-                    <div className="item-label col-md-3">
-                      <label htmlFor="">Giá vé</label>
-                    </div>
-                    <div className="select-setion col-md-9">
-                      <select className="form-control" placeholder="Chọn giá vé" {...giaVeVal}>
-                        <option value={75000}>75000</option>
-                        <option value={90000}>90000</option>
-                        <option value={120000}>120000</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div className="btn-item">
-                  <button type="submit" className="btn btn-add text-white">
-                    Tạo lịch chiếu
-                  </button>
-                  <a href="#!" className="btn btn-back">
-                    Trở về trang trước
-                  </a>
-                </div>
-              </div>
-              {/* show infor calendar */}
-              <div className="select-infor">
-                <h2 className="ttl-2">Chọn thông tin hiển thị lịch chiếu của phim</h2>
+            {listLogoMovie && listCinema && listTimeShowMovie && listLogoMovie.length > 0 && listCinema.length > 0 && (
+              <form className="form" onSubmit={handleSubmit(onSubmit)}>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="row form-group">
@@ -258,8 +158,38 @@ export default function ModalShowCalendar(props) {
                         <label htmlFor="">Hệ thống rạp</label>
                       </div>
                       <div className="select-setion col-md-9">
-                        <select className="form-control">
-                          <option>Chọn hệ thống rạp</option>
+                        <select
+                          onChange={handleChangeHeThong}
+                          className="form-control"
+                          {...heThongRapVal}
+                          placeholder="Chọn hệ thống rạp"
+                        >
+                          {renderHeThongRap()}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="row form-group">
+                      <div className="item-label col-md-3">
+                        <label htmlFor="">Cụm rạp</label>
+                      </div>
+                      <div className="select-setion col-md-9">
+                        <select
+                          onChange={handleChangeCumRap}
+                          className="form-control"
+                          {...cumRapVal}
+                          placeholder="Chọn cụm rạp"
+                        >
+                          {renderCumRap()}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="row form-group">
+                      <div className="item-label col-md-3">
+                        <label htmlFor="">Rạp</label>
+                      </div>
+                      <div className="select-setion col-md-9">
+                        <select className="form-control" {...rapVal} placeholder="Chọn rạp">
+                          {renderRap()}
                         </select>
                       </div>
                     </div>
@@ -267,42 +197,100 @@ export default function ModalShowCalendar(props) {
                   <div className="col-md-6">
                     <div className="row form-group">
                       <div className="item-label col-md-3">
-                        <label htmlFor="">Cụm rạp</label>
+                        <label for="ngayChieuGioChieu">Ngày Chiếu</label>
                       </div>
                       <div className="select-setion col-md-9">
-                        <select className="form-control">
-                          <option>Chọn cụm rạp</option>
+                        <Controller
+                          control={control}
+                          name="date-input"
+                          render={({ field }) => (
+                            <DatePicker
+                              placeholderText="Vui lòng chọn"
+                              onChange={(date) => {
+                                field.onChange(date);
+                              }}
+                              showTimeSelect
+                              timeFormat="HH:mm"
+                              timeIntervals={15}
+                              selected={field.value}
+                              dateFormat="dd/MM/yyyy"
+                            />
+                          )}
+                        />
+                      </div>
+                    </div>
+                    <div className="row form-group">
+                      <div className="item-label col-md-3">
+                        <label htmlFor="">Thời lượng</label>
+                      </div>
+                      <div className="select-setion col-md-9">
+                        <select className="form-control" {...thoiGianChieuVal} placeholder="Chọn thời lượng">
+                          <option value={120}>120 phút</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="row form-group">
+                      <div className="item-label col-md-3">
+                        <label htmlFor="">Giá vé</label>
+                      </div>
+                      <div className="select-setion col-md-9">
+                        <select className="form-control" placeholder="Chọn giá vé" {...giaVeVal}>
+                          <option value={75000}>75000</option>
+                          <option value={90000}>90000</option>
+                          <option value={120000}>120000</option>
                         </select>
                       </div>
                     </div>
                   </div>
+                  <div className="btn-item">
+                    <button type="submit" className="btn btn-add text-white">
+                      Tạo lịch chiếu
+                    </button>
+                    <a href="#!" className="btn btn-back">
+                      Trở về trang trước
+                    </a>
+                  </div>
                 </div>
-                <table className="table table-show-infor">
-                  <thead>
-                    <tr>
-                      <th>Mã lịch chiếu</th>
-                      <th>Ngày chiếu giờ chiếu</th>
-                      <th>Giá vé</th>
-                      <th>Thời lượng</th>
-                    </tr>
-                  </thead>
-                  {/* <tbody>
-                    {listTimeShowMovie &&
-                      listTimeShowMovie.heThongRapChieu[0].cumRapChieu[0].lichChieuPhim.map((item, index) => {
-                        return (
-                          <tr key={index}>
-                            <td>{item.maLichChieu}</td>
-                            <td>{moment(item.ngayChieuGioChieu).format('dd/mm/yyyy hh:mm').toString()}</td>
-                            <td>{item.giaVe}VND</td>
-                            <td>{item.thoiLuong}p</td>
-                          </tr>
-                        );
-                      })}
-                  </tbody> */}
-                </table>
-              </div>
-              {/* end show infor calendar */}
-            </form>
+                {/* show infor calendar */}
+                <div className="select-infor">
+                  <h2 className="ttl-2">Thông tin hiển thị lịch chiếu của phim</h2>
+                  <table className="table table-show-infor">
+                    <thead>
+                      <tr>
+                        <th>Mã lịch chiếu</th>
+                        <th>Ngày chiếu giờ chiếu</th>
+                        <th>Giá vé</th>
+                        <th>Thời lượng</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {listTimeShowMovie &&
+                        listTimeShowMovie.heThongRapChieu &&
+                        listTimeShowMovie.heThongRapChieu.length > 0 &&
+                        listTimeShowMovie.heThongRapChieu[0].cumRapChieu[0].lichChieuPhim.map((item, index) => {
+                          return (
+                            <tr key={index}>
+                              <td>{item.maLichChieu}</td>
+                              <td>
+                                {MomentTZ(item.ngayChieuGioChieu).tz('Asia/Ho_Chi_Minh').format('DD/MM/YYYY HH:mm')}
+                              </td>
+                              <td>
+                                {item.giaVe.toLocaleString('vi-VN', {
+                                  style: 'currency',
+                                  currency: 'VND',
+                                })}
+                              </td>
+                              <td>{item.thoiLuong}p</td>
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                </div>
+                {/* end show infor calendar */}
+              </form>
+            )}
           </div>
         </div>
       </div>

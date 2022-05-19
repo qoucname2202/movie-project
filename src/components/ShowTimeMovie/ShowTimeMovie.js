@@ -65,7 +65,6 @@ export default function ShowTimeMovie({ reful }) {
                                       <p>{inforTheater.tenCumRap}</p>
                                       <span>{inforTheater.diaChi}</span>
                                       <br />
-                                      <a href="#!">[ Chi tiết ]</a>
                                     </div>
                                   </div>
                                 </a>
@@ -88,7 +87,7 @@ export default function ShowTimeMovie({ reful }) {
                                   {inforTheater.danhSachPhim?.map((movie, index) => {
                                     if (
                                       // Check xem có phải ngày hôm nay có lịch chiếu hay không
-                                      movie.lstLichChieuTheoPhim.some((timeShow) => {
+                                      movie.lstLichChieuTheoPhim.every((timeShow) => {
                                         return !moment().isSame(moment(timeShow.ngayChieuGioChieu), 'day');
                                       })
                                     ) {
@@ -115,33 +114,40 @@ export default function ShowTimeMovie({ reful }) {
                                         </div>
                                         <h5 className="ttl">2D Digital</h5>
                                         <div className="row">
-                                          {movie.lstLichChieuTheoPhim?.slice(0, 8).map((timeShow, index) => {
-                                            if (
-                                              moment() <= moment(timeShow.ngayChieuGioChieu) &&
-                                              moment().isSame(moment(timeShow.ngayChieuGioChieu), 'day')
-                                            ) {
-                                              return (
-                                                <div key={index} className="block-time">
-                                                  <NavLink
-                                                    to={`checkout/${timeShow.maLichChieu}`}
-                                                    className="time-movie"
-                                                  >
-                                                    <p>
-                                                      <span>
-                                                        {moment(timeShow.ngayChieuGioChieu).format('hh:mm A')}
-                                                      </span>{' '}
-                                                      ~{' '}
-                                                      {moment(timeShow.ngayChieuGioChieu)
-                                                        .add('120', 'minutes')
-                                                        .format('hh:mm A')}
-                                                    </p>
-                                                  </NavLink>
-                                                </div>
-                                              );
-                                            } else {
-                                              return '';
-                                            }
-                                          })}
+                                          {movie.lstLichChieuTheoPhim
+                                            ?.sort((current, next) =>
+                                              moment(next.ngayChieuGioChieu).isBefore(moment(current.ngayChieuGioChieu))
+                                                ? 1
+                                                : -1,
+                                            )
+                                            .slice(0, 8)
+                                            .map((timeShow, index) => {
+                                              if (
+                                                moment() <= moment(timeShow.ngayChieuGioChieu) &&
+                                                moment().isSame(moment(timeShow.ngayChieuGioChieu), 'day')
+                                              ) {
+                                                return (
+                                                  <div key={index} className="block-time">
+                                                    <NavLink
+                                                      to={`checkout/${timeShow.maLichChieu}`}
+                                                      className="time-movie"
+                                                    >
+                                                      <p>
+                                                        <span>
+                                                          {moment(timeShow.ngayChieuGioChieu).format('hh:mm A')}
+                                                        </span>{' '}
+                                                        ~{' '}
+                                                        {moment(timeShow.ngayChieuGioChieu)
+                                                          .add('120', 'minutes')
+                                                          .format('hh:mm A')}
+                                                      </p>
+                                                    </NavLink>
+                                                  </div>
+                                                );
+                                              } else {
+                                                return '';
+                                              }
+                                            })}
                                         </div>
                                       </div>
                                     );

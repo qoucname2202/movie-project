@@ -7,6 +7,8 @@
   .navbar-collapse {
     flex-direction: row-reverse;
     .nav-item {
+      display: flex;
+      align-items: center;
       position: relative;
       &.active::after {
         width: 100%;
@@ -18,7 +20,7 @@
         content: '';
         width: 0;
         height: 3px;
-        background-image: linear-gradient(to right, $bgorange, $secondary);
+        background-image: linear-gradient(to right, #fbbd61, #ec7532);
         position: absolute;
         bottom: -1px;
         left: 0;
@@ -29,9 +31,18 @@
         -o-transition: all 0.5s;
       }
       .nav-link {
-        @include text($subtitle2, $medium, $cgray);
+        // color: #fff;
+        font-size: 16px;
+        // text-transform: uppercase;
         padding: 0 20px 10px;
-        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+      }
+      &.user {
+        .nav-link {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
     }
   }
@@ -57,7 +68,7 @@
         content: '';
         position: absolute;
         top: 0;
-        background: $bgorange;
+        background: #fbbd61;
         width: 30px;
         height: 3px;
         left: 0;
@@ -65,7 +76,6 @@
       .profile {
         a {
           color: #fff;
-          text-decoration: none;
         }
       }
     }
@@ -86,6 +96,6 @@
   .navbar-light .navbar-nav .nav-link:focus,
   .navbar-light .navbar-nav .nav-link:hover,
   .navbar-light .navbar-nav .nav-link.active {
-    color: $corange;
+    color: #ec7532;
   }
 }

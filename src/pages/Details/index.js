@@ -87,15 +87,6 @@ export default function Details(props) {
     if (comment.length > 0) {
       let idComment = uuidv4();
       addNewComment(id, JSON.parse(localStorage.getItem('taiKhoan')).taiKhoan, comment, rating, idComment);
-      // let newComment = {
-      //   idComment: idComment,
-      //   user: JSON.parse(localStorage.getItem('taiKhoan')).taiKhoan,
-      //   comment: comment,
-      //   rating: rating,
-      //   like: [],
-      //   timestamp: new Date().getTime(),
-      // };
-      // setListComment([...listComment, newComment]);
       setComment('');
     }
   };
@@ -104,14 +95,14 @@ export default function Details(props) {
     return listComment
       .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
       .map((item, index) => {
-        return <Comment cmt={item} key={item.idComment} idMovie={id} />;
+        return <Comment cmt={item} key={index} idMovie={id} />;
       });
   };
 
   const renderTotalRating = () => {
     let totalRating = 0;
     [...listComment].map((item) => {
-      totalRating += item.rating;
+      return (totalRating += item.rating);
     });
     return (totalRating / listComment.length).toFixed(1);
   };
@@ -287,7 +278,6 @@ export default function Details(props) {
                                           )
                                           .slice(0, 8)
                                           .map((time, index) => {
-                                            console.log(moment(time.ngayChieuGioChieu), moment());
                                             if (
                                               moment().isBefore(moment(time.ngayChieuGioChieu)) &&
                                               moment(date).isSame(moment(time.ngayChieuGioChieu), 'day')

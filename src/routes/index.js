@@ -15,6 +15,7 @@ import { AdminTemplate } from '../templates/';
 
 export const publicRoutes = [
   { path: '/', component: Home },
+  { path: '/home', component: Home },
   { path: '/profile', component: Profile },
   { path: '/login', component: Login, layout: null },
   { path: '/register', component: Register, layout: null },

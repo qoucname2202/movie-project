@@ -1,5 +1,4 @@
 import React from 'react';
-import DataComment from '../../pages/Details/dataComment.json';
 import {
   BOOK_TICKET,
   COMMENT_MOVIE,

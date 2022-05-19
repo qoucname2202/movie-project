@@ -93,7 +93,6 @@ export default function ManagerFilm(props) {
             >
               <i class="far fa-plus-square"></i>
             </button>
-            <ModalShowCalendar maPhim={maPhimSelected} />
           </div>
           <div className="block">
             <button className="btn btn-edit" type="button" data-toggle="modal" data-target="#showedit">
@@ -229,6 +228,7 @@ export default function ManagerFilm(props) {
         <AddMovie />
       </div>
       <Table className="table table-manageruser" columns={columns} dataSource={dsFilm}></Table>
+      <ModalShowCalendar maPhim={maPhimSelected} />
     </div>
   );
 }
