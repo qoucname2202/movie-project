@@ -13,11 +13,6 @@ import { domain, maNhom } from '../../configs/settings';
 
 export default function AddMovie(props) {
   const {
-    formState: {},
-    control,
-  } = useForm();
-  const dispatch = useDispatch();
-  const {
     register,
     handleSubmit,
     formState: { errors },

@@ -6,6 +6,7 @@ import ModalShowCalendar from './ModalShowCalendar';
 import AddMovie from './AddMovie';
 import { Image, Table } from 'antd';
 import 'antd/dist/antd.css';
+import EditMovie from './EditMovie';
 
 export default function ManagerFilm(props) {
   const { listMovieShow } = useSelector((state) => state.ListMovieReducer);
@@ -18,6 +19,7 @@ export default function ManagerFilm(props) {
   const [keyWord, setKeyWord] = useState(null);
   const [temp, setTemp] = useState(-1);
   const [maPhimSelected, setMaPhimSelected] = useState('');
+  const [movie, setMovie] = useState(null);
 
   useEffect(() => {
     if (listMovieShow?.length > 0) {
@@ -95,32 +97,17 @@ export default function ManagerFilm(props) {
             </button>
           </div>
           <div className="block">
-            <button className="btn btn-edit" type="button" data-toggle="modal" data-target="#showedit">
+            <button
+              className="btn btn-edit"
+              type="button"
+              data-toggle="modal"
+              data-target="#editmovie"
+              onClick={() => {
+                setMovie(record);
+              }}
+            >
               <i class="far fa-edit"></i>
             </button>
-            <div className="modal fade" id="showedit" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">
-                      Modal title
-                    </h5>
-                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                  </div>
-                  <div className="modal-body">...</div>
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal">
-                      Close
-                    </button>
-                    <button type="button" className="btn btn-primary">
-                      Save changes
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
           <button
             className="btn-delete btn"
@@ -136,68 +123,6 @@ export default function ManagerFilm(props) {
     },
   ];
 
-  const listFilm = () => {
-    return listMovieShow?.map((item, index) => {
-      return (
-        <tr key={index}>
-          <td>{item.maPhim}</td>
-          <td>{item.tenPhim}</td>
-          <td>
-            <img src={item.hinhAnh} alt={item.tenPhim} width="25px" />
-          </td>
-          <td>{item.danhGia}</td>
-          <td>{moment(item.ngayKhoiChieu).format('ddd-mm-yyyy hh:mm A')}</td>
-          <td>
-            <div className="inner-button">
-              <div className="block">
-                <button className="btn btn-add" type="button" data-toggle="modal" data-target="#showcalendar">
-                  Tạo Lịch Chiếu
-                </button>
-                <ModalShowCalendar />
-              </div>
-              <div className="block">
-                <button className="btn btn-edit" type="button" data-toggle="modal" data-target="#showedit">
-                  Sửa
-                </button>
-                <div className="modal fade" id="showedit" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">
-                          Modal title
-                        </h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">×</span>
-                        </button>
-                      </div>
-                      <div className="modal-body">...</div>
-                      <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">
-                          Close
-                        </button>
-                        <button type="button" className="btn btn-primary">
-                          Save changes
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <button
-                className="btn-delete btn"
-                type="submit"
-                onClick={() => {
-                  dispatch(deleteMovieAction(item.maPhim, accessToken));
-                }}
-              >
-                Xóa
-              </button>
-            </div>
-          </td>
-        </tr>
-      );
-    });
-  };
   return (
     <div>
       <div className="inner-add row">
@@ -229,6 +154,7 @@ export default function ManagerFilm(props) {
       </div>
       <Table className="table table-manageruser" columns={columns} dataSource={dsFilm}></Table>
       <ModalShowCalendar maPhim={maPhimSelected} />
+      <EditMovie movie={movie} />
     </div>
   );
 }

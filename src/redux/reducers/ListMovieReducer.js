@@ -21,6 +21,18 @@ const ListMovieReducer = (state = stateDefault, actions) => {
       state.listMovieShow = [...actions.listMovieShow];
       return { ...state };
     }
+
+    // case 'EDIT_MOVIE': {
+    //   const index = state.listMovieShow.findIndex((item) => item.maPhim === actions.movie.maPhim);
+    //   let newListMovieShow = [...state.listMovieShow];
+    //   if (index !== -1) {
+    //     newListMovieShow[index] = { ...actions.movie };
+    //   }
+    //   state.listMovieShow = [...newListMovieShow];
+
+    //   return { ...state };
+    // }
+
     case LIST_MOVIE_COMING_SOON: {
       state.listMovieComingSoon = [...actions.listMovieComingSoon];
       return { ...state };

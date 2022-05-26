@@ -9,6 +9,7 @@ import {
   CLOSELOADING,
   DETAIL_MOVIES,
   BOOK_TICKET,
+  accessToken,
 } from '../../configs/settings';
 import { history } from '../../App';
 export const listMovieShowAction = () => {
@@ -95,7 +96,24 @@ export const addMovieAction = (film) => {
     }, 700);
   };
 };
+// Edit movie action
+export const editMovieAction = (movie) => {
+  return async (dispatch) => {
+    try {
+      let result = await axios({
+        url: `${domain}/api/QuanLyPhim/CapNhatPhimUpload`,
+        method: 'POST',
+        data: movie,
+        headers: { Authorization: 'Bearer ' + localStorage.getItem(accessToken) },
+      });
+      console.log(result.data);
 
+      dispatch(listMovieShowAction());
+    } catch (errors) {
+      console.log(errors);
+    }
+  };
+};
 export const detailsMoviesAction = (maPhim) => {
   return async (dispatch) => {
     dispatch({
@@ -120,6 +138,7 @@ export const detailsMoviesAction = (maPhim) => {
     }, 700);
   };
 };
+
 export const bookTicketAction = (maLichChieu) => {
   if (!localStorage.getItem('taiKhoan') && !localStorage.getItem('accessToken')) {
     history.replace('/login');
