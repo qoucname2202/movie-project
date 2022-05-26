@@ -1,0 +1,10 @@
+{
+  "hello": "Xin chào",
+  "signin": {
+    "1": "Đăng nhập",
+    "2": "Đăng nhập"
+  },
+  "signup": "Đăng ký",
+  "signout": "Đăng xuất",
+  "showtimes": "Lịch chiếu"
+}

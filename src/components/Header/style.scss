@@ -1,0 +1,18 @@
+.header {
+  .ant-select-focused .ant-select-selector,
+  .ant-select-selector:focus,
+  .ant-select-selector:hover,
+  .ant-select-selector:active,
+  .ant-select-open .ant-select-selector {
+    border-color: #ff6651 !important;
+    box-shadow: none !important;
+  }
+  .ant-select-selection-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > span {
+      margin-left: 10px;
+    }
+  }
+}

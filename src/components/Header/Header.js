@@ -1,10 +1,21 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-scroll';
 import { LOGOUT } from '../../configs/settings';
+import { Select } from 'antd';
+import './style.scss';
+
+// Using Hook translation
+import { useTranslation } from 'react-i18next';
+const { Option } = Select;
 const Header = () => {
+  const { t, i18n } = useTranslation();
   let dispatch = useDispatch();
+  const handleChange = (value) => {
+    i18n.changeLanguage(value);
+  };
+
   const { taiKhoan } = useSelector((state) => state.UserReducer);
   let setting = {
     activeClass: 'active',
@@ -35,24 +46,25 @@ const Header = () => {
             <ul className="navbar-nav">
               <li className="nav-item">
                 <Link className="nav-link " {...setting} to="showdate">
-                  Lịch chiếu{' '}
+                  {t('showtimes')}
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" {...setting} to="theater">
-                  Cụm rạp
+                  Cinema
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" {...setting} to="view">
-                  Tin tức
+                  News
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" {...setting} to="application">
-                  Ứng dụng
+                  App
                 </Link>
               </li>
+
               <li className="nav-item user">
                 {taiKhoan !== '' ? (
                   <div>
@@ -68,7 +80,7 @@ const Header = () => {
                           dispatch({ type: LOGOUT });
                         }}
                       >
-                        Đăng xuất
+                        {t('signout')}
                       </button>
                       <div className="profile">
                         <NavLink to={'/profile'}>Profile</NavLink>
@@ -78,88 +90,45 @@ const Header = () => {
                 ) : (
                   <NavLink className="nav-link" to="/login">
                     <img src="../images/avatar.png" alt="avatar" className="img-avatar" />
-                    Đăng nhập
+                    {t('signin.2')}
                   </NavLink>
                 )}
+              </li>
+              <li className="nav-item">
+                <Select
+                  defaultValue="en"
+                  style={{
+                    width: 100,
+                    marginBottom: '10px',
+                  }}
+                  onChange={handleChange}
+                >
+                  <Option value=""></Option>
+                  <Option value="chi">
+                    <div style={{ display: 'flex', justifyContents: 'center', alignItems: 'center', gap: '10px' }}>
+                      <img src="./images/china.png" alt="" style={{ width: '20px', height: '20px' }} />
+                      <span>Chi</span>
+                    </div>
+                  </Option>
+                  <Option value="en">
+                    <div style={{ display: 'flex', justifyContents: 'center', alignItems: 'center', gap: '10px' }}>
+                      <img src="./images/united-states.png" alt="" style={{ width: '20px', height: '20px' }} />
+                      <span>Eng</span>
+                    </div>
+                  </Option>
+                  <Option value="vi">
+                    <div style={{ display: 'flex', justifyContents: 'center', alignItems: 'center', gap: '10px' }}>
+                      <img src="./images/vietnam.png" alt="" style={{ width: '20px', height: '20px' }} />
+                      <span>Vi</span>
+                    </div>
+                  </Option>
+                </Select>
               </li>
             </ul>
           </div>
         </nav>
       </header>
     </div>
-    // <div>
-    //   <header className="header">
-    //     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    //       <Link className="navbar-brand" to="/">
-    //         <img src="./images/logo_1.png" alt="Logo-Movie" className="logo" />
-    //       </Link>
-    //       <button
-    //         className="navbar-toggler"
-    //         type="button"
-    //         data-bs-toggle="collapse"
-    //         data-bs-target="#navbarSupportedContent"
-    //         aria-controls="navbarSupportedContent"
-    //         aria-expanded="false"
-    //         aria-label="Toggle navigation"
-    //       >
-    //         <span className="navbar-toggler-icon" />
-    //       </button>
-    //       <div className="collapse navbar-collapse" id="navbarSupportedContent">
-    //         <ul className="navbar-nav">
-    //           <li className="nav-item">
-    //             <Link className="nav-link" to="showdate">
-    //               Lịch chiếu
-    //             </Link>
-    //           </li>
-    //           <li className="nav-item">
-    //             <Link className="nav-link" to="theater">
-    //               Cụm rạp
-    //             </Link>
-    //           </li>
-    //           <li className="nav-item">
-    //             <Link className="nav-link" to="view">
-    //               Tin tức
-    //             </Link>
-    //           </li>
-    //           <li className="nav-item">
-    //             <Link className="nav-link" to="application">
-    //               Ứng dụng
-    //             </Link>
-    //           </li>
-    //           <li className="nav-item user">
-    //             {taiKhoan !== '' ? (
-    //               <div>
-    //                 <span className="nav-link">
-    //                   {' '}
-    //                   <img src="../images/avatar.png" alt="avatar" className="img-avatar" />
-    //                   {taiKhoan}
-    //                 </span>
-    //                 <div className="logout">
-    //                   <button
-    //                     className="btn btn-logout"
-    //                     onClick={() => {
-    //                       dispatch({ type: LOGOUT });
-    //                     }}
-    //                   >
-    //                     Đăng xuất
-    //                   </button>
-    //                   <div className="profile">
-    //                     <NavLink to={'/profile'}>Profile</NavLink>
-    //                   </div>
-    //                 </div>
-    //               </div>
-    //             ) : (
-    //               <NavLink className="nav-link" to="/login">
-    //                 <img src="../images/avatar.png" alt="avatar" className="img-avatar" />
-    //                 Đăng nhập
-    //               </NavLink>
-    //             )}
-    //           </li>
-    //         </ul>
-    //       </div>
-    //     </nav>
-    //   </header>
-    // </div>
   );
 };
 

@@ -13,7 +13,8 @@ import 'popper.js/dist/popper.min.js';
 
 // sass
 import './assets/scss/main.scss';
-
+// imoport đa ngôn ngữ sử dụng thư viện i18next
+import './i18n';
 ReactDOM.render(
   <Provider store={store}>
     <App />
