@@ -5,7 +5,6 @@ import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { UserAction } from '../../redux/actions/UserAction';
 import qs from 'qs';
-
 const Login = () => {
   const dispatch = useDispatch();
   const search = useLocation().search.substring(1);
@@ -33,9 +32,9 @@ const Login = () => {
         </Link>
       </nav>
       <form className="form-user" onSubmit={formik.handleSubmit}>
-        <h1 className="ttl">Đăng nhập</h1>
+        <h1 className="ttl">Sign In</h1>
         <div className="form-group mb-3">
-          <label className="form-label">Tài khoản</label>
+          <label className="form-label">Username</label>
           <i className="far fa-user user"></i>
           <input
             type="text"
@@ -51,7 +50,7 @@ const Login = () => {
           )}
         </div>
         <div className="form-group">
-          <label className="form-label">Mật khẩu</label>
+          <label className="form-label">Password</label>
           <i className="fas fa-lock user"></i>
           <input
             type="password"
@@ -68,12 +67,12 @@ const Login = () => {
         </div>
         <div className="form-group mb-3">
           <button type="submit" className="btn btnsubmit" disabled={!formik.isValid}>
-            Login
+            Sign in
           </button>
         </div>
         <div className="registernow">
           <p>
-            Bạn chưa có tài khoản? <Link to="/register">Đăng ký</Link>
+            Do not have an account? <Link to="/register">Sign up</Link>
           </p>
           <Link className="backhome" to="/home">
             Back Home

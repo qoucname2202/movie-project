@@ -4,9 +4,10 @@ import moment from 'moment';
 import { ListMovieShowTimeAction } from '../../redux/actions/ShowTimeMovieAction';
 import ShowLogoMovie from './ShowLogoMovie';
 import { NavLink } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 export default function ShowTimeMovie({ reful }) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { listMovie } = useSelector((state) => state.ShowTimeMovieReducer);
   useEffect(() => {
     dispatch(ListMovieShowTimeAction());
@@ -109,7 +110,7 @@ export default function ShowTimeMovie({ reful }) {
                                               <span className="age">P</span>
                                               {movie.tenPhim}
                                             </p>
-                                            <span>120 phút -FOX 9.4 -IMDb 8.7</span>
+                                            <span>120 {t('minutes')} -FOX 9.4 -IMDb 8.7</span>
                                           </div>
                                         </div>
                                         <h5 className="ttl">2D Digital</h5>

@@ -41,9 +41,9 @@ const Register = () => {
         </a>
       </nav>
       <form className="form-user" onSubmit={formik.handleSubmit}>
-        <h1 className="ttl">Đăng ký</h1>
+        <h1 className="ttl">Sign up</h1>
         <div className="form-group mb-3">
-          <label className="form-label">Tài khoản</label>
+          <label className="form-label">Username</label>
           <input
             type="text"
             className="form-control"
@@ -58,7 +58,7 @@ const Register = () => {
           )}
         </div>
         <div className="form-group mb-3">
-          <label className="form-label">Mật khẩu</label>
+          <label className="form-label">Password</label>
           <input
             type="password"
             className="form-control"
@@ -73,7 +73,7 @@ const Register = () => {
           )}
         </div>
         <div className="form-group mb-3">
-          <label className="form-label">Họ và tên</label>
+          <label className="form-label">Fullname</label>
           <input
             type="text"
             className="form-control"
@@ -84,7 +84,7 @@ const Register = () => {
           {formik.errors.hoTen && formik.touched.hoTen ? <p className="text-danger">{formik.errors.hoTen}</p> : ''}
         </div>
         <div className="form-group mb-3">
-          <label className="form-label">Số điện thoại</label>
+          <label className="form-label">Phone number</label>
           <input
             type="text"
             className="form-control"
@@ -107,7 +107,7 @@ const Register = () => {
         </div>
         <div className="form-group">
           <button type="submit" className="btn btnsubmit">
-            Đăng ký
+            Sign up
           </button>
         </div>
       </form>

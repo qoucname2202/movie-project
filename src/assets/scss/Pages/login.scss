@@ -7,6 +7,7 @@
   width: 100%;
   height: 100vh;
   font-family: 'Poppins', sans-serif;
+
   .navbar {
     position: fixed;
     top: 0;
@@ -71,11 +72,7 @@
       background: #fff;
       border: 2px solid;
       border-image-slice: 1;
-      border-image-source: linear-gradient(
-        to right bottom,
-        $bgorange,
-        $secondary
-      );
+      border-image-source: linear-gradient(to right bottom, $bgorange, $secondary);
       text-align: center;
       padding: 7px;
       color: #707070;

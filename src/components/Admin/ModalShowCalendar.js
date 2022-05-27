@@ -247,8 +247,8 @@ export default function ModalShowCalendar(props) {
                     <button type="submit" className="btn btn-add text-white">
                       Tạo lịch chiếu
                     </button>
-                    <a href="#!" className="btn btn-back">
-                      Trở về trang trước
+                    <a href="#!" className="btn btn-back ml-3">
+                      Trang trước
                     </a>
                   </div>
                 </div>
