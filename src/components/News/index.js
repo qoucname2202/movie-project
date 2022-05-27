@@ -1,6 +1,7 @@
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
 const News = ({ reful }) => {
+  const { t } = useTranslation();
   return (
     <section className="block-news" id="view" ref={reful}>
       <div className="container">
@@ -14,7 +15,7 @@ const News = ({ reful }) => {
               role="tab"
               aria-controls="cinema-24h-show"
             >
-              Điện Ảnh 24h
+              {t('movienews')}
             </a>
           </li>
           <li className="nav-item" role="presentation">
@@ -26,7 +27,7 @@ const News = ({ reful }) => {
               role="tab"
               aria-controls="revies-tab-show"
             >
-              Review
+              {t('review')}
             </a>
           </li>
           <li className="nav-item" role="presentation">
@@ -38,7 +39,7 @@ const News = ({ reful }) => {
               role="tab"
               aria-controls="sales-tab-show"
             >
-              Khuyến Mãi
+              {t('promotion')}
             </a>
           </li>
         </ul>
@@ -162,7 +163,7 @@ const News = ({ reful }) => {
               </div>
             </div>
             <div className="read-more text-center">
-              <button className="btn btn-read-more">Xem thêm</button>
+              <button className="btn btn-read-more">{t('viewmore')}</button>
             </div>
           </div>
           <div className="tab-pane fade" id="revies-tab-show" role="tabpanel" aria-labelledby="revies-tab-show">
@@ -274,7 +275,7 @@ const News = ({ reful }) => {
               </div>
             </div>
             <div className="read-more text-center">
-              <button className="btn btn-read-more">Xem thêm</button>
+              <button className="btn btn-read-more">{t('viewmore')}</button>
             </div>
           </div>
           <div className="tab-pane fade" id="sales-tab-show" role="tabpanel" aria-labelledby="sales-tab-show">
@@ -386,7 +387,7 @@ const News = ({ reful }) => {
               </div>
             </div>
             <div className="read-more text-center">
-              <button className="btn btn-read-more">Xem thêm</button>
+              <button className="btn btn-read-more">{t('viewmore')}</button>
             </div>
           </div>
         </div>

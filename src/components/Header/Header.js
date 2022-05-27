@@ -51,17 +51,17 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" {...setting} to="theater">
-                  Cinema
+                  {t('cinema')}
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" {...setting} to="view">
-                  News
+                  {t('news')}
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" {...setting} to="application">
-                  App
+                  {t('app')}
                 </Link>
               </li>
 

@@ -19,21 +19,37 @@ const CarouselHome = () => {
       name: 'Photo 1',
       url: './images/banner5.jpg',
       link: 'https://www.youtube.com/watch?v=aWzlQ2N6qqg',
+      describe: 'Doctor Strange',
     },
     {
       name: 'Photo 2',
       url: './images/banner6.jpg',
       link: 'https://www.youtube.com/watch?v=IOwvN-aoBpM',
+      describe: 'Nghề siêu dễ',
     },
     {
       name: 'Photo 3',
       url: './images/banner3.jpg',
       link: 'https://www.youtube.com/watch?v=KiSnBWXAuFY',
+      describe: 'Batman',
     },
     {
       name: 'Photo 4',
       url: './images/banner4.jpg',
       link: 'https://www.youtube.com/watch?v=iVJCALQAOyU',
+      describe: 'Xe cấp cứu',
+    },
+    {
+      name: 'Photo 5',
+      url: './images/banner7.jpg',
+      link: 'https://www.youtube.com/watch?v=XsWx71aokYE',
+      describe: 'Doraemon cuộc chiến vũ trụ tí hon',
+    },
+    {
+      name: 'Photo 6',
+      url: './images/banner8.jpg',
+      link: 'https://www.youtube.com/watch?v=ZR99nOkEolM',
+      describe: 'Phi Công Siêu Đẳng',
     },
   ];
   return (
@@ -44,7 +60,7 @@ const CarouselHome = () => {
             <div key={index} className="inner-slider">
               <div className="carousel-item-ow">
                 <a href={item.link} data-lity>
-                  <img src={item.url} alt="anh_carousel" className="img-fluid w-100" />
+                  <img src={item.url} alt={item.describe} className="img-fluid w-100" />
                   <div className="playfilm">
                     <i className="fa fa-play video-play-slider" />
                   </div>

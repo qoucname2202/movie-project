@@ -4,13 +4,15 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { domain } from '../../configs/settings';
 import { history } from '../../App';
+import { useTranslation } from 'react-i18next';
 const SearchHome = () => {
   const { listMovieShow } = useSelector((state) => state.ListMovieReducer);
   const [lichChieu, setlichChieu] = useState(null);
   const [timeShowMovie, setTimeShowMovie] = useState([]);
   const [timeMovie, setTimeMovie] = useState([]);
-
   const [maLichChieu, setMaLichChieu] = useState('');
+
+  const { t } = useTranslation();
 
   const handleChangePhim = async (e) => {
     let maPhim = e.target.value;
@@ -138,7 +140,7 @@ const SearchHome = () => {
           </div>
           <div className="select-item item-booking">
             <button type="submit" className="btn-booking">
-              Mua Vé Ngay
+              {t('buyticketnow')}
             </button>
           </div>
         </form>

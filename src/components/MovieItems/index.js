@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 const MovieItems = (props) => {
   const { movie, showTimes } = props;
+  const { t } = useTranslation();
   return (
     <div className={showTimes === 'beforeShow' ? 'movie-item' : 'movieComing'} id="movieitem">
       <a className="video" data-lity href={movie.trailer}>
@@ -24,10 +25,10 @@ const MovieItems = (props) => {
       </a>
       <div className="movie-info">
         <p className="namemovie">{movie.tenPhim}</p>
-        <span className="timeshow">120 phút</span>
+        <span className="timeshow">120 {t('minutes')}</span>
         <NavLink to={`/details/${movie.maPhim}`}>
           <div className="btn-buyticket">
-            Mua vé
+            {t('buyticket')}
             <i className="fa fa-arrow-circle-down icon-down" />
           </div>
         </NavLink>

@@ -6,7 +6,9 @@ import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import { listMovieComingSoonAction, listMovieShowAction } from '../../redux/actions/ListMovieAction';
 import MovieItems from '../MovieItems';
+import { useTranslation } from 'react-i18next';
 const ListMovie = ({ reful }) => {
+  const { t, i18n } = useTranslation();
   const listMovie = {
     infinite: true,
     speed: 300,
@@ -73,7 +75,7 @@ const ListMovie = ({ reful }) => {
             role="tab"
             aria-controls="pills-nowshow"
           >
-            Phim đang chiếu
+            {t('nowshowing')}
           </a>
         </li>
         <li className="nav-item" role="presentation">
@@ -85,7 +87,7 @@ const ListMovie = ({ reful }) => {
             role="tab"
             aria-controls="pills-comming"
           >
-            Phim sắp chiếu
+            {t('comingsoon')}
           </a>
         </li>
       </ul>
