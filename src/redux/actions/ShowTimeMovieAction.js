@@ -6,6 +6,7 @@ import {
   LIST_MOVIE_SHOW_TIME,
   LIST_THEATER_SYSTEM_LOGO,
 } from '../../configs/settings';
+import Swal from 'sweetalert2';
 
 export const ListLogoAction = () => {
   return async (dispatch) => {
@@ -93,8 +94,20 @@ export const CreateMovieShowTimeAction = (movieTime) => {
         type: 'LIST_CREATE_TIME_SHOW',
         listCreateTimeShow: result.data,
       });
+      Swal.fire({
+        icon: 'success',
+        title: 'Thêm lịch chiếu thành công',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Thêm lịch chiếu thất bại',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
 };

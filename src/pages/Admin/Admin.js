@@ -83,6 +83,7 @@ export default function Admin() {
                             className="btn btn-logout"
                             onClick={() => {
                               dispatch({ type: LOGOUT });
+                              navigate('/home');
                             }}
                           >
                             Đăng xuất

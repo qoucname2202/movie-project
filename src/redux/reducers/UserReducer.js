@@ -9,7 +9,6 @@ import {
   INFOR_ALL_USER,
   DELETE_USER,
 } from '../../configs/settings';
-
 let taiKhoanNguoiDung = '';
 let tokenlocal = '';
 
@@ -41,6 +40,7 @@ const UserReducer = (state = stateDefault, action) => {
     }
     case LOGOUT: {
       localStorage.clear();
+
       return { ...state, taiKhoan: '' };
     }
     case PROFILE_USER: {

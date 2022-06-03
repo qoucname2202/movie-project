@@ -89,7 +89,10 @@ export default function ShowTimeMovie({ reful }) {
                                     if (
                                       // Check xem có phải ngày hôm nay có lịch chiếu hay không
                                       movie.lstLichChieuTheoPhim.every((timeShow) => {
-                                        return !moment().isSame(moment(timeShow.ngayChieuGioChieu), 'day');
+                                        return (
+                                          !moment().isSame(moment(timeShow.ngayChieuGioChieu), 'day') ||
+                                          !moment().isBefore(moment(timeShow.ngayChieuGioChieu))
+                                        );
                                       })
                                     ) {
                                       return '';
@@ -130,7 +133,7 @@ export default function ShowTimeMovie({ reful }) {
                                                 return (
                                                   <div key={index} className="block-time">
                                                     <NavLink
-                                                      to={`checkout/${timeShow.maLichChieu}`}
+                                                      to={`/checkout/${timeShow.maLichChieu}`}
                                                       className="time-movie"
                                                     >
                                                       <p>

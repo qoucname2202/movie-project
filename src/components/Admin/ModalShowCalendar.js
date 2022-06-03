@@ -10,12 +10,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {
   ListLogoAction,
   ListCenemaShowAction,
-  ListMovieShowTimeAction,
   CreateMovieShowTimeAction,
   GetTimeShowMovieAction,
 } from '../../redux/actions/ShowTimeMovieAction';
 import axios from 'axios';
 import { domain } from '../../configs/settings';
+import { history } from '../../App';
+
 // Yup validateion schema
 const schema = yup
   .object({
@@ -247,9 +248,9 @@ export default function ModalShowCalendar(props) {
                     <button type="submit" className="btn btn-add text-white">
                       Tạo lịch chiếu
                     </button>
-                    <a href="#!" className="btn btn-back ml-3">
+                    {/* <button onClick={handleBackAdmin} className="btn btn-back ml-3">
                       Trang trước
-                    </a>
+                    </button> */}
                   </div>
                 </div>
                 {/* show infor calendar */}

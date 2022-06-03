@@ -12,6 +12,7 @@ import {
   maNhom,
 } from '../../configs/settings';
 import { history } from '../../App';
+import Swal from 'sweetalert2';
 export const UserAction = (nguoiDung, redirectTo) => {
   return async (dispatch) => {
     try {
@@ -38,6 +39,12 @@ export const UserAction = (nguoiDung, redirectTo) => {
       });
     } catch (errors) {
       console.log(errors);
+      Swal.fire({
+        icon: 'error',
+        title: 'Tài khoản hoặc mật khẩu không đúng',
+        showConfirmButton: false,
+        timer: 500,
+      });
     }
   };
 };

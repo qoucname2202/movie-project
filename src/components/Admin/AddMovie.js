@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useForm, Controller } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { addMovieAction } from '../../redux/actions/ListMovieAction';
 import axios from 'axios';
 import { domain, maNhom } from '../../configs/settings';
