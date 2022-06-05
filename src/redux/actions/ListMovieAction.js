@@ -4,6 +4,7 @@ import {
   domain,
   LIST_MOVIE_NOW_SHOW,
   maNhom,
+  maNhomPhimSapChieu,
   LIST_MOVIE_COMING_SOON,
   OPENlOADING,
   CLOSELOADING,
@@ -40,7 +41,7 @@ export const listMovieComingSoonAction = () => {
   return async (dispatch) => {
     try {
       const result = await axios({
-        url: `${domain}/api/QuanLyPhim/LayDanhSachPhim?maNhom=${maNhom}`,
+        url: `${domain}/api/QuanLyPhim/LayDanhSachPhim?maNhom=${maNhomPhimSapChieu}`,
         method: 'GET',
       });
       dispatch({

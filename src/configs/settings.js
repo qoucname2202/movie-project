@@ -26,6 +26,10 @@ export const accessToken = 'accessToken';
 
 export const maNhom = 'GP04';
 
+export const maNhomAddMovie = 'GP06';
+
+export const maNhomPhimSapChieu = 'GP06';
+
 export const DETAIL_MOVIES = 'DETAIL_MOVIES';
 
 export const BOOK_TICKET = 'BOOK_TICKET';

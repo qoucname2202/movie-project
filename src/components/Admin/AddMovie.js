@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useFormik } from 'formik';
+import React from 'react';
 import * as yup from 'yup';
-import { useForm, Controller } from 'react-hook-form';
-import DatePicker from 'react-datepicker';
+import { useForm } from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { addMovieAction } from '../../redux/actions/ListMovieAction';
 import axios from 'axios';
 import { domain, maNhom } from '../../configs/settings';
-
+import Swal from 'sweetalert2';
 export default function AddMovie(props) {
   const {
     register,
@@ -32,9 +29,21 @@ export default function AddMovie(props) {
     })
       .then((res) => {
         console.log(res);
+        Swal.fire({
+          icon: 'success',
+          title: 'Thêm phim thành công',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       })
       .catch((err) => {
         console.log(err.response.data);
+        Swal.fire({
+          icon: 'error',
+          title: 'Thêm phim thất bại',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       });
   };
   return (
@@ -131,6 +140,7 @@ export default function AddMovie(props) {
                   <div className="col-md-10">
                     <input
                       type="text"
+                      // Mã nhóm để add vào
                       value={maNhom}
                       {...register('maNhom', {
                         required: true,

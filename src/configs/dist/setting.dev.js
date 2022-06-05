@@ -12,6 +12,7 @@ exports.INFOR_ALL_USER =
   exports.BOOK_TICKET =
   exports.DETAIL_MOVIES =
   exports.maNhom =
+  exports.maNhomPhimSapChieu =
   exports.accessToken =
   exports.hoTen =
   exports.taiKhoan =
@@ -68,6 +69,9 @@ exports.accessToken = accessToken;
 // Mã nhóm
 var maNhom = 'GP04';
 exports.maNhom = maNhom;
+// Mã nhóm phim sắp chiêu
+var maNhomPhimSapChieu = 'GP03';
+exports.maNhomPhimSapChieu = maNhomPhimSapChieu;
 // Thông tin chi tiết phim
 var DETAIL_MOVIES = 'DETAIL_MOVIES';
 exports.DETAIL_MOVIES = DETAIL_MOVIES;

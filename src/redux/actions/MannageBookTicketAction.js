@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { BOOKTICKET_MOVIE, domain } from '../../configs/settings';
+import { domain } from '../../configs/settings';
 import { history } from '../../App';
 import { bookTicketAction } from './ListMovieAction';
+import Swal from 'sweetalert2';
 
 export const bookTicketsAction = (thongTinDatVe) => {
   return async (dispatch) => {
@@ -9,28 +10,31 @@ export const bookTicketsAction = (thongTinDatVe) => {
       const result = await axios({
         url: `${domain}/api/QuanLyDatVe/DatVe`,
         method: 'POST',
-        data: thongTinDatVe, //JWT
+        data: thongTinDatVe,
         headers: { Authorization: 'Bearer ' + localStorage.getItem('accessToken') },
       });
 
       if (result.status === 200) {
-        alert('Đặt vé thành công!');
-        //load về trang đầu đặt vé
-        // history.push('/');
-
-        //Load về tại trang
+        Swal.fire({
+          icon: 'success',
+          title: 'Đặt vé thành công',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        //load về trang đầu đặt vé - Load về tại trang
         history.push(`/checkout/${thongTinDatVe.maLichChieu}`);
         //Gọi lại action lấy thông tin phòng vé (đã xây dựng sẵn)
         dispatch(bookTicketAction(thongTinDatVe.maLichChieu));
       }
       console.log('result', result);
-
-      //    dispatch({
-      //        type: BOOKTICKET_MOVIE,
-      //        listSeatBooks: result.data
-      //    })
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Đặt vé không thành công',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
 };
