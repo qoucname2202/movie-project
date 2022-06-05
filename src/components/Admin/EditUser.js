@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { editUserAction } from '../../redux/actions/UserAction';
-import { maNhom } from '../../configs/settings';
+// import { maNhom } from '../../configs/settings';
 
 export default function EditUser(props) {
   const { taiKhoan } = props;
@@ -11,7 +11,7 @@ export default function EditUser(props) {
   const [user, setUser] = useState({});
   // const [dsUser, setDSUser] = useState(null);
   const dispatch = useDispatch();
-  const { accessToken } = useSelector((state) => state.UserReducer);
+  // const { accessToken } = useSelector((state) => state.UserReducer);
   useEffect(() => {
     if (thongTinUserAll.length > 0 && taiKhoan !== '') {
       let index = thongTinUserAll.findIndex((item) => item.taiKhoan === taiKhoan);

@@ -22,6 +22,14 @@
 - Comment đánh giá phim
 - Chi tiết đặt vé - thông tin phòng vé được thiết kế bắt mắt
 - Xác thực: Đăng nhập, Đăng ký và Đăng xuất
-- Xem thông tin chi tiết phim: Hình ảnh, Trailer, Diễn viên, Đánh giá
+- Xem thông tin chi tiết phim: Hình ảnh, Trailer, Diễn viên, Đánh giá phim
 - Đặt vé realtime
+- Thanh toán online sử dụng VNPay
 - Xem danh sách phim đang chiếu hoặc phim sắp chiếu.
+
+---
+
+## 🍀 Phần 3: Hướng dẫn chạy chương trình
+
+- Bước 1: Sau khi clone project từ `gitbub`: `npm i`
+- Bước 2: Sau khi hoàn thành xong `Bước 1`: `npm start`
