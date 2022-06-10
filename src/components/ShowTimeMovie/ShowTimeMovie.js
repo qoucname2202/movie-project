@@ -11,7 +11,7 @@ export default function ShowTimeMovie({ reful }) {
   const { listMovie } = useSelector((state) => state.ShowTimeMovieReducer);
   useEffect(() => {
     dispatch(ListMovieShowTimeAction());
-  }, []);
+  });
 
   return (
     <section className="cinema-block" id="theater" ref={reful}>
@@ -124,7 +124,6 @@ export default function ShowTimeMovie({ reful }) {
                                                 ? 1
                                                 : -1,
                                             )
-                                            .slice(0, 8)
                                             .map((timeShow, index) => {
                                               if (
                                                 moment() <= moment(timeShow.ngayChieuGioChieu) &&

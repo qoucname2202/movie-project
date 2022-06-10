@@ -21,6 +21,10 @@ export const bookTicketsAction = (thongTinDatVe) => {
           showConfirmButton: false,
           timer: 1500,
         });
+        dispatch({
+          type: 'XOA_DANH_SACH_DA_DAT',
+        });
+        localStorage.removeItem('gheDangDat');
         //load về trang đầu đặt vé - Load về tại trang
         history.push(`/checkout/${thongTinDatVe.maLichChieu}`);
         //Gọi lại action lấy thông tin phòng vé (đã xây dựng sẵn)

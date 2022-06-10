@@ -56,6 +56,14 @@ export default function Checkout(props) {
       type: 'CAP_NHAT_LICH_CHIEU_DANG_DAT',
       maLichChieu: id,
     });
+    let gheDangDat = localStorage.getItem('gheDangDat');
+    if (gheDangDat) {
+      dispatch({
+        type: 'CAP_NHAT_DANH_SACH_DANG_DAT',
+        danhSachGheDangDat: JSON.parse(gheDangDat),
+        maLichChieu: id,
+      });
+    }
   }, []);
   useEffect(() => {
     handleTime();
@@ -67,7 +75,11 @@ export default function Checkout(props) {
     socket.on('SEND_DISABLE_SEAT_NOW', (data) => {
       let { maLichChieu, listDisablesCurrent } = data;
       if (maLichChieu === id) {
-        setdisableSeats([...listDisablesCurrent]);
+        console.log(danhSachGheDangDat);
+        let temp = [...listDisablesCurrent].filter(
+          (item) => danhSachGheDangDat.findIndex((ghe) => ghe.maGhe === item.maGhe) === -1,
+        );
+        setdisableSeats([...temp]);
       }
     });
     socket.on('SEND_REMOVE_SELECT_SEAT', (data) => {
@@ -87,7 +99,7 @@ export default function Checkout(props) {
       let listSeat = danhSachGheDangDat.map((item) => item.maGhe);
       socket.emit('REMOVE_SELECT_SEAT', { taiKhoan: taiKhoan.taiKhoan, maLichChieu: id, listSeat });
     };
-  }, []);
+  }, [danhSachGheDangDat]);
   useEffect(() => {
     //Nguoi khac bat dau chon ghe
     socket.on('RECEIVE_CHON_GHE_SELECT', (data) => {
@@ -342,6 +354,7 @@ export default function Checkout(props) {
                       bankCode: '',
                       orderDescription: `${userLogin.hoTen} các ghế đã đặt ${listGhe} phim :  ${bookTicket.thongTinPhim.tenPhim} vào lúc ${bookTicket.thongTinPhim.gioChieu}`,
                     });
+                    // window.open(payment, '_blank').focus();
                     window.location.href = payment;
                   }}
                 >

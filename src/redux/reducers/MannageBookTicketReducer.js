@@ -17,6 +17,8 @@ const MannageBookTicketReducer = (state = stateDefault, action) => {
         socket.emit('SEND_BO_CHON_GHE_SELECT', { taiKhoan, seat, maLichChieu });
       } else {
         state.danhSachGheDangDat.push(action.seat);
+        let gheDangDat = [...state.danhSachGheDangDat];
+        localStorage.setItem('gheDangDat', JSON.stringify(gheDangDat));
         // Disable seat
         socket.emit('SEND_CHON_GHE_SELECT', { taiKhoan, seat, maLichChieu });
       }
@@ -28,7 +30,15 @@ const MannageBookTicketReducer = (state = stateDefault, action) => {
       state.maLichChieuDangDat = action.maLichChieu;
       return { ...state };
     }
-
+    case 'XOA_DANH_SACH_DA_DAT': {
+      state.danhSachGheDangDat = [];
+      return { ...state };
+    }
+    case 'CAP_NHAT_DANH_SACH_DANG_DAT': {
+      state.danhSachGheDangDat = [...action.danhSachGheDangDat];
+      state.maLichChieuDangDat = action.maLichChieu;
+      return { ...state };
+    }
     default:
       return { ...state };
   }

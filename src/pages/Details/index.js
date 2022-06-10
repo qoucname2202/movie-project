@@ -15,12 +15,24 @@ import { Rate } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../utils/db';
+import axios from 'axios';
 
 const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 
 export default function Details(props) {
+  const API_KEY = 'k_0a2a2lmq';
   const { detailsMovies } = useSelector((state) => state.ListMovieReducer);
   const [date, setDate] = useState(Date.now());
+  const [detailFilm, setDetailFilm] = useState({});
+
+  const getDetailFilm = async () => {
+    try {
+      let data = await axios.get(`https://imdb-api.com/en/API/SearchMovie/${API_KEY}/${detailsMovies.tenPhim}`);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const dispatch = useDispatch();
 
@@ -35,6 +47,28 @@ export default function Details(props) {
   const [listComment, setListComment] = useState([]);
   const { id } = useParams();
   useEffect(() => {
+    getDetailFilm()
+      .then((res) => {
+        console.log(res);
+        const listMovie = res.data.results;
+        console.log(listMovie);
+        const idFilm = listMovie[0].id;
+        (async () => {
+          try {
+            let response = await axios.get(`https://imdb-api.com/en/API/Title/${API_KEY}/${idFilm}`);
+            const listFilm = response.data;
+            console.log(listFilm);
+            // const actor = listFilm.actorList.filter((item, index) => index <= 3);
+            // const { directors, genres, releaseDate, runtimeMins } = listFilm;
+            // console.log(directors, genres, releaseDate, runtimeMins);
+          } catch (error) {
+            console.log(error);
+          }
+        })();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     let document = doc(db, 'comment', id);
     onSnapshot(document, (snapshot) => {
       if (snapshot.exists) {
@@ -43,7 +77,6 @@ export default function Details(props) {
     });
     dispatch(detailsMoviesAction(id));
   }, []);
-
   const handelLogin = () => {
     history.replace('/login?redirectTo=/details/' + id);
   };
@@ -276,7 +309,6 @@ export default function Details(props) {
                                               ? 1
                                               : -1,
                                           )
-                                          .slice(0, 8)
                                           .map((time, index) => {
                                             if (
                                               moment().isBefore(moment(time.ngayChieuGioChieu)) &&
