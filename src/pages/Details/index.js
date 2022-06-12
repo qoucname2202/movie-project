@@ -20,11 +20,17 @@ import axios from 'axios';
 const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 
 export default function Details(props) {
-  const API_KEY = 'k_0a2a2lmq';
+  // const API_KEY = 'k_0a2a2lmq';
+  const API_KEY = 'k_lsttjwzi';
   const { detailsMovies } = useSelector((state) => state.ListMovieReducer);
   const [date, setDate] = useState(Date.now());
   const [detailFilm, setDetailFilm] = useState({});
-
+  const dispatch = useDispatch();
+  const [comment, setComment] = useState('');
+  const [listComment, setListComment] = useState([]);
+  const { id } = useParams();
+  // star
+  const [rating, setRating] = useState(5);
   const getDetailFilm = async () => {
     try {
       let data = await axios.get(`https://imdb-api.com/en/API/SearchMovie/${API_KEY}/${detailsMovies.tenPhim}`);
@@ -33,42 +39,19 @@ export default function Details(props) {
       console.log(error);
     }
   };
-
-  const dispatch = useDispatch();
-
-  // star
-  const [rating, setRating] = useState(5);
+  function timeConvert(minute) {
+    var num = parseInt(minute);
+    var hours = num / 60;
+    var rhours = Math.floor(hours);
+    var minutes = (hours - rhours) * 60;
+    var rminutes = Math.round(minutes);
+    return `${rhours} giờ ${rminutes} phút`;
+  }
 
   const handleChange = (value) => {
     setRating(value);
   };
-
-  const [comment, setComment] = useState('');
-  const [listComment, setListComment] = useState([]);
-  const { id } = useParams();
   useEffect(() => {
-    getDetailFilm()
-      .then((res) => {
-        console.log(res);
-        const listMovie = res.data.results;
-        console.log(listMovie);
-        const idFilm = listMovie[0].id;
-        (async () => {
-          try {
-            let response = await axios.get(`https://imdb-api.com/en/API/Title/${API_KEY}/${idFilm}`);
-            const listFilm = response.data;
-            console.log(listFilm);
-            // const actor = listFilm.actorList.filter((item, index) => index <= 3);
-            // const { directors, genres, releaseDate, runtimeMins } = listFilm;
-            // console.log(directors, genres, releaseDate, runtimeMins);
-          } catch (error) {
-            console.log(error);
-          }
-        })();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     let document = doc(db, 'comment', id);
     onSnapshot(document, (snapshot) => {
       if (snapshot.exists) {
@@ -77,6 +60,40 @@ export default function Details(props) {
     });
     dispatch(detailsMoviesAction(id));
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      getDetailFilm()
+        .then((res) => {
+          const listMovie = res.data.results;
+          const idFilm = listMovie[0].id;
+          console.log(idFilm);
+          (async () => {
+            try {
+              let response = await axios.get(`https://imdb-api.com/en/API/Title/${API_KEY}/${idFilm}`);
+              const listFilm = response.data;
+              // console.log(listFilm);
+              // const actor = listFilm.actorList.filter((item, index) => index <= 3);
+              const { directors, genres, releaseDate, runtimeMins, stars, companies } = listFilm;
+              setDetailFilm({
+                actor: stars,
+                directors: directors,
+                genres: genres,
+                releaseDate: releaseDate,
+                runtimeMins: runtimeMins,
+                companies: companies,
+              });
+            } catch (error) {
+              console.log(error);
+            }
+          })();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 1000);
+  }, [detailsMovies.tenPhim]);
+
   const handelLogin = () => {
     history.replace('/login?redirectTo=/details/' + id);
   };
@@ -291,7 +308,12 @@ export default function Details(props) {
                                     <Fragment key={index}>
                                       <div className="row">
                                         <div className="movie-img col-2-img">
-                                          <img src={detailsMovies.hinhAnh} class="img-fluid" width="50px" alt="img" />
+                                          <img
+                                            src={detailsMovies.hinhAnh}
+                                            className="img-fluid"
+                                            width="50px"
+                                            alt="img"
+                                          />
                                         </div>
                                         <div className="wrap-infor pl-0 col-10-infor">
                                           <p>
@@ -349,27 +371,27 @@ export default function Details(props) {
                 <div className="col-md-6 movie-left">
                   <div className="inforleft">
                     <p className="title">Ngày công chiếu</p>
-                    <p className="txt">{moment(detailsMovies.ngayKhoiChieu).format('DD/MM/YYYY')}</p>
+                    <p className="txt">{moment(detailFilm.releaseDate).format('DD/MM/YYYY')}</p>
                   </div>
                   <div className="inforleft">
                     <p className="title">Đạo diễn</p>
-                    <p className="txt">Alexs Stadermann</p>
+                    <p className="txt">{detailFilm.directors}</p>
                   </div>
                   <div className="inforleft">
                     <p className="title">Diễn viên</p>
-                    <p className="txt">Benedict Cumberbatch</p>
+                    <p className="txt">{detailFilm.actor}</p>
                   </div>
                   <div className="inforleft">
                     <p className="title">Thể Loại</p>
-                    <p className="txt">Hành Động, Phiêu Lưu</p>
+                    <p className="txt">{detailFilm.genres}</p>
                   </div>
                   <div className="inforleft">
-                    <p className="title">Định dạng</p>
-                    <p className="txt">2D/Digital</p>
+                    <p className="title">Nhà sản xuất</p>
+                    <p className="txt">{detailFilm.companies}</p>
                   </div>
                   <div className="inforleft">
                     <p className="title">Thời lượng</p>
-                    <p className="txt">120 phút</p>
+                    <p className="txt">{timeConvert(detailFilm.runtimeMins)}</p>
                   </div>
                 </div>
                 <div className="col-md-6">

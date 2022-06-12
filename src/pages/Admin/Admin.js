@@ -5,7 +5,6 @@ import ManagerUser from '../../components/Admin/ManagerUser';
 import Swal from 'sweetalert2';
 import { useSelector, useDispatch } from 'react-redux';
 import { CLOSELOADING, LOGOUT } from '../../configs/settings';
-import { history } from '../../App';
 
 export default function Admin() {
   let dispatch = useDispatch();

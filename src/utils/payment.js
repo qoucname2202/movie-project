@@ -1,7 +1,6 @@
 import dateFormat from 'date-format';
 import sortObject from 'sortobject';
 import qs from 'qs';
-import { Buffer } from 'buffer';
 const crypto = require('crypto-js');
 // {
 // amount,bankCode,orderDescription

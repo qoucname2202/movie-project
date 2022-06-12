@@ -13,9 +13,6 @@ import {
   CreateMovieShowTimeAction,
   GetTimeShowMovieAction,
 } from '../../redux/actions/ShowTimeMovieAction';
-import axios from 'axios';
-import { domain } from '../../configs/settings';
-import { history } from '../../App';
 
 // Yup validateion schema
 const schema = yup

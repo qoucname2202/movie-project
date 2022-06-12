@@ -3,8 +3,20 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { RegisterAction } from '../../redux/actions/UserAction';
+import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 const Register = () => {
   const dispatch = useDispatch();
+  const { t, i18n } = useTranslation();
+  const i18Local = localStorage.getItem('i18nextLng');
+  useEffect(() => {
+    if (i18Local === '') {
+      i18n.changeLanguage('en');
+    } else {
+      i18n.changeLanguage(i18Local);
+    }
+  }, []);
   const formik = useFormik({
     initialValues: {
       taiKhoan: '',
@@ -14,18 +26,14 @@ const Register = () => {
       email: '',
     },
     validationSchema: yup.object().shape({
-      taiKhoan: yup.string().required('Tài khoản không được bỏ trống!'),
-      matKhau: yup.string().required('Mật khẩu không được bỏ trống!').min(6, 'Tài khoản tối thiểu phải 6 ký tự'),
+      taiKhoan: yup.string().required(t('userEmpty')),
+      matKhau: yup.string().required(t('passwordEmpty')).min(6, t('passwordLength')),
       hoTen: yup
         .string()
-        .required('Họ tên không được bỏ trống!')
-        .matches(/^[aA-zZ\s]+$/, 'Họ và tên không được nhập ký tự đặc biệt'),
-      soDt: yup
-        .string()
-        .required('Số điện thoại không được bỏ trống!')
-        .min(10, 'Số điện thoại tối thiểu phải 10 số')
-        .max(10, 'Số điện thoại tối đa phải 10 số'),
-      email: yup.string().required('Email không được bỏ trống!').email('Email không đúng định dạng'),
+        .required(t('nameEmpty'))
+        .matches(/^[aA-zZ\s]+$/, t('nameCharacter')),
+      soDt: yup.string().required(t('phoneEmpty')).min(10, t('phoneLeast')).max(10, 'phoneMax'),
+      email: yup.string().required(t('emailEmpty')).email(t('emailFormat')),
     }),
     onSubmit: (values) => {
       values.maNhom = 'GP01';
@@ -36,14 +44,14 @@ const Register = () => {
   return (
     <div className="inner-bg-user">
       <nav className="navbar navbar-light">
-        <a className="navbar-brand" href="#!">
+        <Link className="navbar-brand" to="/home">
           <img src="../images/logo_1.png" alt="logo" />
-        </a>
+        </Link>
       </nav>
       <form className="form-user" onSubmit={formik.handleSubmit}>
-        <h1 className="ttl">Sign up</h1>
+        <h1 className="ttl">{t('signup')}</h1>
         <div className="form-group mb-3">
-          <label className="form-label">Username</label>
+          <label className="form-label">{t('username')}</label>
           <input
             type="text"
             className="form-control"
@@ -58,7 +66,7 @@ const Register = () => {
           )}
         </div>
         <div className="form-group mb-3">
-          <label className="form-label">Password</label>
+          <label className="form-label">{t('password')}</label>
           <input
             type="password"
             className="form-control"
@@ -73,7 +81,7 @@ const Register = () => {
           )}
         </div>
         <div className="form-group mb-3">
-          <label className="form-label">Fullname</label>
+          <label className="form-label">{t('hoTen')}</label>
           <input
             type="text"
             className="form-control"
@@ -84,7 +92,7 @@ const Register = () => {
           {formik.errors.hoTen && formik.touched.hoTen ? <p className="text-danger">{formik.errors.hoTen}</p> : ''}
         </div>
         <div className="form-group mb-3">
-          <label className="form-label">Phone number</label>
+          <label className="form-label">{t('soDienThoai')}</label>
           <input
             type="text"
             className="form-control"
@@ -95,7 +103,7 @@ const Register = () => {
           {formik.errors.soDt && formik.touched.soDt ? <p className="text-danger">{formik.errors.soDt}</p> : ''}
         </div>
         <div className="form-group">
-          <label className="form-label">Email</label>
+          <label className="form-label">{t('email')}</label>
           <input
             type="email"
             className="form-control"
@@ -107,7 +115,7 @@ const Register = () => {
         </div>
         <div className="form-group">
           <button type="submit" className="btn btnsubmit">
-            Sign up
+            {t('signup')}
           </button>
         </div>
       </form>

@@ -5,16 +5,24 @@ import moment from 'moment';
 import { taiKhoan } from '../../configs/settings';
 import { useFormik } from 'formik';
 import { history } from '../../App';
+import { useTranslation } from 'react-i18next';
 
 export default function Profile(props) {
   const { thongTinUser } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
+  const { t, i18n } = useTranslation();
+  const i18Local = localStorage.getItem('i18nextLng');
 
   useEffect(() => {
     if (!localStorage.getItem(taiKhoan)) {
       history.replace('/login');
     }
     let userLogin = JSON.parse(localStorage.getItem(taiKhoan));
+    if (i18Local === '') {
+      i18n.changeLanguage('en');
+    } else {
+      i18n.changeLanguage(i18Local);
+    }
     let profileUser = {
       taiKhoan: userLogin.taiKhoan,
     };
@@ -52,7 +60,7 @@ export default function Profile(props) {
               aria-controls="pills-home"
               aria-selected="true"
             >
-              Lịch Sử Đặt Vé
+              {t('history')}
             </a>
           </li>
           <li className="nav-item" role="presentation">
@@ -65,7 +73,7 @@ export default function Profile(props) {
               aria-controls="pills-profile"
               aria-selected="false"
             >
-              Thông Tin Cá Nhân
+              {t('profile')}
             </a>
           </li>
         </ul>
@@ -79,11 +87,10 @@ export default function Profile(props) {
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th>STT</th>
-                  <th>Tên Phim</th>
-                  <th>Tên Cụm Rạp</th>
-                  <th>Ngày Đặt</th>
-                  {/* <th>Tổng Tiền</th> */}
+                  <th>{t('stt')}</th>
+                  <th>{t('movieName')}</th>
+                  <th>{t('theaterName')}</th>
+                  <th>{t('bookingDate')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -99,7 +106,6 @@ export default function Profile(props) {
                               {ghe.tenRap} - {ghe.tenGhe}
                             </td>
                             <td>{moment(user.ngayDat).format('DD/MM/YYYY')}</td>
-                            {/* <td>{ghe.tongTien}</td> */}
                           </tr>
                         );
                       })}
@@ -114,7 +120,7 @@ export default function Profile(props) {
               <div className="row">
                 <div className="form-left col-md-6">
                   <div className="form-group">
-                    <label className="label">Email</label>
+                    <label className="label">{t('email')}</label>
                     <input
                       type="text"
                       name="email"
@@ -125,7 +131,7 @@ export default function Profile(props) {
                     />
                   </div>
                   <div className="form-group">
-                    <label className="label">Họ Tên</label>
+                    <label className="label">{t('hoTen')}</label>
                     <input
                       type="text"
                       name="hoTen"
@@ -135,7 +141,7 @@ export default function Profile(props) {
                     />
                   </div>
                   <div className="form-group">
-                    <label className="label">Số Điện Thoại</label>
+                    <label className="label">{t('soDienThoai')}</label>
                     <input
                       type="text"
                       name="soDt"
@@ -147,7 +153,7 @@ export default function Profile(props) {
                 </div>
                 <div className="form-right col-md-6">
                   <div className="form-group">
-                    <label className="label">Tài Khoản</label>
+                    <label className="label">{t('username')}</label>
                     <input
                       type="text"
                       name="taiKhoan"
@@ -158,7 +164,7 @@ export default function Profile(props) {
                     />
                   </div>
                   <div className="form-group">
-                    <label className="label">Mật Khẩu</label>
+                    <label className="label">{t('password')}</label>
                     <input
                       type="password"
                       name="matKhau"

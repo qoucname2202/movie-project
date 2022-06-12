@@ -5,10 +5,23 @@ import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { UserAction } from '../../redux/actions/UserAction';
 import qs from 'qs';
+import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 const Login = () => {
   const dispatch = useDispatch();
   const search = useLocation().search.substring(1);
   const { redirectTo } = qs.parse(search);
+  const { t, i18n } = useTranslation();
+
+  const i18Local = localStorage.getItem('i18nextLng');
+
+  useEffect(() => {
+    if (i18Local === '') {
+      i18n.changeLanguage('en');
+    } else {
+      i18n.changeLanguage(i18Local);
+    }
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -16,8 +29,8 @@ const Login = () => {
       matKhau: '',
     },
     validationSchema: yup.object().shape({
-      taiKhoan: yup.string().required('Tài khoản không được bỏ trống!'),
-      matKhau: yup.string().required('Mật khẩu không được bỏ trống!').min(6, 'Mật khẩu tối đa 6 ký tự'),
+      taiKhoan: yup.string().required(t('userEmpty')),
+      matKhau: yup.string().required(t('passwordEmpty')).min(6, t('passwordLength')),
     }),
     onSubmit: (values) => {
       dispatch(UserAction(values, redirectTo));
@@ -32,9 +45,9 @@ const Login = () => {
         </Link>
       </nav>
       <form className="form-user" onSubmit={formik.handleSubmit}>
-        <h1 className="ttl">Sign In</h1>
+        <h1 className="ttl">{t('signin')}</h1>
         <div className="form-group mb-3">
-          <label className="form-label">Username</label>
+          <label className="form-label">{t('username')}</label>
           <i className="far fa-user user"></i>
           <input
             type="text"
@@ -50,7 +63,7 @@ const Login = () => {
           )}
         </div>
         <div className="form-group">
-          <label className="form-label">Password</label>
+          <label className="form-label">{t('password')}</label>
           <i className="fas fa-lock user"></i>
           <input
             type="password"
@@ -67,15 +80,15 @@ const Login = () => {
         </div>
         <div className="form-group mb-3">
           <button type="submit" className="btn btnsubmit" disabled={!formik.isValid}>
-            Sign in
+            {t('signin')}
           </button>
         </div>
         <div className="registernow">
           <p>
-            Do not have an account? <Link to="/register">Sign up</Link>
+            {t('unaccount')} <Link to="/register">{t('signup')}</Link>
           </p>
           <Link className="backhome" to="/home">
-            Back Home
+            {t('backHome')}
           </Link>
         </div>
       </form>

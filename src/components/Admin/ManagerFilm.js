@@ -5,7 +5,7 @@ import moment from 'moment';
 import ModalShowCalendar from './ModalShowCalendar';
 import AddMovie from './AddMovie';
 import { Image, Table } from 'antd';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import EditMovie from './EditMovie';
 
 export default function ManagerFilm(props) {

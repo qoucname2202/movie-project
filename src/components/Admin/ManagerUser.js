@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { deleteUserAction, inforUserAllAction } from '../../redux/actions/UserAction';
 import AddUser from './AddUser';
 import { Switch, Table } from 'antd';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import EditUser from './EditUser';
 
 export default function ManagerUser(props) {

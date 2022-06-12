@@ -90,7 +90,7 @@ const Header = () => {
                 ) : (
                   <NavLink className="nav-link" to="/login">
                     <img src="../images/avatar.png" alt="avatar" className="img-avatar" />
-                    {t('signin.2')}
+                    {t('signin')}
                   </NavLink>
                 )}
               </li>
