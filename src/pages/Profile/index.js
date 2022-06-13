@@ -6,12 +6,14 @@ import { taiKhoan } from '../../configs/settings';
 import { useFormik } from 'formik';
 import { history } from '../../App';
 import { useTranslation } from 'react-i18next';
+import { useRef } from 'react';
 
 export default function Profile(props) {
   const { thongTinUser } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const i18Local = localStorage.getItem('i18nextLng');
+  let counter = useRef(0);
 
   useEffect(() => {
     if (!localStorage.getItem(taiKhoan)) {
@@ -45,7 +47,11 @@ export default function Profile(props) {
       dispatch(editUserAction(values));
     },
   });
-
+  const incNumber = () => {
+    counter.current += 1;
+    let number = counter.current;
+    return number;
+  };
   return (
     <div className="main-height admin-main profile-admin">
       <div className="container">
@@ -97,10 +103,10 @@ export default function Profile(props) {
                 {thongTinUser.thongTinDatVe?.map((user, index) => {
                   return (
                     <Fragment key={index}>
-                      {user.danhSachGhe?.map((ghe, index) => {
+                      {user.danhSachGhe?.map((ghe, index2) => {
                         return (
-                          <tr key={index}>
-                            <td></td>
+                          <tr key={index2}>
+                            <td>{incNumber()}</td>
                             <td>{user.tenPhim}</td>
                             <td>
                               {ghe.tenRap} - {ghe.tenGhe}

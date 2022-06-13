@@ -53,5 +53,22 @@
   "mobile": "TẢI VỀ",
   "project": "ĐỒ ÁN TỐT NGHIỆP",
   "address": "Address: 475A Điện Biên Phủ, Phường 25, Quận Bình Thạnh, TP. Hồ Chí Minh",
-  "phone": "Phone (Hotline)"
+  "phone": "Phone (Hotline)",
+  "director": "Đạo diễn",
+  "cast": "Diễn viên",
+  "genre": "Thể loại",
+  "release": "Ngày công chiếu",
+  "runtime": "Thời gian",
+  "rating": "Đánh giá",
+  "product": "Nhà sản xuất",
+  "detail": "Chi tiết",
+  "descript": "Mô tả",
+  "think": "Bạn nghĩ gì về bộ phim này?",
+  "pleaseLogin": "Yêu cầu đăng nhập để đánh giá",
+  "post": "Đăng",
+  "placeholder": "Nói cho mọi người biết bạn nghĩ gì về phim này...",
+  "title01": "CHỌN GHẾ & THANH TOÁN",
+  "title02": "KẾT QUẢ ĐẶT VÉ",
+  "welcome": "Xin chào",
+  "timeChooseSeat": "Thời gian giữ ghế"
 }

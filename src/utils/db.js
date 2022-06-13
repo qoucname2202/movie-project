@@ -1,7 +1,17 @@
 // JavaScript
 // src/firebase.js
 import { initializeApp } from 'firebase/app';
-import { getFirestore, doc, updateDoc, arrayUnion, getDoc, deleteDoc, setDoc, onSnapshot } from 'firebase/firestore';
+import {
+  getFirestore,
+  doc,
+  updateDoc,
+  arrayUnion,
+  getDoc,
+  setDoc,
+  onSnapshot,
+  addDoc,
+  collection,
+} from 'firebase/firestore';
 import { taiKhoan } from '../configs/settings';
 
 const firebaseConfig = {
@@ -26,10 +36,20 @@ const addNewComment = async (idMovie, taiKhoan, content, rating, idComment) => {
     user: taiKhoan,
     like: [],
   };
-  let document = doc(db, 'comment', idMovie);
-  updateDoc(document, {
-    comment: arrayUnion(data),
-  });
+  let document = await doc(collection(db, 'comment'), idMovie);
+  let snapshot = await getDoc(document);
+  if (snapshot.exists()) {
+    let arrcmt = snapshot.data().comment;
+    console.log(arrcmt);
+    arrcmt.push(data);
+    await updateDoc(document, {
+      comment: arrcmt,
+    });
+  } else {
+    await setDoc(document, {
+      comment: [data],
+    });
+  }
 };
 
 const getComment = async (idMovie) => {
@@ -39,6 +59,20 @@ const getComment = async (idMovie) => {
       return snapshot.data().comment;
     }
   });
+};
+
+const getMovie = async (idMovie) => {
+  let document = await doc(collection(db, 'detail'), idMovie);
+  const docSnap = await getDoc(document);
+  if (docSnap.exists()) {
+    return docSnap.data();
+  }
+  return null;
+};
+
+const addMovie = async (idMovie, data) => {
+  let document = await doc(collection(db, 'detail'), idMovie);
+  await setDoc(document, data);
 };
 
 const updateLike = async (idMovie, idComment) => {
@@ -75,4 +109,4 @@ const updateLike = async (idMovie, idComment) => {
   });
 };
 
-export { db, addNewComment, getComment, updateLike };
+export { db, addNewComment, getComment, updateLike, getMovie, addMovie };

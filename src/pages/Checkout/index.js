@@ -12,9 +12,12 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import socketio from 'socket.io-client';
 import paymentUrl from '../../utils/payment';
+import { useTranslation } from 'react-i18next';
 //Socket IO Library
 const socket = socketio.connect('http://localhost:8000');
 export default function Checkout(props) {
+  const { t, i18n } = useTranslation();
+  const i18Locale = localStorage.getItem('i18nextLng');
   //validate form checkout
   const { handleBlur, handleSubmit, handleChange, touched, errors, isValid } = useFormik({
     initialValues: {
@@ -51,6 +54,11 @@ export default function Checkout(props) {
   const dispatch = useDispatch();
   let { id } = useParams();
   useEffect(() => {
+    if (i18Locale === '') {
+      i18n.changeLanguage('en');
+    } else {
+      i18n.changeLanguage(i18Locale);
+    }
     dispatch(bookTicketAction(id));
     dispatch({
       type: 'CAP_NHAT_LICH_CHIEU_DANG_DAT',
@@ -215,11 +223,11 @@ export default function Checkout(props) {
             <div className="seattitle">
               <div className="row" style={{ justifyContent: 'space-between' }}>
                 <div className="titleleft">
-                  <h2 className="ttl2"> 01 CHỌN GHẾ & THANH TOÁN</h2>
-                  <h3 className="ttl3"> 02 KẾT QUẢ ĐẶT VÉ</h3>
+                  <h2 className="ttl2"> 01 {t('title01')}</h2>
+                  <h3 className="ttl3"> 02 {t('title02')}</h3>
                 </div>
                 <div className="titleright">
-                  Xin chào <span className="user">, </span>
+                  {t('welcome')} <span className="user">, </span>
                   <NavLink
                     to={'/'}
                     onclick={() => {
@@ -227,7 +235,7 @@ export default function Checkout(props) {
                     }}
                     className="out"
                   >
-                    Thoát
+                    {t('backHome')}
                   </NavLink>
                 </div>
               </div>
@@ -250,7 +258,7 @@ export default function Checkout(props) {
                     </div>
                   </div>
                   <div className="chooseseat-time">
-                    <p className="title">Thời gian giữ ghế</p>
+                    <p className="title">{t('timeChooseSeat')}</p>
                     <div className="chooseseat-seat">
                       <span className="time" id="timephut">
                         0{timeM}
@@ -358,7 +366,7 @@ export default function Checkout(props) {
                     window.location.href = payment;
                   }}
                 >
-                  Đặt vé
+                  {t('buyticket')}
                 </button>
               </form>
             </div>

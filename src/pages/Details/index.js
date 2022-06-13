@@ -10,27 +10,32 @@ import Comment from '../../components/Comment';
 import { Link } from 'react-scroll';
 import MomentTZ from 'moment-timezone';
 import { history } from '../../App';
-import { addNewComment, getComment } from '../../utils/db';
+import { addNewComment, getComment, getMovie, addMovie } from '../../utils/db';
 import { Rate } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../utils/db';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 
 export default function Details(props) {
   // const API_KEY = 'k_0a2a2lmq';
-  const API_KEY = 'k_lsttjwzi';
+  // const API_KEY = 'k_lsttjwzi';
+  const API_KEY = 'k_geqj8l6b';
   const { detailsMovies } = useSelector((state) => state.ListMovieReducer);
   const [date, setDate] = useState(Date.now());
   const [detailFilm, setDetailFilm] = useState({});
   const dispatch = useDispatch();
   const [comment, setComment] = useState('');
   const [listComment, setListComment] = useState([]);
+  const { t, i18n } = useTranslation();
+  const i18Local = i18n.language;
   const { id } = useParams();
   // star
   const [rating, setRating] = useState(5);
+
   const getDetailFilm = async () => {
     try {
       let data = await axios.get(`https://imdb-api.com/en/API/SearchMovie/${API_KEY}/${detailsMovies.tenPhim}`);
@@ -39,60 +44,72 @@ export default function Details(props) {
       console.log(error);
     }
   };
-  function timeConvert(minute) {
-    var num = parseInt(minute);
-    var hours = num / 60;
-    var rhours = Math.floor(hours);
-    var minutes = (hours - rhours) * 60;
-    var rminutes = Math.round(minutes);
-    return `${rhours} giờ ${rminutes} phút`;
-  }
+
+  //! Convert time get data from IMDB-API
+  // function timeConvert(minute) {
+  //   var num = parseInt(minute);
+  //   var hours = num / 60;
+  //   var rhours = Math.floor(hours);
+  //   var minutes = (hours - rhours) * 60;
+  //   var rminutes = Math.round(minutes);
+  //   return `${rhours} giờ ${rminutes} phút`;
+  // }
 
   const handleChange = (value) => {
     setRating(value);
   };
   useEffect(() => {
+    if (i18Local === '') {
+      i18n.changeLanguage('en');
+    } else {
+      i18n.changeLanguage(i18Local);
+    }
     let document = doc(db, 'comment', id);
     onSnapshot(document, (snapshot) => {
       if (snapshot.exists) {
-        setListComment(snapshot.data().comment);
+        setListComment(snapshot.data() ? snapshot.data().comment : []);
       }
     });
     dispatch(detailsMoviesAction(id));
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
-      getDetailFilm()
-        .then((res) => {
-          const listMovie = res.data.results;
-          const idFilm = listMovie[0].id;
-          console.log(idFilm);
-          (async () => {
-            try {
-              let response = await axios.get(`https://imdb-api.com/en/API/Title/${API_KEY}/${idFilm}`);
-              const listFilm = response.data;
-              // console.log(listFilm);
-              // const actor = listFilm.actorList.filter((item, index) => index <= 3);
-              const { directors, genres, releaseDate, runtimeMins, stars, companies } = listFilm;
-              setDetailFilm({
-                actor: stars,
-                directors: directors,
-                genres: genres,
-                releaseDate: releaseDate,
-                runtimeMins: runtimeMins,
-                companies: companies,
-              });
-            } catch (error) {
-              console.log(error);
-            }
-          })();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, 1000);
-  }, [detailsMovies.tenPhim]);
+    (async () => {
+      let movie = await getMovie(id);
+      if (movie) {
+        setDetailFilm(movie);
+      } else {
+        getDetailFilm()
+          .then((res) => {
+            const listMovie = res.data.results;
+            const idFilm = listMovie[0].id;
+            (async () => {
+              try {
+                let response = await axios.get(`https://imdb-api.com/en/API/Title/${API_KEY}/${idFilm}`);
+                const listFilm = response.data;
+                const { directors, genres, releaseDate, runtimeMins, stars, companies, imDbRating } = listFilm;
+                const data = {
+                  actor: stars,
+                  directors: directors,
+                  genres: genres,
+                  releaseDate: releaseDate,
+                  runtimeMins: runtimeMins,
+                  companies: companies,
+                  imDbRating: imDbRating,
+                };
+                setDetailFilm(data);
+                await addMovie(id, data);
+              } catch (error) {
+                console.log(error);
+              }
+            })();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    })();
+  }, [id]);
 
   const handelLogin = () => {
     history.replace('/login?redirectTo=/details/' + id);
@@ -142,11 +159,14 @@ export default function Details(props) {
   };
 
   const renderComment = () => {
-    return listComment
-      .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
-      .map((item, index) => {
-        return <Comment cmt={item} key={index} idMovie={id} />;
-      });
+    return (
+      listComment.length > 0 &&
+      listComment
+        .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
+        .map((item, index) => {
+          return <Comment cmt={item} key={index} idMovie={id} />;
+        })
+    );
   };
 
   const renderTotalRating = () => {
@@ -154,7 +174,7 @@ export default function Details(props) {
     [...listComment].map((item) => {
       return (totalRating += item.rating);
     });
-    return (totalRating / listComment.length).toFixed(1);
+    return listComment.length > 0 ? (totalRating / listComment.length).toFixed(1) : '4.0';
   };
 
   let setting = {
@@ -189,9 +209,9 @@ export default function Details(props) {
                   {detailsMovies.tenPhim}
                 </p>
                 <p className="date">{moment(detailsMovies.ngayKhoiChieu).format('DD/MM/YYYY')}</p>
-                <p className="time-ttl">120 phút - 2D/Digital</p>
+                <p className="time-ttl">120 {t('minutes')} - 2D/Digital</p>
                 <Link {...setting} to="schedule" className="btn btn-buy">
-                  Mua vé
+                  {t('buyticket')}
                 </Link>
               </div>
               <div className="col-md-2 circle-custom my-auto">
@@ -224,7 +244,7 @@ export default function Details(props) {
                 role="tab"
                 aria-controls="home"
               >
-                Lịch chiếu
+                {t('showtimes')}
               </a>
             </li>
             <li className="nav-item" role="presentation">
@@ -236,7 +256,7 @@ export default function Details(props) {
                 role="tab"
                 aria-controls="infomation"
               >
-                Thông tin
+                {t('detail')}
               </a>
             </li>
             <li className="nav-item" role="presentation">
@@ -248,7 +268,7 @@ export default function Details(props) {
                 role="tab"
                 aria-controls="review"
               >
-                Đánh giá
+                {t('rating')}
               </a>
             </li>
           </ul>
@@ -320,7 +340,7 @@ export default function Details(props) {
                                             <span className="age">P</span>
                                             {theater.tenCumRap}
                                           </p>
-                                          <span>120 phút -FOX 9.4 -IMDb 8.7</span>
+                                          <span>120 {t('minutes')} -FOX 9.4 -IMDb 8.7</span>
                                         </div>
                                       </div>
                                       <h5 className="ttl">2D Digital</h5>
@@ -370,32 +390,34 @@ export default function Details(props) {
               <div className="row">
                 <div className="col-md-6 movie-left">
                   <div className="inforleft">
-                    <p className="title">Ngày công chiếu</p>
+                    <p className="title">{t('release')}</p>
                     <p className="txt">{moment(detailFilm.releaseDate).format('DD/MM/YYYY')}</p>
                   </div>
                   <div className="inforleft">
-                    <p className="title">Đạo diễn</p>
+                    <p className="title">{t('director')}</p>
                     <p className="txt">{detailFilm.directors}</p>
                   </div>
                   <div className="inforleft">
-                    <p className="title">Diễn viên</p>
+                    <p className="title">{t('cast')}</p>
                     <p className="txt">{detailFilm.actor}</p>
                   </div>
                   <div className="inforleft">
-                    <p className="title">Thể Loại</p>
+                    <p className="title">{t('genre')}</p>
                     <p className="txt">{detailFilm.genres}</p>
                   </div>
                   <div className="inforleft">
-                    <p className="title">Nhà sản xuất</p>
+                    <p className="title">{t('product')}</p>
                     <p className="txt">{detailFilm.companies}</p>
                   </div>
                   <div className="inforleft">
-                    <p className="title">Thời lượng</p>
-                    <p className="txt">{timeConvert(detailFilm.runtimeMins)}</p>
+                    <p className="title">{t('runtime')}</p>
+                    <p className="txt">
+                      {detailFilm.runtimeMins} {t('minutes')}
+                    </p>
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <h4 className="ttl-4">Nội dung</h4>
+                  <h4 className="ttl-4">{t('descript')}</h4>
                   <p className="description">{detailsMovies.moTa}</p>
                 </div>
               </div>
@@ -409,13 +431,13 @@ export default function Details(props) {
                       <i className="fa fa-user user"></i>
                     </div>
                     <div className="col-md-8">
-                      <span className="txt-think">Bạn nghĩ gì về phim này?</span>
+                      <span className="txt-think">{t('think')}</span>
                     </div>
                   </div>
                 </div>
               ) : (
                 <div className="btn btn-success text-center btn-block" onClick={handelLogin}>
-                  Đăng nhập để đánh giá
+                  {t('pleaseLogin')}
                 </div>
               )}
               {listComment && renderComment()}
@@ -440,7 +462,7 @@ export default function Details(props) {
                     <div className="modal-body">
                       <textarea
                         value={comment}
-                        placeholder="Nói cho mọi người biết bạn nghĩ gì về phim này..."
+                        placeholder={t('placeholder')}
                         className="w-100"
                         style={{ height: '100px' }}
                         onChange={handleChangeComment}
@@ -453,7 +475,7 @@ export default function Details(props) {
                         data-dismiss="modal"
                         onClick={handleSubmitRating}
                       >
-                        Đăng
+                        {t('post')}
                       </button>
                     </div>
                   </div>

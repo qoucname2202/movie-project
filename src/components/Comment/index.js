@@ -12,7 +12,7 @@ export default function Comment(props) {
   // Rendering star
   const handelRenderStart = (rating) => {
     return Array.from({ length: rating }).map((_, index) => {
-      return <i className="fa fa-star" style={{ fontSize: '13px' }} />;
+      return <i className="fa fa-star" style={{ fontSize: '13px' }} key={index} />;
     });
   };
   return (
