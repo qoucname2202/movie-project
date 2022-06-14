@@ -2,22 +2,35 @@ import React from 'react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
-import { addMovieAction } from '../../redux/actions/ListMovieAction';
+// import { addMovieAction } from '../../redux/actions/ListMovieAction';
 import axios from 'axios';
 import { domain, maNhom } from '../../configs/settings';
 import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
+
 export default function AddMovie(props) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { t, i18n } = useTranslation();
+  const i18Local = localStorage.getItem('i18nextLng');
+
+  useEffect(() => {
+    if (i18Local === '') {
+      i18n.changeLanguage('en');
+    } else {
+      i18n.changeLanguage(i18Local);
+    }
+  }, []);
+
   const onSubmit = (data) => {
     var form_data = new FormData();
     for (var key in data) {
       if (key === 'hinhAnh') {
         form_data.append(key, data[key][0]);
-        console.log(data[key]);
       } else {
         form_data.append(key, data[key]);
       }
@@ -28,7 +41,6 @@ export default function AddMovie(props) {
       data: form_data,
     })
       .then((res) => {
-        console.log(res);
         Swal.fire({
           icon: 'success',
           title: 'Thêm phim thành công',
@@ -54,7 +66,7 @@ export default function AddMovie(props) {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                Thêm Phim
+                {t('addFilm')}
               </h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
@@ -64,7 +76,7 @@ export default function AddMovie(props) {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group row">
                   <label for="maPhim" className="col-md-2">
-                    Mã phim
+                    {t('movieCode')}
                   </label>
                   <div className="col-md-10">
                     <input type="text" placeholder="Nhập số" {...register('maPhim', {})} className="form-control" />
@@ -72,7 +84,7 @@ export default function AddMovie(props) {
                 </div>
                 <div className="form-group row">
                   <label for="tenPhim" className="col-md-2">
-                    Tên phim
+                    {t('movieName')}
                   </label>
                   <div className="col-md-10">
                     <input
@@ -88,7 +100,7 @@ export default function AddMovie(props) {
                 </div>
                 <div className="form-group row">
                   <label for="biDanh" className="col-md-2">
-                    Bí danh
+                    {t('aliases')}
                   </label>
                   <div className="col-md-10">
                     <input
@@ -104,7 +116,7 @@ export default function AddMovie(props) {
                 </div>
                 <div className="form-group row">
                   <label for="trailer" className="col-md-2">
-                    Trailer
+                    {t('trailer')}
                   </label>
                   <div className="col-md-10">
                     <input
@@ -120,7 +132,7 @@ export default function AddMovie(props) {
                 </div>
                 <div className="form-group row">
                   <label for="trailer" className="col-md-2">
-                    Hình ảnh
+                    {t('movieThumb')}
                   </label>
                   <div className="col-md-10">
                     <input
@@ -152,7 +164,7 @@ export default function AddMovie(props) {
                 </div>
                 <div className="form-group row">
                   <label for="ngayKhoiChieu" className="col-md-2">
-                    Ngày khởi chiếu
+                    {t('release')}
                   </label>
                   <div className="col-md-10">
                     <input
@@ -183,7 +195,7 @@ export default function AddMovie(props) {
                 </div>
                 <div className="form-group add-movie text-center">
                   <button type="submit" className="btn btn-add">
-                    Thêm phim
+                    {t('addFilm')}
                   </button>
                 </div>
               </form>

@@ -276,19 +276,19 @@ export default function Checkout(props) {
                 <div className="container">
                   <div className="row">
                     <div className="col-md-3 infor-seat">
-                      Ghế trống
+                      {t('emptySeat')}
                       <span className="status-seat status"></span>
                     </div>
                     <div className="col-md-3 infor-seat">
-                      Đang chọn
+                      {t('seatChoosing')}
                       <span className="status-choose status"></span>
                     </div>
                     <div className="col-md-3 infor-seat">
-                      Ghế đã có người chọn
+                      {t('seatAlready')}
                       <span className="status-someone status"></span>
                     </div>
                     <div className="col-md-3 infor-seat">
-                      Ghế Vip
+                      {t('vip')}
                       <span className="seatvip status"></span>
                     </div>
                   </div>

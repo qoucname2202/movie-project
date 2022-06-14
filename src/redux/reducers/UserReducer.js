@@ -1,7 +1,6 @@
 import {
   LOGIN,
   taiKhoan,
-  accessToken,
   REGISTER,
   LOGOUT,
   PROFILE_USER,
@@ -40,7 +39,6 @@ const UserReducer = (state = stateDefault, action) => {
     }
     case LOGOUT: {
       localStorage.clear();
-
       return { ...state, taiKhoan: '' };
     }
     case PROFILE_USER: {
@@ -57,7 +55,6 @@ const UserReducer = (state = stateDefault, action) => {
     }
     case DELETE_USER: {
       let index = state.thongTinUserAll.findIndex((user) => user.taiKhoan === action.item.taiKhoan);
-      console.log(index);
       if (index !== -1) {
         state.thongTinUserAll.splice(index, 1);
       } else {

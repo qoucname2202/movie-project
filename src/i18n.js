@@ -23,7 +23,7 @@ i18n
   //! mặc định khi load lên hiển thị sẽ là tiếng anh
   .init({
     fallbackLng: 'en',
-    debug: true,
+    debug: false, // Muốn hiển thị debug chrome của i18next chuyển đổi sang true
     whiteList: ['en', 'chi', 'vi'], // Liệt kê các ngôn ngữ
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default

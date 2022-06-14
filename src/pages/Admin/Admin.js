@@ -5,13 +5,21 @@ import ManagerUser from '../../components/Admin/ManagerUser';
 import Swal from 'sweetalert2';
 import { useSelector, useDispatch } from 'react-redux';
 import { CLOSELOADING, LOGOUT } from '../../configs/settings';
+import { useTranslation } from 'react-i18next';
 
 export default function Admin() {
   let dispatch = useDispatch();
   const navigate = useNavigate();
   const { taiKhoan } = useSelector((state) => state.UserReducer);
+  const i18Local = localStorage.getItem('i18nextLng');
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
+    if (i18Local === '') {
+      i18n.changeLanguage('en');
+    } else {
+      i18n.changeLanguage(i18Local);
+    }
     if (!localStorage.getItem('taiKhoan')) {
       navigate('/login');
     }
@@ -44,7 +52,7 @@ export default function Admin() {
               aria-controls="v-pills-home"
               aria-selected="true"
             >
-              Quản Lý Phim
+              {t('managerFilm')}
             </a>
             <a
               className="nav-link"
@@ -55,7 +63,7 @@ export default function Admin() {
               aria-controls="v-pill-user"
               aria-selected="false"
             >
-              Quản Lý Người Dùng
+              {t('managerUser')}
             </a>
           </div>
         </div>
@@ -85,14 +93,14 @@ export default function Admin() {
                               navigate('/home');
                             }}
                           >
-                            Đăng xuất
+                            {t('signout')}
                           </button>
                         </div>
                       </div>
                     ) : (
                       <NavLink className="nav-link" to="/login">
                         <img src="../images/avatar.png" alt="avatar" className="img-avatar" />
-                        Đăng nhập
+                        {t('signin')}
                       </NavLink>
                     )}
                   </li>
@@ -119,12 +127,12 @@ export default function Admin() {
     );
   } else {
     Swal.fire({
-      title: 'Tài khoản không thể truy cập',
-      text: 'Trang này giành cho quản trị viên',
+      title: t('titleWarningAdmin'),
+      text: t('pageNotUser'),
       icon: 'warning',
       showCancelButton: false,
       confirmButtonColor: '#3085d6',
-      confirmButtonText: 'Back home',
+      confirmButtonText: t('backHome'),
     }).then((result) => {
       if (result.isConfirmed) {
         navigate('/home');

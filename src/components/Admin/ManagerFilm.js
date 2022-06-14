@@ -7,12 +7,13 @@ import AddMovie from './AddMovie';
 import { Image, Table } from 'antd';
 import 'antd/dist/antd.min.css';
 import EditMovie from './EditMovie';
+import { useTranslation } from 'react-i18next';
 
 export default function ManagerFilm(props) {
   const { listMovieShow } = useSelector((state) => state.ListMovieReducer);
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.UserReducer);
-
+  const { t, i18n } = useTranslation();
   /**seach movie */
   // const [keyWord, setKeyWord] = useState('');
   const [dsFilm, setDSFilm] = useState([]);
@@ -20,31 +21,41 @@ export default function ManagerFilm(props) {
   const [temp, setTemp] = useState(-1);
   const [maPhimSelected, setMaPhimSelected] = useState('');
   const [movie, setMovie] = useState(null);
-
+  // View movie list
   useEffect(() => {
     if (listMovieShow?.length > 0) {
       if (temp > 0) {
         setDSFilm(dsFilm);
       } else setDSFilm(listMovieShow);
     }
-  });
+  }, [listMovieShow]);
+
+  // Search movie by key word
   useEffect(() => {
     if (keyWord) {
       if (keyWord.length > 0) {
         let dsPhim = listMovieShow?.filter((item) => {
-          return item.tenPhim.toLowerCase().indexOf(keyWord.toLowerCase()) >= 0;
+          return item.tenPhim.toLowerCase().includes(keyWord.toLowerCase());
         });
-
         setDSFilm(dsPhim);
         setTemp(temp + 1);
       }
+    } else {
+      setDSFilm(listMovieShow);
     }
-    // console.log(keyWord);
   }, [keyWord]);
 
   useEffect(() => {
     dispatch(listMovieShowAction());
   }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('i18nextLng') !== '') {
+      i18n.changeLanguage(localStorage.getItem('i18nextLng'));
+    } else {
+      i18n.changeLanguage('en');
+    }
+  }, [i18n]);
 
   const handleMaPhimChange = (maPhim) => {
     setMaPhimSelected(maPhim);
@@ -56,26 +67,26 @@ export default function ManagerFilm(props) {
 
   const columns = [
     {
-      title: 'Mã phim',
+      title: 'movieCode',
       dataIndex: 'maPhim',
     },
     {
-      title: 'Tên phim',
+      title: 'movieName',
       dataIndex: 'tenPhim',
     },
     {
-      title: 'Hình ảnh',
+      title: 'movieThumb',
       dataIndex: 'hinhAnh',
       render: (item) => {
         return <Image key={item} width={35} src={item} />;
       },
     },
     {
-      title: 'Đánh giá',
+      title: 'rating',
       dataIndex: 'danhGia',
     },
     {
-      title: 'Ngày khởi chiếu',
+      title: 'release',
       dataIndex: 'ngayKhoiChieu',
     },
     {
@@ -128,7 +139,7 @@ export default function ManagerFilm(props) {
       <div className="inner-add row">
         <div className="col-md-6">
           <button className="btn btn-add" type="button" data-toggle="modal" data-target="#addmovie">
-            Thêm phim
+            {t('addFilm')}
           </button>
         </div>
         <div className="col-md-6">
@@ -136,7 +147,7 @@ export default function ManagerFilm(props) {
             <input
               className="form-control"
               type="text"
-              placeholder="Search for name film ..."
+              placeholder={t('searchFilm')}
               aria-label="Search"
               aria-describedby="basic-addon2"
               onChange={handleChangeSearch}
@@ -152,7 +163,12 @@ export default function ManagerFilm(props) {
       <div className="user-header inner-button ad-movie">
         <AddMovie />
       </div>
-      <Table className="table table-manageruser" columns={columns} dataSource={dsFilm}></Table>
+
+      <Table className="table table-manageruser" dataSource={dsFilm}>
+        {columns.map((col, index) => {
+          return <Table.Column key={index} title={t(col.title)} dataIndex={col.dataIndex} render={col.render} />;
+        })}
+      </Table>
       <ModalShowCalendar maPhim={maPhimSelected} />
       <EditMovie movie={movie} />
     </div>
