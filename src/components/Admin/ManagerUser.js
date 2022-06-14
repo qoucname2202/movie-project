@@ -4,11 +4,13 @@ import { deleteUserAction, inforUserAllAction } from '../../redux/actions/UserAc
 import AddUser from './AddUser';
 import { Switch, Table } from 'antd';
 import 'antd/dist/antd.min.css';
-import EditUser from './EditUser';
+import { useTranslation } from 'react-i18next';
+// import EditUser from './EditUser';
 
 export default function ManagerUser(props) {
   const dispatch = useDispatch();
   const { thongTinUserAll } = useSelector((state) => state.UserReducer);
+  const { t, i18n } = useTranslation();
   const { accessToken } = useSelector((state) => state.UserReducer);
   const [dsUser, setDSUser] = useState(null);
   const [taiKhoanSelected, setTaiKhoanSelected] = useState('');
@@ -19,7 +21,6 @@ export default function ManagerUser(props) {
   }, []);
 
   const handleChangeSwitch = (checked) => {
-    console.log(checked);
     if (checked) {
       let user1 = thongTinUserAll?.filter((item) => {
         return item.maLoaiNguoiDung === 'KhachHang';
@@ -38,7 +39,6 @@ export default function ManagerUser(props) {
   };
   const handleChangeSearch = (e) => {
     e.preventDefault();
-    // console.log(thongTinUserAll[0].hoTen);
     const filter = [...thongTinUserAll].filter((item) => {
       return (
         item.hoTen?.includes(e.target.value) ||
@@ -47,32 +47,38 @@ export default function ManagerUser(props) {
         item.soDt?.includes(e.target.value)
       );
     });
-    // console.log(filter);
     setDSUser(filter);
   };
+  useEffect(() => {
+    if (localStorage.getItem('i18nextLng') !== '') {
+      i18n.changeLanguage(localStorage.getItem('i18nextLng'));
+    } else {
+      i18n.changeLanguage('en');
+    }
+  }, [i18n]);
   const columns = [
     {
-      title: 'Tài khoản',
+      title: 'username.title',
       dataIndex: 'taiKhoan',
     },
     {
-      title: 'Họ tên',
+      title: 'fullName.title',
       dataIndex: 'hoTen',
     },
     {
-      title: 'Email',
+      title: 'email.title',
       dataIndex: 'email',
     },
     {
-      title: 'SĐT',
+      title: 'phoneNumber.title',
       dataIndex: 'soDt',
     },
     {
-      title: 'Mật khẩu',
+      title: 'password.title',
       dataIndex: 'matKhau',
     },
     {
-      title: 'Mã loại người dùng',
+      title: 'userType.title',
       dataIndex: 'maLoaiNguoiDung',
     },
     {
@@ -100,7 +106,7 @@ export default function ManagerUser(props) {
               dispatch(deleteUserAction(taiKhoan, accessToken));
             }}
           >
-            <i class="far fa-trash-alt"></i>
+            <i className="far fa-trash-alt"></i>
           </button>
         </div>
       ),
@@ -112,7 +118,7 @@ export default function ManagerUser(props) {
         <div className="inner-add row">
           <div className="col-md-6 col-6">
             <button className="btn btn-add" type="button" data-toggle="modal" data-target="#adduser">
-              Thêm User
+              {t('add.user')}
             </button>
           </div>
           <div className="col-md-6 col-6 text-right">
@@ -122,7 +128,7 @@ export default function ManagerUser(props) {
                   <input
                     className="form-control"
                     type="text"
-                    placeholder="Search for username ..."
+                    placeholder={t('search.user')}
                     aria-label="Search"
                     aria-describedby="basic-addon2"
                     onChange={handleChangeSearch}
@@ -143,7 +149,11 @@ export default function ManagerUser(props) {
         <AddUser />
       </div>
       <div className="manageruser">
-        <Table columns={columns} className="table table-manageruser" dataSource={dsUser ? dsUser : thongTinUserAll} />
+        <Table className="table table-manageruser" dataSource={dsUser ? dsUser : thongTinUserAll}>
+          {columns.map((col, index) => {
+            return <Table.Column key={index} title={t(col.title)} dataIndex={col.dataIndex} render={col.render} />;
+          })}
+        </Table>
       </div>
       {/* <EditUser taiKhoan={taiKhoanSelected} /> */}
     </div>

@@ -195,7 +195,7 @@ export default function ModalShowCalendar(props) {
                   <div className="col-md-6">
                     <div className="row form-group">
                       <div className="item-label col-md-3">
-                        <label for="ngayChieuGioChieu">Ngày Chiếu</label>
+                        <label htmlFor="ngayChieuGioChieu">Ngày Chiếu</label>
                       </div>
                       <div className="select-setion col-md-9">
                         <Controller
@@ -245,9 +245,6 @@ export default function ModalShowCalendar(props) {
                     <button type="submit" className="btn btn-add text-white">
                       Tạo lịch chiếu
                     </button>
-                    {/* <button onClick={handleBackAdmin} className="btn btn-back ml-3">
-                      Trang trước
-                    </button> */}
                   </div>
                 </div>
                 {/* show infor calendar */}

@@ -2,23 +2,42 @@
   "hello": "Xin chào",
   "signin": "Đăng nhập",
   "signup": "Đăng ký",
-  "username": "Tên đăng nhập",
-  "password": "Mật khẩu",
-  "hoTen": "Họ và tên",
-  "soDienThoai": "Số điện thoại",
-  "email": "Email",
   "signout": "Đăng xuất",
   "unaccount": "Bạn chưa có tài khoản?",
-  "userEmpty": "Tên đăng nhập không được bỏ trống!",
-  "passwordEmpty": "Mật khẩu không được bỏ trống!",
-  "passwordLength": "Mật khẩu tối đa 6 ký tự!",
-  "nameEmpty": "Họ và tên không được bỏ trống!",
-  "nameCharacter": "Họ và tên không được nhập ký tự đặc biệt",
-  "phoneEmpty": "Số điện thoại không được bỏ trống!",
-  "phoneLeast": "Số điện thoại phải có ít nhất 10 số!",
-  "phoneMax": "Số điện thoại tối đa 10 số",
-  "emailEmpty": "Email không được bỏ trống",
-  "emailFormat": "Email không đúng định dạng",
+  "emptyInput": "Vui lòng nhập đầy đủ thông tin",
+  "username": {
+    "title": "Tên đăng nhập",
+    "empty": "Tên đăng nhập không được bỏ trống!"
+  },
+  "password": {
+    "title": "Mật khẩu",
+    "empty": "Mật khẩu không được bỏ trống!",
+    "min": "Mật khẩu tối đa 6 ký tự!"
+  },
+  "fullName": {
+    "title": "Họ và tên",
+    "empty": "Họ và tên không được bỏ trống!",
+    "specialCharacter": "Họ và tên không được nhập ký tự đặc biệt"
+  },
+  "phoneNumber": {
+    "title": "Số điện thoại",
+    "empty": "Số điện thoại không được bỏ trống!",
+    "leastLength": "Số điện thoại phải có ít nhất 10 số!",
+    "maxLength": "Số điện thoại tối đa 10 số",
+    "numbCharacter": "Số điện thoại bắt buộc phải là số"
+  },
+  "email": {
+    "title": "Email",
+    "empty": "Email không được bỏ trống",
+    "incorrect": "Email không đúng định dạng"
+  },
+  "userType": {
+    "title": "Mã loại người dùng",
+    "empty": "Mã loại người dùng không được bỏ trống!",
+    "selectUserType": "Chọn loại người dùng",
+    "typeUser": "Người dùng",
+    "typeAdmin": "Quản trị"
+  },
   "backHome": "Trang Chủ",
   "history": "Lịch sử đặt vé",
   "profile": "Thông tin cá nhân",
@@ -79,9 +98,17 @@
   "managerUser": "Quản lý người dùng",
   "titleWarningAdmin": "Tài khoản không thể truy cập",
   "pageNotUser": "Trang này giành cho quản trị viên",
-  "addFilm": "Thêm phim",
-  "searchFilm": "Tìm kiếm phim theo tên...",
+  "add": {
+    "movie": "Thêm phim",
+    "user": "Thêm phim"
+  },
+  "search": {
+    "movie": "Tìm kiếm phim theo tên...",
+    "user": "Timf kiếm người dùng theo tên..."
+  },
   "movieCode": "Mã phim",
+  "groupCode": "Mã nhóm",
+  "groupEmpty": "Mã nhóm không được bỏ trống!",
   "movieThumb": "Hình ảnh",
   "theaterSystem": "Hệ thống rạp",
   "theaterCluster": "Cụm rạp",
@@ -92,5 +119,18 @@
   "showtimeDate": "Ngày chiếu giờ chiếu",
   "updatedFilm": "Cập nhật phim",
   "trailer": "Trailer",
-  "aliases": "Bí danh"
+  "aliases": "Bí danh",
+
+  "messSuccess": {
+    "movie": "Thêm phim thành công"
+  },
+  "messError": {
+    "movie": "Thêm phim thất bại"
+  },
+  "input": {
+    "numb": "Nhập mã phim",
+    "filmName": "Nhập tên phim",
+    "filmAlia": "bi-danh-phim",
+    "filmDesc": "Nhập mô tả phim"
+  }
 }

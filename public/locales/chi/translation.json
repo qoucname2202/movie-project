@@ -3,22 +3,40 @@
   "signin": "登入",
   "signup": "报名",
   "signout": "登出",
-  "username": "用户名",
-  "password": "密码",
-  "hoTen": "全名",
-  "soDienThoai": "电话号码",
-  "email": "电子邮件",
   "unaccount": "还没有账号?",
-  "userEmpty": "请输入您的用户名",
-  "passwordEmpty": "请输入您的密码",
-  "passwordLength": "密码必须至少6个字符",
-  "nameEmpty": "请输入您的全名",
-  "nameCharacter": "全名不能输入特殊字符",
-  "phoneEmpty": "请输入您的电话号码",
-  "phoneLeast": "电话号码必须至少为 10 位数字",
-  "phoneMax": "最大电话号码必须为 10 位数",
-  "emailEmpty": "请输入您的电子邮件",
-  "emailFormat": "电子邮件格式不正确",
+  "username": {
+    "title": "用户名",
+    "empty": "请输入您的用户名"
+  },
+  "password": {
+    "title": "密码",
+    "empty": "请输入您的密码",
+    "min": "密码必须至少6个字符"
+  },
+  "fullName": {
+    "title": "全名",
+    "empty": "请输入您的全名",
+    "specialCharacter": "全名不能输入特殊字符"
+  },
+  "phoneNumber": {
+    "title": "电话号码",
+    "empty": "请输入您的电话号码",
+    "leastLength": "电话号码必须至少为 10 位数字",
+    "maxLength": "最大电话号码必须为 10 位数",
+    "numbCharacter": "电话号码必须是号码。"
+  },
+  "email": {
+    "title": "电子邮件",
+    "empty": "请输入您的电子邮件",
+    "incorrect": "电子邮件格式不正确"
+  },
+  "userType": {
+    "title": "用户类型代码",
+    "empty": "请输入您的用户类型",
+    "selectUserType": "选择用户类型",
+    "typeUser": "用户",
+    "typeAdmin": "行政"
+  },
   "history": "预订历史",
   "profile": "轮廓",
   "stt": "数字顺序",
@@ -77,11 +95,18 @@
   "seatAlready": "座位已选",
   "managerFilm": "电影管理",
   "managerUser": "用户管理",
-  "titleWarningAdmin": "Account inaccessible",
-  "pageNotUser": "This page is only for administrators",
-  "addFilm": "添加电影",
-  "searchFilm": "搜索名字电影...",
+  "titleWarningAdmin": "无法访问帐户",
+  "pageNotUser": "此页面仅供管理员使用",
+  "add": {
+    "movie": "添加电影",
+    "user": "添加用户"
+  },
+  "search": {
+    "movie": "搜索名字电影...",
+    "user": "按名称搜索用户..."
+  },
   "movieCode": "电影代码",
+  "groupCode": "组码",
   "movieThumb": "海报",
   "theaterSystem": "剧院系统",
   "theaterCluster": "集群剧院",
@@ -92,5 +117,18 @@
   "showtimeDate": "日期和时间",
   "updatedFilm": "更新电影",
   "trailer": "预告片",
-  "aliases": "别名"
+  "aliases": "别名",
+  "emptyInput": "请输入所有信息",
+  "messSuccess": {
+    "movie": "添加成功电影"
+  },
+  "messError": {
+    "movie": "添加失败的电影"
+  },
+  "input": {
+    "numb": "请输入电影代码",
+    "filmName": "请输入电影名称",
+    "filmAlia": "电影别名",
+    "filmDesc": "请输入电影描述"
+  }
 }

@@ -50,7 +50,7 @@ export default function EditMovie(props) {
               <div className="modal-body">
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="form-group row">
-                    <label for="maPhim" className="col-md-2">
+                    <label htmlFor="maPhim" className="col-md-2">
                       Mã phim
                     </label>
                     <div className="col-md-10">
@@ -64,7 +64,7 @@ export default function EditMovie(props) {
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="tenPhim" className="col-md-2">
+                    <label htmlFor="tenPhim" className="col-md-2">
                       Tên phim
                     </label>
                     <div className="col-md-10">
@@ -80,7 +80,7 @@ export default function EditMovie(props) {
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="biDanh" className="col-md-2">
+                    <label htmlFor="biDanh" className="col-md-2">
                       Bí danh
                     </label>
                     <div className="col-md-10">
@@ -96,7 +96,7 @@ export default function EditMovie(props) {
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="trailer" className="col-md-2">
+                    <label htmlFor="trailer" className="col-md-2">
                       Trailer
                     </label>
                     <div className="col-md-10">
@@ -112,7 +112,7 @@ export default function EditMovie(props) {
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="trailer" className="col-md-2">
+                    <label htmlFor="trailer" className="col-md-2">
                       Hình ảnh
                     </label>
                     <div className="col-md-10">
@@ -126,7 +126,7 @@ export default function EditMovie(props) {
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="maNhom" className="col-md-2">
+                    <label htmlFor="maNhom" className="col-md-2">
                       Mã nhóm
                     </label>
                     <div className="col-md-10">
@@ -142,7 +142,7 @@ export default function EditMovie(props) {
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="ngayKhoiChieu" className="col-md-2">
+                    <label htmlFor="ngayKhoiChieu" className="col-md-2">
                       Ngày khởi chiếu
                     </label>
                     <div className="col-md-10">
@@ -158,7 +158,7 @@ export default function EditMovie(props) {
                     </div>
                   </div>
                   <div className="form-group row">
-                    <label for="moTa" className="col-md-2">
+                    <label htmlFor="moTa" className="col-md-2">
                       Mô tả
                     </label>
                     <div className="col-md-10">

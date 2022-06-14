@@ -26,14 +26,18 @@ const Register = () => {
       email: '',
     },
     validationSchema: yup.object().shape({
-      taiKhoan: yup.string().required(t('userEmpty')),
-      matKhau: yup.string().required(t('passwordEmpty')).min(6, t('passwordLength')),
+      taiKhoan: yup.string().required(t('username.empty')),
+      matKhau: yup.string().required(t('password.empty')).min(6, t('password.min')),
       hoTen: yup
         .string()
-        .required(t('nameEmpty'))
-        .matches(/^[aA-zZ\s]+$/, t('nameCharacter')),
-      soDt: yup.string().required(t('phoneEmpty')).min(10, t('phoneLeast')).max(10, 'phoneMax'),
-      email: yup.string().required(t('emailEmpty')).email(t('emailFormat')),
+        .required(t('fullName.empty'))
+        .matches(/^[aA-zZ\s]+$/, t('fullName.specialCharacter')),
+      soDt: yup
+        .string()
+        .required(t('phoneNumber.empty'))
+        .min(10, t('phoneNumber.leastLength'))
+        .max(10, 'phoneNumber.maxLength'),
+      email: yup.string().required(t('email.empty')).email(t('email.incorrect')),
     }),
     onSubmit: (values) => {
       values.maNhom = 'GP01';
@@ -51,7 +55,7 @@ const Register = () => {
       <form className="form-user" onSubmit={formik.handleSubmit}>
         <h1 className="ttl">{t('signup')}</h1>
         <div className="form-group mb-3">
-          <label className="form-label">{t('username')}</label>
+          <label className="form-label">{t('username.title')}</label>
           <input
             type="text"
             className="form-control"
@@ -66,7 +70,7 @@ const Register = () => {
           )}
         </div>
         <div className="form-group mb-3">
-          <label className="form-label">{t('password')}</label>
+          <label className="form-label">{t('password.title')}</label>
           <input
             type="password"
             className="form-control"
@@ -81,7 +85,7 @@ const Register = () => {
           )}
         </div>
         <div className="form-group mb-3">
-          <label className="form-label">{t('hoTen')}</label>
+          <label className="form-label">{t('fullName.title')}</label>
           <input
             type="text"
             className="form-control"
@@ -92,7 +96,7 @@ const Register = () => {
           {formik.errors.hoTen && formik.touched.hoTen ? <p className="text-danger">{formik.errors.hoTen}</p> : ''}
         </div>
         <div className="form-group mb-3">
-          <label className="form-label">{t('soDienThoai')}</label>
+          <label className="form-label">{t('phoneNumber.title')}</label>
           <input
             type="text"
             className="form-control"
@@ -103,7 +107,7 @@ const Register = () => {
           {formik.errors.soDt && formik.touched.soDt ? <p className="text-danger">{formik.errors.soDt}</p> : ''}
         </div>
         <div className="form-group">
-          <label className="form-label">{t('email')}</label>
+          <label className="form-label">{t('email.title')}</label>
           <input
             type="email"
             className="form-control"

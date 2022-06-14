@@ -29,8 +29,8 @@ const Login = () => {
       matKhau: '',
     },
     validationSchema: yup.object().shape({
-      taiKhoan: yup.string().required(t('userEmpty')),
-      matKhau: yup.string().required(t('passwordEmpty')).min(6, t('passwordLength')),
+      taiKhoan: yup.string().required(t('username.empty')),
+      matKhau: yup.string().required(t('password.empty')).min(6, t('password.min')),
     }),
     onSubmit: (values) => {
       dispatch(UserAction(values, redirectTo));
@@ -47,7 +47,7 @@ const Login = () => {
       <form className="form-user" onSubmit={formik.handleSubmit}>
         <h1 className="ttl">{t('signin')}</h1>
         <div className="form-group mb-3">
-          <label className="form-label">{t('username')}</label>
+          <label className="form-label">{t('username.title')}</label>
           <i className="far fa-user user"></i>
           <input
             type="text"
@@ -63,7 +63,7 @@ const Login = () => {
           )}
         </div>
         <div className="form-group">
-          <label className="form-label">{t('password')}</label>
+          <label className="form-label">{t('password.title')}</label>
           <i className="fas fa-lock user"></i>
           <input
             type="password"

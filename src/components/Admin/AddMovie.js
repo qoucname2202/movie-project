@@ -43,7 +43,7 @@ export default function AddMovie(props) {
       .then((res) => {
         Swal.fire({
           icon: 'success',
-          title: 'Thêm phim thành công',
+          title: t('messSuccess.movie'),
           showConfirmButton: false,
           timer: 1500,
         });
@@ -52,7 +52,7 @@ export default function AddMovie(props) {
         console.log(err.response.data);
         Swal.fire({
           icon: 'error',
-          title: 'Thêm phim thất bại',
+          title: t('messError.movie'),
           showConfirmButton: false,
           timer: 1500,
         });
@@ -66,7 +66,7 @@ export default function AddMovie(props) {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                {t('addFilm')}
+                {t('add.movie')}
               </h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
@@ -75,47 +75,52 @@ export default function AddMovie(props) {
             <div className="modal-body">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group row">
-                  <label for="maPhim" className="col-md-2">
+                  <label htmlFor="maPhim" className="col-md-2">
                     {t('movieCode')}
                   </label>
                   <div className="col-md-10">
-                    <input type="text" placeholder="Nhập số" {...register('maPhim', {})} className="form-control" />
+                    <input
+                      type="text"
+                      placeholder={t('input.numb')}
+                      {...register('maPhim', {})}
+                      className="form-control"
+                    />
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label for="tenPhim" className="col-md-2">
+                  <label htmlFor="tenPhim" className="col-md-2">
                     {t('movieName')}
                   </label>
                   <div className="col-md-10">
                     <input
-                      placeholder="Nhập Tên Phim"
+                      placeholder={t('input.filmName')}
                       type="text"
                       {...register('tenPhim', {
                         required: true,
                       })}
                       className="form-control"
                     />
-                    {errors?.tenPhim?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                    {errors?.tenPhim?.type === 'required' && <p className="text-danger">{t('emptyInput')}</p>}
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label for="biDanh" className="col-md-2">
+                  <label htmlFor="biDanh" className="col-md-2">
                     {t('aliases')}
                   </label>
                   <div className="col-md-10">
                     <input
                       type="text"
-                      placeholder="nhap-bi-danh"
+                      placeholder={t('input.filmAlia')}
                       {...register('biDanh', {
                         required: true,
                       })}
                       className="form-control"
                     />
-                    {errors?.biDanh?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                    {errors?.biDanh?.type === 'required' && <p className="text-danger">{t('emptyInput')}</p>}
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label for="trailer" className="col-md-2">
+                  <label htmlFor="trailer" className="col-md-2">
                     {t('trailer')}
                   </label>
                   <div className="col-md-10">
@@ -127,11 +132,11 @@ export default function AddMovie(props) {
                       })}
                       className="form-control"
                     />
-                    {errors?.trailer?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                    {errors?.trailer?.type === 'required' && <p className="text-danger">{t('emptyInput')}</p>}
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label for="trailer" className="col-md-2">
+                  <label htmlFor="trailer" className="col-md-2">
                     {t('movieThumb')}
                   </label>
                   <div className="col-md-10">
@@ -142,12 +147,12 @@ export default function AddMovie(props) {
                       })}
                       className="form-control"
                     />
-                    {errors?.hinhAnh?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                    {errors?.hinhAnh?.type === 'required' && <p className="text-danger">{t('emptyInput')}</p>}
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label for="maNhom" className="col-md-2">
-                    Mã nhóm
+                  <label htmlFor="maNhom" className="col-md-2">
+                    {t('groupCode')}
                   </label>
                   <div className="col-md-10">
                     <input
@@ -159,11 +164,11 @@ export default function AddMovie(props) {
                       })}
                       className="form-control"
                     />
-                    {errors?.maNhom?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                    {errors?.maNhom?.type === 'required' && <p className="text-danger">{t('emptyInput')}</p>}
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label for="ngayKhoiChieu" className="col-md-2">
+                  <label htmlFor="ngayKhoiChieu" className="col-md-2">
                     {t('release')}
                   </label>
                   <div className="col-md-10">
@@ -175,27 +180,28 @@ export default function AddMovie(props) {
                       })}
                       className="form-control"
                     />
-                    {errors?.ngayKhoiChieu?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                    {errors?.ngayKhoiChieu?.type === 'required' && <p className="text-danger">{t('emptyInput')}</p>}
                   </div>
                 </div>
                 <div className="form-group row">
-                  <label for="moTa" className="col-md-2">
-                    Mô tả
+                  <label htmlFor="moTa" className="col-md-2">
+                    {t('descript')}
                   </label>
                   <div className="col-md-10">
                     <textarea
                       type="text"
+                      placeholder={t('input.filmDesc')}
                       {...register('moTa', {
                         required: true,
                       })}
                       className="form-control"
                     />
-                    {errors?.moTa?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                    {errors?.moTa?.type === 'required' && <p className="text-danger">{t('emptyInput')}</p>}
                   </div>
                 </div>
                 <div className="form-group add-movie text-center">
-                  <button type="submit" className="btn btn-add">
-                    {t('addFilm')}
+                  <button type="submit" className="btn btn-submit">
+                    {t('add.movie')}
                   </button>
                 </div>
               </form>

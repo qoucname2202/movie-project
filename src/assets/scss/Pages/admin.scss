@@ -51,18 +51,6 @@
         text-align: center;
         margin-right: 8px;
       }
-      .btn-add {
-        // background: #ee671b;
-        // border: 1px solid #ee671b;
-      }
-      .btn-edit {
-        // background: #2e8943;
-        // border-color: #2e8943;
-      }
-      .btn-delete {
-        // background: #ec482f;
-        // border: 1px solid #ec482f;
-      }
     }
   }
 }
@@ -165,9 +153,15 @@ body.sb-sidenav-toggled .wrapper .sidebar-wrapper {
     margin-bottom: 30px;
   }
   .btn-add {
-    background: #ec7532;
-    border: 1px solid #ec7532;
+    background: linear-gradient(to right, #fbbd61, #ec7532);
     color: #fff;
+    border: 5px solid;
+    border-image-slice: 1;
+    border-width: 2px;
+    border-image-source: linear-gradient(to left, #833ab4, #fd1d1d, #fcb045);
+    &:focus {
+      box-shadow: 0 0 0 0 transparent;
+    }
   }
   .btn-submit {
     background: linear-gradient(to right, #fbbd61, #ec7532);
@@ -181,6 +175,7 @@ body.sb-sidenav-toggled .wrapper .sidebar-wrapper {
     font-weight: 600;
     display: block;
     margin: 35px auto 0;
+    border: 5px solid;
   }
   .inner-add {
     margin-bottom: -15px;

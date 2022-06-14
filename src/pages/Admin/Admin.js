@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { useSelector, useDispatch } from 'react-redux';
 import { CLOSELOADING, LOGOUT } from '../../configs/settings';
 import { useTranslation } from 'react-i18next';
+import './style.scss';
 
 export default function Admin() {
   let dispatch = useDispatch();
@@ -73,7 +74,7 @@ export default function Admin() {
           <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
             <div className="container-fluid">
               <button className="btn btn-toggle" id="sidebarToggle">
-                <i class="fas fa-bars"></i>
+                <i className="fas fa-bars"></i>
               </button>
               <div className="header  navbar-collapse">
                 <ul className="navbar-nav ms-auto mt-2 mt-lg-0 navbar-collapse">

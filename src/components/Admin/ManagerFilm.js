@@ -9,13 +9,11 @@ import 'antd/dist/antd.min.css';
 import EditMovie from './EditMovie';
 import { useTranslation } from 'react-i18next';
 
-export default function ManagerFilm(props) {
+const ManagerFilm = (props) => {
   const { listMovieShow } = useSelector((state) => state.ListMovieReducer);
   const dispatch = useDispatch();
   const { accessToken } = useSelector((state) => state.UserReducer);
   const { t, i18n } = useTranslation();
-  /**seach movie */
-  // const [keyWord, setKeyWord] = useState('');
   const [dsFilm, setDSFilm] = useState([]);
   const [keyWord, setKeyWord] = useState(null);
   const [temp, setTemp] = useState(-1);
@@ -69,25 +67,33 @@ export default function ManagerFilm(props) {
     {
       title: 'movieCode',
       dataIndex: 'maPhim',
+      width: '10%',
     },
     {
       title: 'movieName',
       dataIndex: 'tenPhim',
+      width: '30%',
     },
     {
       title: 'movieThumb',
       dataIndex: 'hinhAnh',
       render: (item) => {
-        return <Image key={item} width={35} src={item} />;
+        return <Image key={item} width={50} src={item} />;
       },
+      width: '20%',
     },
     {
       title: 'rating',
       dataIndex: 'danhGia',
+      width: '10%',
     },
     {
       title: 'release',
       dataIndex: 'ngayKhoiChieu',
+      render: (ngayKhoiChieu) => {
+        return <div>{moment(ngayKhoiChieu).format('DD-MM-YYYY')}</div>;
+      },
+      width: '20%',
     },
     {
       title: '',
@@ -104,7 +110,7 @@ export default function ManagerFilm(props) {
               data-toggle="modal"
               data-target="#showcalendar"
             >
-              <i class="far fa-plus-square"></i>
+              <i className="far fa-plus-square"></i>
             </button>
           </div>
           <div className="block">
@@ -117,7 +123,7 @@ export default function ManagerFilm(props) {
                 setMovie(record);
               }}
             >
-              <i class="far fa-edit"></i>
+              <i className="far fa-edit"></i>
             </button>
           </div>
           <button
@@ -127,7 +133,7 @@ export default function ManagerFilm(props) {
               dispatch(deleteMovieAction(record.maPhim, accessToken));
             }}
           >
-            <i class="far fa-trash-alt"></i>
+            <i className="far fa-trash-alt"></i>
           </button>
         </div>
       ),
@@ -139,7 +145,7 @@ export default function ManagerFilm(props) {
       <div className="inner-add row">
         <div className="col-md-6">
           <button className="btn btn-add" type="button" data-toggle="modal" data-target="#addmovie">
-            {t('addFilm')}
+            {t('add.movie')}
           </button>
         </div>
         <div className="col-md-6">
@@ -147,7 +153,7 @@ export default function ManagerFilm(props) {
             <input
               className="form-control"
               type="text"
-              placeholder={t('searchFilm')}
+              placeholder={t('search.movie')}
               aria-label="Search"
               aria-describedby="basic-addon2"
               onChange={handleChangeSearch}
@@ -173,4 +179,5 @@ export default function ManagerFilm(props) {
       <EditMovie movie={movie} />
     </div>
   );
-}
+};
+export default ManagerFilm;

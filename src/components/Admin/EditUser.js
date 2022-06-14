@@ -67,7 +67,7 @@ export default function EditUser(props) {
             <div className="modal-body">
               <form className="form-add-user" onSubmit={formik.handleSubmit}>
                 <div className="row form-group">
-                  <label for="" className="col-md-2">
+                  <label htmlFor="" className="col-md-2">
                     Tài Khoản
                   </label>
                   <div className="col-md-10">
@@ -86,7 +86,7 @@ export default function EditUser(props) {
                   </div>
                 </div>
                 <div className="row form-group">
-                  <label for="" className="col-md-2">
+                  <label htmlFor="" className="col-md-2">
                     Mật Khẩu
                   </label>
                   <div className="col-md-10">
@@ -105,7 +105,7 @@ export default function EditUser(props) {
                   </div>
                 </div>
                 <div className="row form-group">
-                  <label for="" className="col-md-2">
+                  <label htmlFor="" className="col-md-2">
                     Email
                   </label>
                   <div className="col-md-10">
@@ -124,7 +124,7 @@ export default function EditUser(props) {
                   </div>
                 </div>
                 <div className="row form-group">
-                  <label for="" className="col-md-2">
+                  <label htmlFor="" className="col-md-2">
                     Họ tên
                   </label>
                   <div className="col-md-10">
@@ -143,7 +143,7 @@ export default function EditUser(props) {
                   </div>
                 </div>
                 <div className="row form-group">
-                  <label for="" className="col-md-2">
+                  <label htmlFor="" className="col-md-2">
                     Số điện thoại
                   </label>
                   <div className="col-md-10">
@@ -162,7 +162,7 @@ export default function EditUser(props) {
                   </div>
                 </div>
                 <div className="row form-group">
-                  <label for="" className="col-md-2">
+                  <label htmlFor="" className="col-md-2">
                     Mã loại người dùng
                   </label>
                   <div className="col-md-10">

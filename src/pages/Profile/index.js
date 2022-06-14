@@ -126,7 +126,7 @@ export default function Profile(props) {
               <div className="row">
                 <div className="form-left col-md-6">
                   <div className="form-group">
-                    <label className="label">{t('email')}</label>
+                    <label className="label">{t('email.title')}</label>
                     <input
                       type="text"
                       name="email"
@@ -137,7 +137,7 @@ export default function Profile(props) {
                     />
                   </div>
                   <div className="form-group">
-                    <label className="label">{t('hoTen')}</label>
+                    <label className="label">{t('fullName.title')}</label>
                     <input
                       type="text"
                       name="hoTen"
@@ -147,7 +147,7 @@ export default function Profile(props) {
                     />
                   </div>
                   <div className="form-group">
-                    <label className="label">{t('soDienThoai')}</label>
+                    <label className="label">{t('phoneNumber.title')}</label>
                     <input
                       type="text"
                       name="soDt"
@@ -159,7 +159,7 @@ export default function Profile(props) {
                 </div>
                 <div className="form-right col-md-6">
                   <div className="form-group">
-                    <label className="label">{t('username')}</label>
+                    <label className="label">{t('username.title')}</label>
                     <input
                       type="text"
                       name="taiKhoan"
@@ -170,7 +170,7 @@ export default function Profile(props) {
                     />
                   </div>
                   <div className="form-group">
-                    <label className="label">{t('password')}</label>
+                    <label className="label">{t('password.title')}</label>
                     <input
                       type="password"
                       name="matKhau"

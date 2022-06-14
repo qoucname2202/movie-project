@@ -3,22 +3,54 @@
   "signin": "Sign in",
   "signup": "Sign up",
   "signout": "Sign out",
-  "username": "Username",
-  "password": "Password",
-  "hoTen": "Fullname",
-  "soDienThoai": "Phone number",
-  "email": "Email",
   "unaccount": "Do not have an account?",
-  "userEmpty": "Please enter your username",
-  "passwordEmpty": "Please enter your password",
-  "passwordLength": "Password must be at least 6 characters",
-  "nameEmpty": "Please enter your fullname",
-  "nameCharacter": "Fullname cannot enter special characters",
-  "phoneEmpty": "Please enter your phone number",
-  "phoneLeast": "Phone number must be at least 10 digits",
-  "phoneMax": "Maximum phone number must be 10 digits",
-  "emailEmpty": "Please enter your email",
-  "emailFormat": "Email format is incorrect",
+  "emptyInput": "Please enter all information",
+  "username": {
+    "title": "Username",
+    "empty": "Please enter your username"
+  },
+  "password": {
+    "title": "Password",
+    "empty": "Please enter your password",
+    "min": "Password must be at least 6 characters"
+  },
+  "fullName": {
+    "title": "Fullname",
+    "empty": "Please enter your fullname",
+    "specialCharacter": "Fullname cannot enter special characters"
+  },
+  "phoneNumber": {
+    "title": "Phone number",
+    "empty": "Please enter your phone number",
+    "leastLength": "Phone number must be at least 10 digits",
+    "maxLength": "Maximum phone number must be 10 digits",
+    "numbCharacter": "The phone number has to be the number."
+  },
+  "email": {
+    "title": "Email",
+    "empty": "Please enter your email",
+    "incorrect": "Email format is incorrect"
+  },
+  "userType": {
+    "title": "User type",
+    "empty": "Please enter your user type",
+    "selectUserType": "Selected user type",
+    "typeUser": "User",
+    "typeAdmin": "Admin"
+  },
+  "messSuccess": {
+    "movie": "Add successfully movie"
+  },
+  "messError": {
+    "movie": "Add failed movie"
+  },
+  "input": {
+    "numb": "Please enter movie code",
+    "filmName": "Please enter movie name",
+    "group": "Please enter group code",
+    "filmAlia": "movie-alias",
+    "filmDesc": "Please enter movie description"
+  },
   "history": "Booking history",
   "profile": "Profile",
   "stt": "Numerical Order",
@@ -79,9 +111,17 @@
   "managerUser": "User Management",
   "titleWarningAdmin": "Account inaccessible",
   "pageNotUser": "This page is only for administrators",
-  "addFilm": "Add Film",
-  "searchFilm": "Search for name film...",
+  "add": {
+    "movie": "Add movie",
+    "user": "Add user"
+  },
+  "search": {
+    "movie": "Search for name film...",
+    "user": "Search for username ..."
+  },
   "movieCode": "Movie Code",
+  "groupCode": "Group Code",
+  "groupEmpty": "Please enter group code",
   "movieThumb": "Poster",
   "theaterSystem": "Theater System",
   "theaterCluster": "Cluster Theater",
