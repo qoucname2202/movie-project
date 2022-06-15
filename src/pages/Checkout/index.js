@@ -8,7 +8,7 @@ import { taiKhoan } from '../../configs/settings';
 import Swal from 'sweetalert2';
 import { history } from '../../App';
 import { NavLink, useParams } from 'react-router-dom';
-import { useFormik } from 'formik';
+// import { useFormik } from 'formik';
 import * as yup from 'yup';
 import socketio from 'socket.io-client';
 import paymentUrl from '../../utils/payment';
@@ -18,35 +18,34 @@ const socket = socketio.connect('http://localhost:8000');
 export default function Checkout(props) {
   const { t, i18n } = useTranslation();
   const i18Locale = localStorage.getItem('i18nextLng');
-  //validate form checkout
-  const { handleBlur, handleSubmit, handleChange, touched, errors, isValid } = useFormik({
-    initialValues: {
-      email: '',
-      phone: '',
-      discount: '',
-    },
+  // //validate form checkout
+  // const { handleBlur, handleSubmit, handleChange, touched, errors, isValid } = useFormik({
+  //   initialValues: {
+  //     email: '',
+  //     phone: '',
+  //     discount: '',
+  //   },
 
-    validationSchema: yup.object().shape({
-      email: yup
-        .string()
-        .required('Email không được bỏ trống!')
-        .matches(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-          'Email không hợp lệ',
-        ),
-      phone: yup
-        .string()
-        .required('Số điện thoại không được bỏ trống !')
-        .matches(/^[0-9]+$/, 'Số điện thoại bắt buộc phải là số'),
-      discount: yup.string().required('Discount code không được bỏ trống !'),
-    }),
+  //   validationSchema: yup.object().shape({
+  //     email: yup
+  //       .string()
+  //       .required('Email không được bỏ trống!')
+  //       .matches(
+  //         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  //         'Email không hợp lệ',
+  //       ),
+  //     phone: yup
+  //       .string()
+  //       .required('Số điện thoại không được bỏ trống !')
+  //       .matches(/^[0-9]+$/, 'Số điện thoại bắt buộc phải là số'),
+  //     discount: yup.string().required('Discount code không được bỏ trống !'),
+  //   }),
 
-    onSubmit: (values) => {},
-  });
+  //   onSubmit: (values) => {},
+  // });
   const [timeM, setTimeM] = useState(5);
   const [timeS, setTimeS] = useState(0);
   const [temp, setTemp] = useState(0);
-
   const { bookTicket } = useSelector((state) => state.ListMovieReducer);
   const { danhSachGheDangDat } = useSelector((state) => state.MannageBookTicketReducer);
   const [disableSeats, setdisableSeats] = useState([]);
@@ -246,7 +245,7 @@ export default function Checkout(props) {
                   <div className="infor-left">
                     <img
                       src="http://movie0706.cybersoft.edu.vn/hinhanh/cgv.png"
-                      class="img-fluid logoimg"
+                      className="img-fluid logoimg"
                       alt="img-Logo"
                     />
                     <div className="infor-theater-it">
@@ -298,8 +297,20 @@ export default function Checkout(props) {
           </div>
           <div className="col-md-3 chooseseat-buy">
             <div className="container">
-              <h4 className="ttl-4">{toTal().toLocaleString()}VNĐ</h4>
+              <h4 className="ttl-4">
+                {toTal().toLocaleString('vi-VN', {
+                  style: 'currency',
+                  currency: 'VND',
+                })}
+              </h4>
               <div className="informovie">
+                <div className="d-flex justify-content-center mb-2">
+                  <img
+                    src={bookTicket.thongTinPhim?.hinhAnh}
+                    alt={bookTicket.thongTinPhim?.biDanh}
+                    style={{ width: 150, height: 170, borderRadius: 10 }}
+                  />
+                </div>
                 <p className="name">{bookTicket.thongTinPhim?.tenPhim}</p>
                 <p className="theater">{bookTicket.thongTinPhim?.tenCumRap}</p>
                 <p className="time-theater">
@@ -307,39 +318,39 @@ export default function Checkout(props) {
                   <span>{bookTicket.thongTinPhim?.tenRap}</span>
                 </p>
               </div>
-              <form className="form-buy" onSubmit={handleSubmit}>
+              <form className="form-buy">
                 <div className="form-group">
+                  <label htmlFor="" className="lable">
+                    {t('username.title')}
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="taiKhoan"
+                    value={JSON.parse(localStorage.getItem(taiKhoan)).taiKhoan}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="" className="lable">
+                    {t('email.title')}
+                  </label>
                   <input
                     type="email"
                     className="form-control"
                     name="email"
-                    placeholder="Your Email..."
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    value={JSON.parse(localStorage.getItem(taiKhoan)).email}
                   />
-                  {errors.email && touched.email ? <p className="text-danger">{errors.email}</p> : ''}
                 </div>
                 <div className="form-group">
+                  <label htmlFor="" className="lable">
+                    {t('phoneNumber.title')}
+                  </label>
                   <input
                     type="text"
                     className="form-control"
                     name="phone"
-                    placeholder="Your Phone Number ..."
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    value={JSON.parse(localStorage.getItem(taiKhoan)).soDT}
                   />
-                  {errors.phone && touched.phone ? <p className="text-danger">{errors.phone}</p> : ''}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="discount"
-                    placeholder="Discount Code ..."
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.discount && touched.discount ? <p className="text-danger">{errors.discount}</p> : ''}
                 </div>
                 <button
                   className="btn btn-buy"

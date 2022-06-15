@@ -209,7 +209,9 @@ export default function Details(props) {
                   {detailsMovies.tenPhim}
                 </p>
                 <p className="date">{moment(detailsMovies.ngayKhoiChieu).format('DD/MM/YYYY')}</p>
-                <p className="time-ttl">120 {t('minutes')} - 2D/Digital</p>
+                <p className="time-ttl">
+                  {detailFilm.runtimeMins} {t('minutes')} - {detailFilm.imDbRating} IMDB
+                </p>
                 <Link {...setting} to="schedule" className="btn btn-buy">
                   {t('buyticket')}
                 </Link>
@@ -388,37 +390,39 @@ export default function Details(props) {
             </div>
             <div className="tab-pane fade infomation" id="infomation" role="tabpanel" aria-labelledby="infomation-tab">
               <div className="row">
-                <div className="col-md-6 movie-left">
+                <div className="col-md-5 movie-left">
                   <div className="inforleft">
-                    <p className="title">{t('release')}</p>
+                    <p className="title">{t('release')}:</p>
                     <p className="txt">{moment(detailFilm.releaseDate).format('DD/MM/YYYY')}</p>
                   </div>
                   <div className="inforleft">
-                    <p className="title">{t('director')}</p>
+                    <p className="title">{t('director')}:</p>
                     <p className="txt">{detailFilm.directors}</p>
                   </div>
                   <div className="inforleft">
-                    <p className="title">{t('cast')}</p>
+                    <p className="title">{t('cast')}:</p>
                     <p className="txt">{detailFilm.actor}</p>
                   </div>
                   <div className="inforleft">
-                    <p className="title">{t('genre')}</p>
+                    <p className="title">{t('genre')}:</p>
                     <p className="txt">{detailFilm.genres}</p>
                   </div>
                   <div className="inforleft">
-                    <p className="title">{t('product')}</p>
+                    <p className="title">{t('product')}:</p>
                     <p className="txt">{detailFilm.companies}</p>
                   </div>
                   <div className="inforleft">
-                    <p className="title">{t('runtime')}</p>
+                    <p className="title">{t('runtime')}:</p>
                     <p className="txt">
                       {detailFilm.runtimeMins} {t('minutes')}
                     </p>
                   </div>
                 </div>
-                <div className="col-md-6">
-                  <h4 className="ttl-4">{t('descript')}</h4>
-                  <p className="description">{detailsMovies.moTa}</p>
+                <div className="col-md-7 movie-right">
+                  <h4 className="titleDesc">{t('descript')}</h4>
+                  <p className="description" style={{ textAlign: 'justify' }}>
+                    {detailsMovies.moTa}
+                  </p>
                 </div>
               </div>
             </div>

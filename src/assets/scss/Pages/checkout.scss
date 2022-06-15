@@ -22,7 +22,9 @@
         color: #ec7532;
       }
       .out {
-        color: #000;
+        color: #ec7532;
+        font-weight: bold;
+        font-style: italic;
       }
       .out {
         font-style: italic;
@@ -130,8 +132,10 @@
     margin-right: -15px;
     .ttl-4 {
       border-bottom: 1px solid #eee;
-      color: #44c020;
-      font-size: 50px;
+      background: -webkit-linear-gradient(#fbbd61, #ec7532);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 40px;
       text-align: center;
       margin-bottom: 15px;
       padding-bottom: 15px;
@@ -145,6 +149,14 @@
       }
     }
     .form-buy {
+      .lable {
+        background: -webkit-linear-gradient(#fbbd61, #ec7532);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 15px;
+        font-weight: bold;
+        font-style: italic;
+      }
       .form-control {
         border: none;
         border-bottom: 1px solid #ced4da;
@@ -161,7 +173,12 @@
         }
       }
       .btn-buy {
-        background: #28a745;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(to right, #fbbd61, #ec7532);
+        border: 5px solid;
+        border-image-slice: 1;
+        border-width: 2px;
+        border-image-source: linear-gradient(to left, #833ab4, #fd1d1d, #fcb045);
         display: block;
         color: #fff;
         padding: 7px 10px;
@@ -169,6 +186,9 @@
         margin-bottom: 10px;
         margin-top: 80px;
         text-align: center;
+        &:focus {
+          box-shadow: 0 0 0 0 transparent;
+        }
       }
       .notification {
         font-weight: 600;

@@ -1,76 +1,23 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 const Page404 = () => {
+  const history = useNavigate();
+  const handleBackHome = () => {
+    history('/home');
+  };
   return (
-    <Fragment>
-      <div className="wrapper">
-        <div className="text">
-          <p>404</p>
+    <div className="main-404">
+      <div className="wrapper-404">
+        <h2 className="">Oops! Page not found.</h2>
+        <div className="images">
+          <img src="/images/404.svg" alt="logo_404" />
         </div>
-        <div className="containers">
-          {/* caveman left */}
-          <div className="caveman">
-            <div className="leg">
-              <div className="foot">
-                <div className="fingers" />
-              </div>
-            </div>
-            <div className="leg">
-              <div className="foot">
-                <div className="fingers" />
-              </div>
-            </div>
-            <div className="shape">
-              <div className="circle" />
-              <div className="circle" />
-            </div>
-            <div className="head">
-              <div className="eye">
-                <div className="nose" />
-              </div>
-              <div className="mouth" />
-            </div>
-            <div className="arm-right">
-              <div className="club" />
-            </div>
-          </div>
-          {/* caveman right */}
-          <div className="caveman">
-            <div className="leg">
-              <div className="foot">
-                <div className="fingers" />
-              </div>
-            </div>
-            <div className="leg">
-              <div className="foot">
-                <div className="fingers" />
-              </div>
-            </div>
-            <div className="shape">
-              <div className="circle" />
-              <div className="circle" />
-            </div>
-            <div className="head">
-              <div className="eye">
-                <div className="nose" />
-              </div>
-              <div className="mouth" />
-            </div>
-            <div className="arm-right">
-              <div className="club" />
-            </div>
-          </div>
-        </div>
-        <a
-          href="https://codepen.io/SofiaSergio/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <div id="link">
-            <i className="fab fa-codepen" />
-          </div>
-        </a>
+        <h4 className="">We can't find the page you're looking for</h4>
+        <button type="button" className="btn-backHome" onClick={handleBackHome}>
+          GO BACK HOME
+        </button>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

@@ -69,7 +69,7 @@
       .ttl {
         font-size: 16px;
         .agetype {
-          background-color: #00ac4d;
+          background-color: #ec7532;
           padding: 1px 15px;
           margin-right: 10px;
           font-size: 17px;
@@ -121,7 +121,7 @@
           }
           &:nth-child(2) {
             stroke-dashoffset: calc((254 * 75) / 100 - 254);
-            stroke: green;
+            stroke: #ce3017;
           }
         }
       }
@@ -187,17 +187,20 @@
     .nav-link {
       border: none;
       color: #fff;
-      font-weight: 700;
+      font-weight: bold;
       transform: scale(0.9);
       transition: all 0.5s;
-      font-size: 19px;
+      font-size: 22px;
       &:hover {
         transform: scale(1);
         transition: all 0.5s;
       }
       &.active {
-        background-color: transparent;
-        color: #ec7532;
+        background: -webkit-linear-gradient(#ec7532, #ce3017);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 22px;
+        font-weight: bold;
       }
     }
   }
@@ -227,7 +230,20 @@
     }
     .title {
       width: 50%;
-      margin-bottom: 15px;
+      background: -webkit-linear-gradient(#ec7532, #ce3017);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .movie-right {
+      .titleDesc {
+        background: -webkit-linear-gradient(#ec7532, #ce3017);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+        font-style: italic;
+      }
     }
     .txt {
       width: 40%;
