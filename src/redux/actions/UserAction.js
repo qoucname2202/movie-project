@@ -58,10 +58,17 @@ export const RegisterAction = (user) => {
         data: user,
       });
       if (result.status === 200) {
-        alert('Đăng ký thành công');
+        Swal.fire({
+          icon: 'success',
+          title: 'Đăng ký tài khoản thành công',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
       // If login success redirect Honme
-      history.replace('/login');
+      setTimeout(() => {
+        history.replace('/login');
+      }, 2000);
       // Dispatch action
       dispatch({
         type: REGISTER,

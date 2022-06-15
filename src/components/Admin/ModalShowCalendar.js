@@ -7,6 +7,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import MomentTZ from 'moment-timezone';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 import {
   ListLogoAction,
   ListCenemaShowAction,
@@ -15,22 +16,23 @@ import {
 } from '../../redux/actions/ShowTimeMovieAction';
 
 // Yup validateion schema
-const schema = yup
-  .object({
-    heThongRap: yup.string().required('Vui lòng chọn hệ thống rạp'),
-    cumRap: yup.string().required('Vui lòng chọn cụm rạp'),
-    rap: yup.string().required('Vui lòng chọn rạp'),
-    thoiGianChieu: yup.number().required('Vui lòng chọn thời gian chiếu'),
-    giaVe: yup.number().required('Vui lòng chọn giá vé'),
-  })
-  .required();
+
 export default function ModalShowCalendar(props) {
   let { maPhim } = props;
-
   const { listLogoMovie, listCinema, listTimeShowMovie } = useSelector((state) => state.ShowTimeMovieReducer);
   const [listRap, setListRap] = useState([]);
-
+  const { t, i18n } = useTranslation();
+  const schema = yup
+    .object({
+      heThongRap: yup.string().required(t('theaterSystem.empty')),
+      cumRap: yup.string().required(t('theaterCluster.empty')),
+      rap: yup.string().required(t('cinemaEmpty')),
+      thoiGianChieu: yup.number().required(t('showTimesEmpty')),
+      giaVe: yup.number().required(t('fareEmpty')),
+    })
+    .required();
   const dispatch = useDispatch();
+
   const {
     register,
     control,
@@ -52,6 +54,14 @@ export default function ModalShowCalendar(props) {
       setListRap([...listCinema[0].danhSachRap]);
     }
   }, [listCinema]);
+
+  useEffect(() => {
+    if (localStorage.getItem('i18nextLng') !== '') {
+      i18n.changeLanguage(localStorage.getItem('i18nextLng'));
+    } else {
+      i18n.changeLanguage('en');
+    }
+  }, []);
 
   // Lấy tên hệ thống rạp
   const renderHeThongRap = () => {
@@ -140,7 +150,7 @@ export default function ModalShowCalendar(props) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
-              Lịch chiếu
+              {t('showtimes')}
             </h5>
             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
@@ -153,14 +163,14 @@ export default function ModalShowCalendar(props) {
                   <div className="col-md-6">
                     <div className="row form-group">
                       <div className="item-label col-md-3">
-                        <label htmlFor="">Hệ thống rạp</label>
+                        <label htmlFor="">{t('theaterSystem.title')}</label>
                       </div>
                       <div className="select-setion col-md-9">
                         <select
                           onChange={handleChangeHeThong}
                           className="form-control"
                           {...heThongRapVal}
-                          placeholder="Chọn hệ thống rạp"
+                          placeholder={t('theaterSystem.choosen')}
                         >
                           {renderHeThongRap()}
                         </select>
@@ -168,14 +178,14 @@ export default function ModalShowCalendar(props) {
                     </div>
                     <div className="row form-group">
                       <div className="item-label col-md-3">
-                        <label htmlFor="">Cụm rạp</label>
+                        <label htmlFor="">{t('theaterCluster.title')}</label>
                       </div>
                       <div className="select-setion col-md-9">
                         <select
                           onChange={handleChangeCumRap}
                           className="form-control"
                           {...cumRapVal}
-                          placeholder="Chọn cụm rạp"
+                          placeholder={t('theaterCluster.choosen')}
                         >
                           {renderCumRap()}
                         </select>
@@ -183,10 +193,10 @@ export default function ModalShowCalendar(props) {
                     </div>
                     <div className="row form-group">
                       <div className="item-label col-md-3">
-                        <label htmlFor="">Rạp</label>
+                        <label htmlFor="">{t('cinema')}</label>
                       </div>
                       <div className="select-setion col-md-9">
-                        <select className="form-control" {...rapVal} placeholder="Chọn rạp">
+                        <select className="form-control" {...rapVal} placeholder={t('cinemaEmpty')}>
                           {renderRap()}
                         </select>
                       </div>
@@ -195,7 +205,7 @@ export default function ModalShowCalendar(props) {
                   <div className="col-md-6">
                     <div className="row form-group">
                       <div className="item-label col-md-3">
-                        <label htmlFor="ngayChieuGioChieu">Ngày Chiếu</label>
+                        <label htmlFor="ngayChieuGioChieu">{t('release')}</label>
                       </div>
                       <div className="select-setion col-md-9">
                         <Controller
@@ -203,7 +213,7 @@ export default function ModalShowCalendar(props) {
                           name="date-input"
                           render={({ field }) => (
                             <DatePicker
-                              placeholderText="Vui lòng chọn"
+                              placeholderText={t('showTimesEmpty')}
                               onChange={(date) => {
                                 field.onChange(date);
                               }}
@@ -219,21 +229,23 @@ export default function ModalShowCalendar(props) {
                     </div>
                     <div className="row form-group">
                       <div className="item-label col-md-3">
-                        <label htmlFor="">Thời lượng</label>
+                        <label htmlFor="">{t('runtime')}</label>
                       </div>
                       <div className="select-setion col-md-9">
-                        <select className="form-control" {...thoiGianChieuVal} placeholder="Chọn thời lượng">
-                          <option value={120}>120 phút</option>
+                        <select className="form-control" {...thoiGianChieuVal} placeholder={t('timeEmpty')}>
+                          <option value={75}>75 {t('minutes')}</option>
+                          <option value={120}>120 {t('minutes')}</option>
+                          <option value={136}>136 {t('minutes')}</option>
                         </select>
                       </div>
                     </div>
 
                     <div className="row form-group">
                       <div className="item-label col-md-3">
-                        <label htmlFor="">Giá vé</label>
+                        <label htmlFor="">{t('fare')}</label>
                       </div>
                       <div className="select-setion col-md-9">
-                        <select className="form-control" placeholder="Chọn giá vé" {...giaVeVal}>
+                        <select className="form-control" placeholder={t('fareEmpty')} {...giaVeVal}>
                           <option value={75000}>75000</option>
                           <option value={90000}>90000</option>
                           <option value={120000}>120000</option>
@@ -243,20 +255,20 @@ export default function ModalShowCalendar(props) {
                   </div>
                   <div className="btn-item">
                     <button type="submit" className="btn btn-add text-white">
-                      Tạo lịch chiếu
+                      {t('createShowTime')}
                     </button>
                   </div>
                 </div>
                 {/* show infor calendar */}
                 <div className="select-infor">
-                  <h2 className="ttl-2">Thông tin hiển thị lịch chiếu của phim</h2>
+                  <h2 className="ttl-2">{t('showtimerMovieMess')}</h2>
                   <table className="table table-show-infor">
                     <thead>
                       <tr>
-                        <th>Mã lịch chiếu</th>
-                        <th>Ngày chiếu giờ chiếu</th>
-                        <th>Giá vé</th>
-                        <th>Thời lượng</th>
+                        <th>{t('showtimerCode')}</th>
+                        <th>{t('showtimeDate')}</th>
+                        <th>{t('fare')}</th>
+                        <th>{t('runtime')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -276,7 +288,9 @@ export default function ModalShowCalendar(props) {
                                   currency: 'VND',
                                 })}
                               </td>
-                              <td>{item.thoiLuong}p</td>
+                              <td>
+                                {item.thoiLuong} {t('minutes')}
+                              </td>
                             </tr>
                           );
                         })}

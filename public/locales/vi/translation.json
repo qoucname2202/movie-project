@@ -110,8 +110,20 @@
   "groupCode": "Mã nhóm",
   "groupEmpty": "Mã nhóm không được bỏ trống!",
   "movieThumb": "Hình ảnh",
-  "theaterSystem": "Hệ thống rạp",
-  "theaterCluster": "Cụm rạp",
+  "theaterSystem": {
+    "title": "Hệ thống rạp",
+    "empty": "Hệ thống rạp không được bỏ trống!",
+    "choosen": "Chọn hệ thống rạp"
+  },
+  "theaterCluster": {
+    "title": "Cụm rạp",
+    "empty": "Cụm rạp không được bỏ trống!",
+    "choosen": "Vui lòng chọn cụm rạp chiếu"
+  },
+  "timeEmpty": "Chọn thời gian chiếu",
+  "showTimesEmpty": "Chọn ngày công chiếu",
+  "fareEmpty": "Chọn giá vé",
+  "cinemaEmpty": "Chọn rạp",
   "fare": "Giá vé",
   "createShowTime": "Tạo lịch chiếu",
   "showtimerMovieMess": "Thông tin hiển thị lịch chiếu của phim",
@@ -120,7 +132,7 @@
   "updatedFilm": "Cập nhật phim",
   "trailer": "Trailer",
   "aliases": "Bí danh",
-
+  "inputEmpty": "Không được bỏ trống",
   "messSuccess": {
     "movie": "Thêm phim thành công"
   },

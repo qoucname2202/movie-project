@@ -108,8 +108,20 @@
   "movieCode": "电影代码",
   "groupCode": "组码",
   "movieThumb": "海报",
-  "theaterSystem": "剧院系统",
-  "theaterCluster": "集群剧院",
+  "theaterSystem": {
+    "title": "剧院系统",
+    "empty": "请影院系统不为空",
+    "choosen": "请进入影院系统"
+  },
+  "theaterCluster": {
+    "title": "集群剧院",
+    "empty": "请集群影院系统不为空",
+    "choosen": "请进群剧场"
+  },
+  "timeEmpty": "请输入运行时间",
+  "showTimesEmpty": "请输入放映时间",
+  "fareEmpty": "请输入票价",
+  "cinemaEmpty": "请进电影院",
   "fare": "票价",
   "createShowTime": "创建放映时间",
   "showtimerMovieMess": "显示电影放映时间的信息",
@@ -130,5 +142,6 @@
     "filmName": "请输入电影名称",
     "filmAlia": "电影别名",
     "filmDesc": "请输入电影描述"
-  }
+  },
+  "inputEmpty": "不能为空"
 }

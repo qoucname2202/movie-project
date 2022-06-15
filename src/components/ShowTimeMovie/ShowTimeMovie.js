@@ -113,10 +113,12 @@ export default function ShowTimeMovie({ reful }) {
                                               <span className="age">P</span>
                                               {movie.tenPhim}
                                             </p>
-                                            <span>120 {t('minutes')} -FOX 9.4 -IMDb 8.7</span>
+                                            <span>
+                                              120 {t('minutes')} - {moment(new Date()).format('DD-MM-YYYY')}
+                                            </span>
                                           </div>
                                         </div>
-                                        <h5 className="ttl">2D Digital</h5>
+                                        <h5 className="ttl">2D Vietsub</h5>
                                         <div className="row">
                                           {movie.lstLichChieuTheoPhim
                                             ?.sort((current, next) =>

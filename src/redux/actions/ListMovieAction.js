@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import {
   domain,
   LIST_MOVIE_NOW_SHOW,
@@ -65,11 +66,22 @@ export const deleteMovieAction = (maPhim, token) => {
         },
       });
       if (result.status === 200) {
-        alert('Xóa phim thành công');
+        Swal.fire({
+          icon: 'success',
+          title: 'Xóa phim thành công',
+          showConfirmButton: false,
+          timer: 1500,
+        });
         window.location.reload();
       }
     } catch (errors) {
-      alert(errors.response?.data);
+      console.log(errors.response?.data);
+      Swal.fire({
+        icon: 'error',
+        title: 'Lỗi khi xóa phim',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
 };
@@ -89,7 +101,19 @@ export const addMovieAction = (film) => {
         console.log(errors.response.data);
       });
       if (result.status === 200) {
-        alert('Thêm phim thành công');
+        Swal.fire({
+          icon: 'success',
+          title: 'Thêm phim thành công',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Thêm phim thất bại',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
       dispatch({
         type: CLOSELOADING,
@@ -108,10 +132,21 @@ export const editMovieAction = (movie) => {
         headers: { Authorization: 'Bearer ' + localStorage.getItem(accessToken) },
       });
       console.log(result.data);
-
       dispatch(listMovieShowAction());
+      Swal.fire({
+        icon: 'success',
+        title: 'Cập nhật phim thành công',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (errors) {
       console.log(errors);
+      Swal.fire({
+        icon: 'success',
+        title: 'Lỗi khi cập nhật phim',
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
 };

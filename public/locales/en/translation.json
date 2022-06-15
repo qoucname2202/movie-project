@@ -123,8 +123,20 @@
   "groupCode": "Group Code",
   "groupEmpty": "Please enter group code",
   "movieThumb": "Poster",
-  "theaterSystem": "Theater System",
-  "theaterCluster": "Cluster Theater",
+  "theaterSystem": {
+    "title": "Theater System",
+    "empty": "Please theater system is not empty",
+    "choosen": "Please enter theater system"
+  },
+  "theaterCluster": {
+    "title": "Cluster Theater",
+    "empty": "Please cluster theater system is not empty",
+    "choosen": "Please enter cluster theater"
+  },
+  "timeEmpty": "Please enter run times",
+  "showTimesEmpty": "Please enter showtimes",
+  "fareEmpty": "Please enter fare",
+  "cinemaEmpty": "Please enter cinema",
   "fare": "Fare",
   "createShowTime": "Create Showtime",
   "showtimerMovieMess": "Information showing movie showtimes",
@@ -132,5 +144,6 @@
   "showtimeDate": "Date and time",
   "updatedFilm": "Updated Film",
   "trailer": "Trailer",
-  "aliases": "Aliases"
+  "aliases": "Aliases",
+  "inputEmpty": "Please enter information"
 }

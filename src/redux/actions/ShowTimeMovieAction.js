@@ -1,11 +1,5 @@
 import axios from 'axios';
-import {
-  domain,
-  LIST_CINEMA_SHOWTIME,
-  LIST_LOGO,
-  LIST_MOVIE_SHOW_TIME,
-  LIST_THEATER_SYSTEM_LOGO,
-} from '../../configs/settings';
+import { domain, LIST_CINEMA_SHOWTIME, LIST_LOGO, LIST_MOVIE_SHOW_TIME } from '../../configs/settings';
 import Swal from 'sweetalert2';
 
 export const ListLogoAction = () => {

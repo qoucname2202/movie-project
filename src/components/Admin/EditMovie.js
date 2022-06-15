@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { maNhom } from '../../configs/settings';
 import { useDispatch } from 'react-redux';
 import { editMovieAction } from '../../redux/actions/ListMovieAction';
-
+import { useTranslation } from 'react-i18next';
 export default function EditMovie(props) {
   const { movie } = props;
   const dispatch = useDispatch();
@@ -14,6 +14,15 @@ export default function EditMovie(props) {
     formState: { errors },
     reset,
   } = useForm();
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    if (localStorage.getItem('i18nextLng') !== '') {
+      i18n.changeLanguage(localStorage.getItem('i18nextLng'));
+    } else {
+      i18n.changeLanguage('en');
+    }
+  }, []);
 
   useEffect(() => {
     // console.log(movie);
@@ -41,7 +50,7 @@ export default function EditMovie(props) {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLabel">
-                  Cập nhật Phim
+                  {t('updatedFilm')}
                 </h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
@@ -51,13 +60,13 @@ export default function EditMovie(props) {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="form-group row">
                     <label htmlFor="maPhim" className="col-md-2">
-                      Mã phim
+                      {t('movieCode')}
                     </label>
                     <div className="col-md-10">
                       <input
                         value="maPhim"
                         type="text"
-                        placeholder="Nhập số"
+                        placeholder={t('input.numb')}
                         {...register('maPhim', {})}
                         className="form-control"
                       />
@@ -65,39 +74,39 @@ export default function EditMovie(props) {
                   </div>
                   <div className="form-group row">
                     <label htmlFor="tenPhim" className="col-md-2">
-                      Tên phim
+                      {t('movieName')}
                     </label>
                     <div className="col-md-10">
                       <input
-                        placeholder="Nhập Tên Phim"
+                        placeholder={t('input.filmName')}
                         type="text"
                         {...register('tenPhim', {
                           required: true,
                         })}
                         className="form-control"
                       />
-                      {errors?.tenPhim?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                      {errors?.tenPhim?.type === 'required' && <p className="text-danger">{t('inputEmpty')}</p>}
                     </div>
                   </div>
                   <div className="form-group row">
                     <label htmlFor="biDanh" className="col-md-2">
-                      Bí danh
+                      {t('aliases')}
                     </label>
                     <div className="col-md-10">
                       <input
                         type="text"
-                        placeholder="nhap-bi-danh"
+                        placeholder={t('input.filmAlia')}
                         {...register('biDanh', {
                           required: true,
                         })}
                         className="form-control"
                       />
-                      {errors?.biDanh?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                      {errors?.biDanh?.type === 'required' && <p className="text-danger">{t('inputEmpty')}</p>}
                     </div>
                   </div>
                   <div className="form-group row">
                     <label htmlFor="trailer" className="col-md-2">
-                      Trailer
+                      {t('trailer')}
                     </label>
                     <div className="col-md-10">
                       <input
@@ -108,12 +117,12 @@ export default function EditMovie(props) {
                         })}
                         className="form-control"
                       />
-                      {errors?.trailer?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                      {errors?.trailer?.type === 'required' && <p className="text-danger">{t('inputEmpty')}</p>}
                     </div>
                   </div>
                   <div className="form-group row">
                     <label htmlFor="trailer" className="col-md-2">
-                      Hình ảnh
+                      {t('movieThumb')}
                     </label>
                     <div className="col-md-10">
                       <img
@@ -122,12 +131,12 @@ export default function EditMovie(props) {
                         style={{ width: '200px', height: '250px', marginBottom: '10px' }}
                       />
                       <input type="file" {...register('hinhAnh')} className="form-control" />
-                      {errors?.hinhAnh?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                      {errors?.hinhAnh?.type === 'required' && <p className="text-danger">{t('inputEmpty')}</p>}
                     </div>
                   </div>
                   <div className="form-group row">
                     <label htmlFor="maNhom" className="col-md-2">
-                      Mã nhóm
+                      {t('groupCode')}
                     </label>
                     <div className="col-md-10">
                       <input
@@ -138,12 +147,12 @@ export default function EditMovie(props) {
                         })}
                         className="form-control"
                       />
-                      {errors?.maNhom?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                      {errors?.maNhom?.type === 'required' && <p className="text-danger">{t('inputEmpty')}</p>}
                     </div>
                   </div>
                   <div className="form-group row">
                     <label htmlFor="ngayKhoiChieu" className="col-md-2">
-                      Ngày khởi chiếu
+                      {t('release')}
                     </label>
                     <div className="col-md-10">
                       <input
@@ -154,27 +163,28 @@ export default function EditMovie(props) {
                         })}
                         className="form-control"
                       />
-                      {errors?.ngayKhoiChieu?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                      {errors?.ngayKhoiChieu?.type === 'required' && <p className="text-danger">{t('inputEmpty')}</p>}
                     </div>
                   </div>
                   <div className="form-group row">
                     <label htmlFor="moTa" className="col-md-2">
-                      Mô tả
+                      {t('descript')}
                     </label>
                     <div className="col-md-10">
                       <textarea
                         type="text"
+                        placeholder={t('input.filmDesc')}
                         {...register('moTa', {
                           required: true,
                         })}
                         className="form-control"
                       />
-                      {errors?.moTa?.type === 'required' && <p className="text-danger">Không được để trống</p>}
+                      {errors?.moTa?.type === 'required' && <p className="text-danger">{t('inputEmpty')}</p>}
                     </div>
                   </div>
                   <div className="form-group add-movie text-center">
                     <button type="submit" className="btn btn-add">
-                      Cập nhật phim
+                      {t('updatedFilm')}
                     </button>
                   </div>
                 </form>
