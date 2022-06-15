@@ -2717,10 +2717,19 @@ body.sb-sidenav-toggled .wrapper .sidebar-wrapper {
   .search-home .form-search select {
     min-width: 200px;
   }
+
+  .footer-inner .footer-right .img-wrap {
+    margin-left: 150px;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .block-news .block-news-img .img-news {
     height: 183px;
+  }
+}
+@media screen and (min-width: 980px) and (max-width: 1200px) {
+  .footer-inner .footer-right .img-wrap {
+    margin-left: 125px;
   }
 }
 @media screen and (min-width: 788px) and (max-width: 882px) {
@@ -2740,6 +2749,11 @@ body.sb-sidenav-toggled .wrapper .sidebar-wrapper {
   .listmovie .slick-next {
     right: -38px;
   }
+
+  .footer-inner .footer-right .img-wrap {
+    width: 45%;
+    margin-left: 90px;
+  }
 }
 @media screen and (max-width: 991px) {
   .search-home {
@@ -2756,6 +2770,11 @@ body.sb-sidenav-toggled .wrapper .sidebar-wrapper {
 
   .footer .footer-infor .col {
     padding: 0 8px;
+  }
+
+  .footer-inner .footer-right .img-wrap {
+    width: 45%;
+    margin-left: 90px;
   }
 }
 @media screen and (max-width: 768px) {
@@ -2955,6 +2974,10 @@ body.sb-sidenav-toggled .wrapper .sidebar-wrapper {
     padding: 20px;
     margin: 0 15px;
   }
+
+  .footer-inner .footer-right .img-wrap {
+    margin-left: 140px;
+  }
 }
 @media screen and (max-width: 576px) {
   .cinema-block .cinema-inner .show-logo .nav-pills .nav-link {
@@ -2972,10 +2995,47 @@ body.sb-sidenav-toggled .wrapper .sidebar-wrapper {
   .movie-dt-showtime .nav-tabs .nav-link {
     padding: 0 8px;
   }
+
+  .footer-inner .footer-right .img-wrap {
+    width: 44%;
+    margin-left: 150px;
+  }
+}
+@media screen and (min-width: 414px) and (max-width: 576px) {
+  .footer-inner .footer-right .img-wrap {
+    width: 45%;
+    margin-left: 105px;
+  }
+  .footer-inner .footer-right .app-img img {
+    border-radius: 18px;
+  }
+}
+@media screen and (min-width: 390px) and (max-width: 413px) {
+  .footer-inner .footer-right .img-wrap {
+    width: 45%;
+    margin-left: 100px;
+  }
+}
+@media screen and (min-width: 375px) and (max-width: 389px) {
+  .footer-inner .footer-right .img-wrap {
+    width: 46%;
+    margin-left: 94px;
+  }
+  .footer-inner .footer-right .app-img img {
+    border-radius: 19px;
+  }
 }
 @media screen and (max-width: 320px) {
   .cinema-block .cinema-inner .show-logo .nav-pills .nav-link {
     margin: 0 4px;
+  }
+
+  .footer-inner .footer-right .img-wrap {
+    width: 46%;
+    margin-left: 75px;
+  }
+  .footer-inner .footer-right .app-img img {
+    border-radius: 19px;
   }
 }
 
