@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Swal from 'sweetalert2';
 
 const EditMovie24h = (props) => {
-  const { movieNews } = props;
+  const { movieNews, reload } = props;
   const db = firseabse;
   const {
     register,
@@ -52,47 +52,52 @@ const EditMovie24h = (props) => {
   };
 
   const handleUpload = async (value) => {
-    if (singleImage === null) {
-      delete movieNews.key;
+    if (singleImage === '') {
+      delete value.key;
       await updateAppMovie({
-        ...movieNews,
+        ...value,
+        release: new Date(),
       });
       Swal.fire({
         icon: 'success',
         title: 'Cập nhật phim thành công',
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1200,
       });
+      reload();
       return;
+    } else {
+      const storageRef = ref(storage, 'images/' + uuidv4());
+      const uploadTask = uploadBytesResumable(storageRef, singleImage, metadata);
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            delete value.key;
+            await updateAppMovie({
+              ...value,
+              thumb: downloadURL,
+              release: new Date(),
+            });
+            Swal.fire({
+              icon: 'success',
+              title: 'Cập nhật phim thành công',
+              showConfirmButton: false,
+              timer: 1200,
+            });
+            reload();
+          });
+        },
+      );
     }
-    const storageRef = ref(storage, 'images/' + uuidv4());
-    const uploadTask = uploadBytesResumable(storageRef, singleImage, metadata);
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        // Upload completed successfully, now we can get the download URL
-        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          delete movieNews.key;
-          await updateAppMovie({
-            ...movieNews,
-            thumb: downloadURL,
-          });
-          Swal.fire({
-            icon: 'success',
-            title: 'Cập nhật phim thành công',
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        });
-      },
-    );
   };
 
   return (

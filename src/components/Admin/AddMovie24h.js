@@ -6,13 +6,15 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import firseabse from '../../utils/db';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
-
-const AddMovie24h = () => {
+import Swal from 'sweetalert2';
+const AddMovie24h = (props) => {
+  const { reload } = props;
   const db = firseabse;
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const [poster, setPoster] = useState({});
   const [singleImage, setSingleImage] = useState('');
@@ -65,6 +67,19 @@ const AddMovie24h = () => {
             title: value.title,
             thumb: downloadURL,
             content: value.content,
+            release: new Date(),
+          });
+          Swal.fire({
+            icon: 'success',
+            title: 'Thêm tin tức phim thành công',
+            showConfirmButton: false,
+            timer: 1200,
+          });
+          reload();
+          reset({
+            title: '',
+            content: '',
+            thumb: '',
           });
         });
       },
@@ -87,7 +102,7 @@ const AddMovie24h = () => {
             <div className="modal-body">
               <form onSubmit={handleSubmit(handleUpload)}>
                 <div className="form-group row">
-                  <label htmlFor="tieuDe" className="col-md-2">
+                  <label htmlFor="title" className="col-md-2">
                     Tiêu đề
                   </label>
                   <div className="col-md-10">
@@ -99,7 +114,7 @@ const AddMovie24h = () => {
                       })}
                       className="form-control"
                     />
-                    {errors?.biDanh?.type === 'required' && <p className="text-danger">Vui lòng nhập tên tiêu đề</p>}
+                    {errors?.title?.type === 'required' && <p className="text-danger">Vui lòng nhập tên tiêu đề</p>}
                   </div>
                 </div>
                 <div className="form-group row">
@@ -117,7 +132,7 @@ const AddMovie24h = () => {
                       style={{ width: '200px', height: '250px', marginBottom: '10px' }}
                     />
                     <input type="file" className="form-control" onChange={onImageChange} />
-                    {/* {errors?.hinhAnh?.type === 'required' && <p className="text-danger">Vui lòng chọn</p>} */}
+                    {errors?.thumb?.type === 'required' && <p className="text-danger">Vui lòng chọn hình</p>}
                   </div>
                 </div>
                 <div className="form-group row">
@@ -133,7 +148,7 @@ const AddMovie24h = () => {
                       })}
                       className="form-control"
                     />
-                    {errors?.moTa?.type === 'required' && <p className="text-danger">Vui lòng nhập nội dung</p>}
+                    {errors?.content?.type === 'required' && <p className="text-danger">Vui lòng nhập nội dung</p>}
                   </div>
                 </div>
                 <div className="form-group add-movie text-center">

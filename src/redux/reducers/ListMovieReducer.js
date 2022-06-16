@@ -18,6 +18,12 @@ const stateDefault = {
 const ListMovieReducer = (state = stateDefault, actions) => {
   switch (actions.type) {
     case LIST_MOVIE_NOW_SHOW: {
+      actions.listMovieShow.map((item, index) => {
+        return {
+          ...item,
+          key: index,
+        };
+      });
       state.listMovieShow = [...actions.listMovieShow];
       return { ...state };
     }
