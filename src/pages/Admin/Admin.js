@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CLOSELOADING, LOGOUT } from '../../configs/settings';
 import { useTranslation } from 'react-i18next';
 import './style.scss';
+import ManagerMovie24h from '../../components/Admin/ManagerMovie24h';
 
 export default function Admin() {
   let dispatch = useDispatch();
@@ -66,6 +67,17 @@ export default function Admin() {
             >
               {t('managerUser')}
             </a>
+            <a
+              className="nav-link"
+              id="v-pills-movie"
+              data-toggle="pill"
+              href="#v-pill-movie"
+              role="tab"
+              aria-controls="v-pill-movie"
+              aria-selected="false"
+            >
+              Quản lý phim 24h
+            </a>
           </div>
         </div>
         {/* Page content wrapper*/}
@@ -121,6 +133,14 @@ export default function Admin() {
             </div>
             <div className="tab-pane fade v-pill-admin" id="v-pill-user" role="tabpanel" aria-labelledby="v-pills-user">
               <ManagerUser />
+            </div>
+            <div
+              className="tab-pane fade v-pill-admin"
+              id="v-pill-movie"
+              role="tabpanel"
+              aria-labelledby="v-pills-movie"
+            >
+              <ManagerMovie24h />
             </div>
           </div>
         </div>
