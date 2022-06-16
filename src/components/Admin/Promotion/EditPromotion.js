@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
-import { storage, updateAppMovie } from '../../utils/db';
+import { storage, updateAppDiscount } from '../../../utils/db';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import firseabse from '../../utils/db';
+import firseabse from '../../../utils/db';
 import { v4 as uuidv4 } from 'uuid';
 import Swal from 'sweetalert2';
 
-const EditMovie24h = (props) => {
+const EditPromotion = (props) => {
   const { movieNews, reload } = props;
   const db = firseabse;
   const {
@@ -54,13 +54,13 @@ const EditMovie24h = (props) => {
   const handleUpload = async (value) => {
     if (singleImage === '') {
       delete value.key;
-      await updateAppMovie({
+      await updateAppDiscount({
         ...value,
         release: new Date(),
       });
       Swal.fire({
         icon: 'success',
-        title: 'Cập nhật phim thành công',
+        title: 'Cập nhật thông tin khuyễn mãi thành công',
         showConfirmButton: false,
         timer: 1200,
       });
@@ -82,14 +82,14 @@ const EditMovie24h = (props) => {
           // Upload completed successfully, now we can get the download URL
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             delete value.key;
-            await updateAppMovie({
+            await updateAppDiscount({
               ...value,
               thumb: downloadURL,
               release: new Date(),
             });
             Swal.fire({
               icon: 'success',
-              title: 'Cập nhật phim thành công',
+              title: 'Cập nhật tin khuyến mãi thành công',
               showConfirmButton: false,
               timer: 1200,
             });
@@ -103,12 +103,12 @@ const EditMovie24h = (props) => {
   return (
     <div className="block">
       {movieNews ? (
-        <div className="modal fade" id="editmovie24h" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="editpromotion" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered">
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLabel">
-                  Cập nhật tin tức phim 24h
+                  Cập nhật thông tin khuyến mãi
                 </h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
@@ -117,13 +117,13 @@ const EditMovie24h = (props) => {
               <div className="modal-body">
                 <form onSubmit={handleSubmit(handleUpload)}>
                   <div className="form-group row">
-                    <label htmlFor="tieuDe" className="col-md-2">
+                    <label htmlFor="title" className="col-md-2">
                       Tiêu đề
                     </label>
                     <div className="col-md-10">
                       <input
                         type="text"
-                        placeholder="Nhập tiêu đề tin tức"
+                        placeholder="Nhập tiêu đề"
                         {...register('title', {
                           required: true,
                         })}
@@ -164,7 +164,7 @@ const EditMovie24h = (props) => {
                   </div>
                   <div className="form-group add-movie text-center">
                     <button type="submit" className="btn btn-add">
-                      Cập nhật tin tức phim
+                      Cập nhật
                     </button>
                   </div>
                 </form>
@@ -178,4 +178,4 @@ const EditMovie24h = (props) => {
     </div>
   );
 };
-export default EditMovie24h;
+export default EditPromotion;

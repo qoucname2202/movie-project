@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
-import { storage } from '../../utils/db';
+import { storage } from '../../../utils/db';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import firseabse from '../../utils/db';
+import firseabse from '../../../utils/db';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import Swal from 'sweetalert2';
-const AddMovie24h = (props) => {
+const AddPromotion = (props) => {
   const { reload } = props;
   const db = firseabse;
   const {
@@ -63,7 +63,7 @@ const AddMovie24h = (props) => {
       () => {
         // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          await setDoc(doc(collection(db, 'movie')), {
+          await setDoc(doc(collection(db, 'discount')), {
             title: value.title,
             thumb: downloadURL,
             content: value.content,
@@ -71,7 +71,7 @@ const AddMovie24h = (props) => {
           });
           Swal.fire({
             icon: 'success',
-            title: 'Thêm tin tức phim thành công',
+            title: 'Thêm thông tin khuyến mãi thành công',
             showConfirmButton: false,
             timer: 1200,
           });
@@ -88,12 +88,18 @@ const AddMovie24h = (props) => {
 
   return (
     <div>
-      <div className="modal fade" id="addmovie24h" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div
+        className="modal fade"
+        id="addpromotion"
+        tabIndex={-1}
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                Thêm tin tức phim 24h
+                Thêm thông tin khuyến mãi
               </h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
@@ -153,7 +159,7 @@ const AddMovie24h = (props) => {
                 </div>
                 <div className="form-group add-movie text-center">
                   <button type="submit" className="btn btn-add">
-                    Thêm tin tức
+                    Thêm khuyến mãi
                   </button>
                 </div>
               </form>
@@ -164,4 +170,4 @@ const AddMovie24h = (props) => {
     </div>
   );
 };
-export default AddMovie24h;
+export default AddPromotion;

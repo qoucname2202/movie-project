@@ -98,11 +98,11 @@ const getAppMovie = async () => {
   return movieList;
 };
 // Add New Application Movie
-const addNewAppMovie = async (movie) => {
-  movie.thumb =
-    'https://firebasestorage.googleapis.com/v0/b/comment-movie.appspot.com/o/images%2Fdefault.jpg?alt=media&token=de9dee08-20c0-4463-9ef2-822e0fa5ed68';
-  await setDoc(doc(collection(db, 'movie')), movie);
-};
+// const addNewAppMovie = async (movie) => {
+//   movie.thumb =
+//     'https://firebasestorage.googleapis.com/v0/b/comment-movie.appspot.com/o/images%2Fdefault.jpg?alt=media&token=de9dee08-20c0-4463-9ef2-822e0fa5ed68';
+//   await setDoc(doc(collection(db, 'movie')), movie);
+// };
 // Updated Application Movie
 const updateAppMovie = async (movie) => {
   let docRef = doc(collection(db, 'movie'), movie.id);
@@ -119,9 +119,8 @@ const deleteAppMovie = async (movieID) => {
   await deleteDoc(document);
 };
 // Review
-const getReviewMovie = async () => {
-  let document = await doc(collection(db, 'review'));
-  const querySnapShot = await getDoc(document);
+const getAppReview = async () => {
+  let querySnapShot = await getDocs(collection(db, 'review'));
   let reviewList = [];
   querySnapShot.forEach((doc) => {
     let review = {
@@ -129,26 +128,55 @@ const getReviewMovie = async () => {
       title: doc.data().title,
       thumb: doc.data().thumb,
       content: doc.data().content,
+      release: doc.data().release,
     };
     reviewList.push(review);
   });
   return reviewList;
 };
-// Discount
-const getDiscountMovie = async () => {
-  let document = await doc(collection(db, 'discount'));
-  const querySnapShot = await getDoc(document);
-  let discountList = [];
+const updateAppReview = async (review) => {
+  let docRef = doc(collection(db, 'review'), review.id);
+  let temp = { ...review };
+  delete temp.id;
+  const updated = await updateDoc(docRef, {
+    ...temp,
+  });
+  return updated;
+};
+// Delete Application Movie
+const deleteAppReview = async (reviewID) => {
+  let document = await doc(collection(db, 'review'), reviewID);
+  await deleteDoc(document);
+};
+// Review
+const getAppDiscount = async () => {
+  let querySnapShot = await getDocs(collection(db, 'discount'));
+  let reviewList = [];
   querySnapShot.forEach((doc) => {
-    let discount = {
+    let review = {
       id: doc.id,
       title: doc.data().title,
       thumb: doc.data().thumb,
       content: doc.data().content,
+      release: doc.data().release,
     };
-    discountList.push(discount);
+    reviewList.push(review);
   });
-  return discountList;
+  return reviewList;
+};
+const updateAppDiscount = async (discount) => {
+  let docRef = doc(collection(db, 'discount'), discount.id);
+  let temp = { ...discount };
+  delete temp.id;
+  const updated = await updateDoc(docRef, {
+    ...temp,
+  });
+  return updated;
+};
+// Delete Application Movie
+const deleteAppDiscount = async (discountID) => {
+  let document = await doc(collection(db, 'discount'), discountID);
+  await deleteDoc(document);
 };
 
 const addMovie = async (idMovie, data) => {
@@ -198,9 +226,12 @@ export {
   getMovie,
   addMovie,
   getAppMovie,
-  getReviewMovie,
-  getDiscountMovie,
-  addNewAppMovie,
+  getAppReview,
   updateAppMovie,
   deleteAppMovie,
+  deleteAppReview,
+  updateAppReview,
+  getAppDiscount,
+  updateAppDiscount,
+  deleteAppDiscount,
 };

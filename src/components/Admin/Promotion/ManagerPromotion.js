@@ -3,17 +3,18 @@ import moment from 'moment';
 import { Table, Image } from 'antd';
 import 'antd/dist/antd.min.css';
 // import { useTranslation } from 'react-i18next';
-import { getAppMovie, deleteAppMovie } from '../../utils/db';
-import AddMovie24h from './AddMovie24h';
-import EditMovie24h from './EditMovie24h';
+import { getAppDiscount, deleteAppDiscount } from '../../../utils/db';
+import AddPromotion from './AddPromotion';
+import EditPromotion from './EditPromotion';
+import Swal from 'sweetalert2';
 
-const ManagerMovie24h = () => {
+const ManagerPromotion = () => {
   const [table, setTable] = useState([]);
   const [filterTable, setFilterTable] = useState([]);
   const [movieNews, setMovieNews] = useState(null);
   useEffect(() => {
     (async () => {
-      let data = await getAppMovie();
+      let data = await getAppDiscount();
       data = data.map((item) => {
         return {
           ...item,
@@ -27,7 +28,7 @@ const ManagerMovie24h = () => {
 
   // reload page
   const reload = async () => {
-    let data = await getAppMovie();
+    let data = await getAppDiscount();
     data = data.map((item) => {
       return {
         ...item,
@@ -100,7 +101,7 @@ const ManagerMovie24h = () => {
               className="btn btn-edit"
               type="button"
               data-toggle="modal"
-              data-target="#editmovie24h"
+              data-target="#editpromotion"
               onClick={() => {
                 setMovieNews(record);
               }}
@@ -112,13 +113,19 @@ const ManagerMovie24h = () => {
             className="btn-delete btn"
             type="submit"
             onClick={async () => {
-              await deleteAppMovie(record.id);
-              let data = await getAppMovie();
+              await deleteAppDiscount(record.id);
+              let data = await getAppDiscount();
               data = data.map((item) => {
                 return {
                   ...item,
                   key: item.id,
                 };
+              });
+              Swal.fire({
+                icon: 'success',
+                title: 'Xóa tin khuyến mãi thành công',
+                showConfirmButton: false,
+                timer: 1200,
               });
               setTable(data);
               setFilterTable(data);
@@ -134,8 +141,8 @@ const ManagerMovie24h = () => {
     <div>
       <div className="inner-add row">
         <div className="col-md-6">
-          <button className="btn btn-add" type="button" data-toggle="modal" data-target="#addmovie24h">
-            Thêm tin tức phim 24h
+          <button className="btn btn-add" type="button" data-toggle="modal" data-target="#addpromotion">
+            Thêm tin khuyễn mãi
           </button>
         </div>
         <div className="col-md-6">
@@ -143,7 +150,7 @@ const ManagerMovie24h = () => {
             <input
               className="form-control"
               type="text"
-              placeholder="Tìm kiếm tiêu đề phim 24h...."
+              placeholder="Tìm kiếm thông tin đánh giá"
               aria-label="Search"
               aria-describedby="basic-addon2"
               onChange={handleChangeSearch}
@@ -157,7 +164,7 @@ const ManagerMovie24h = () => {
         </div>
       </div>
       <div className="user-header inner-button ad-movie">
-        <AddMovie24h reload={reload} />
+        <AddPromotion reload={reload} />
       </div>
       <Table className="table table-manageruser" dataSource={filterTable}>
         {columns.map((col, index) => {
@@ -172,9 +179,9 @@ const ManagerMovie24h = () => {
           );
         })}
       </Table>
-      <EditMovie24h movieNews={movieNews} reload={reload} />
+      <EditPromotion movieNews={movieNews} reload={reload} />
     </div>
   );
 };
 
-export default ManagerMovie24h;
+export default ManagerPromotion;

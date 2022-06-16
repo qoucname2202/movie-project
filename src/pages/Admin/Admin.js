@@ -7,7 +7,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { CLOSELOADING, LOGOUT } from '../../configs/settings';
 import { useTranslation } from 'react-i18next';
 import './style.scss';
-import ManagerMovie24h from '../../components/Admin/ManagerMovie24h';
+import ManagerMovie24h from '../../components/Admin/Movie/ManagerMovie24h';
+import ManagerReview from '../../components/Admin/Review/ManagerReview';
+import ManagerPromotion from '../../components/Admin/Promotion/ManagerPromotion';
 
 export default function Admin() {
   let dispatch = useDispatch();
@@ -78,6 +80,28 @@ export default function Admin() {
             >
               Quản lý phim 24h
             </a>
+            <a
+              className="nav-link"
+              id="v-pills-review"
+              data-toggle="pill"
+              href="#v-pill-review"
+              role="tab"
+              aria-controls="v-pill-review"
+              aria-selected="false"
+            >
+              Quản lý đánh giá
+            </a>
+            <a
+              className="nav-link"
+              id="v-pills-promotion"
+              data-toggle="pill"
+              href="#v-pill-promotion"
+              role="tab"
+              aria-controls="v-pill-promotion"
+              aria-selected="false"
+            >
+              Quản lý khuyến mãi
+            </a>
           </div>
         </div>
         {/* Page content wrapper*/}
@@ -141,6 +165,22 @@ export default function Admin() {
               aria-labelledby="v-pills-movie"
             >
               <ManagerMovie24h />
+            </div>
+            <div
+              className="tab-pane fade v-pill-admin"
+              id="v-pill-review"
+              role="tabpanel"
+              aria-labelledby="v-pills-review"
+            >
+              <ManagerReview />
+            </div>
+            <div
+              className="tab-pane fade v-pill-admin"
+              id="v-pill-promotion"
+              role="tabpanel"
+              aria-labelledby="v-pills-promotion"
+            >
+              <ManagerPromotion />
             </div>
           </div>
         </div>
