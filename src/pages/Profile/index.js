@@ -7,6 +7,10 @@ import { useFormik } from 'formik';
 import { history } from '../../App';
 import { useTranslation } from 'react-i18next';
 import { useRef } from 'react';
+import 'antd/dist/antd.min.css';
+import './style.scss';
+import { Button } from 'antd';
+import { CameraOutlined } from '@ant-design/icons';
 
 export default function Profile(props) {
   const { thongTinUser } = useSelector((state) => state.UserReducer);
@@ -80,6 +84,19 @@ export default function Profile(props) {
               aria-selected="false"
             >
               {t('profile')}
+            </a>
+          </li>
+          <li className="nav-item" role="presentation">
+            <a
+              className="nav-link"
+              id="pills-avatar-tab"
+              data-toggle="pill"
+              href="#pills-avatar"
+              role="tab"
+              aria-controls="pills-avatar"
+              aria-selected="false"
+            >
+              Avatar
             </a>
           </li>
         </ul>
@@ -182,6 +199,16 @@ export default function Profile(props) {
                 </div>
               </div>
             </form>
+          </div>
+          <div className="tab-pane fade" id="pills-avatar" role="tabpanel" aria-labelledby="pills-avatar-tab">
+            <div className="profile-mains">
+              <div className="profile-container">
+                <div className="profile-content">
+                  <img src="https://picsum.photos/seed/picsum/300/300" alt="avatar" />
+                  <Button type="primary" shape="circle" icon={<CameraOutlined />} size="large" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

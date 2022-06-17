@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { updateLike } from '../../utils/db';
-
+import { useNavigate } from 'react-router-dom';
 export default function Comment(props) {
   const { user, comment, rating, idComment, like } = props.cmt;
-  const [likeCmt, setLike] = useState(like.includes(JSON.parse(localStorage.getItem('taiKhoan')).taiKhoan));
+  const [likeCmt, setLike] = useState(
+    localStorage.getItem('taiKhoan') ? like.includes(JSON.parse(localStorage.getItem('taiKhoan')).taiKhoan) : false,
+  );
+  const history = useNavigate();
 
   const handleLike = () => {
-    setLike(!likeCmt);
-    updateLike(props.idMovie, idComment);
+    if (localStorage.getItem('taiKhoan')) {
+      setLike(!likeCmt);
+      updateLike(props.idMovie, idComment);
+    }
+    history('/login');
   };
   // Rendering star
   const handelRenderStart = (rating) => {

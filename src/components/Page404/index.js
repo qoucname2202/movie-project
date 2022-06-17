@@ -1,7 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { CLOSELOADING } from '../../configs/settings';
 const Page404 = () => {
   const history = useNavigate();
+  const dispatch = useDispatch();
+  dispatch({ type: CLOSELOADING });
   const handleBackHome = () => {
     history('/home');
   };

@@ -14,24 +14,24 @@ import {
 } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyBgwkuqdK32zkCSqWH9mMcqPBGOqbw8_xo',
-//   authDomain: 'comment-movie.firebaseapp.com',
-//   projectId: 'comment-movie',
-//   storageBucket: 'comment-movie.appspot.com',
-//   messagingSenderId: '775350638866',
-//   appId: '1:775350638866:web:4ec12773773f2a6931fbcb',
-//   measurementId: 'G-R58W88MWEM',
-// };
 const firebaseConfig = {
-  apiKey: 'AIzaSyBC-hoP6nVS7nlB7_yMC65D1ZlJYwCVUtA',
-  authDomain: 'comment-movie-8e00c.firebaseapp.com',
-  projectId: 'comment-movie-8e00c',
-  storageBucket: 'comment-movie-8e00c.appspot.com',
-  messagingSenderId: '760711066552',
-  appId: '1:760711066552:web:1d1f9594a605153326554d',
-  measurementId: 'G-WH7XVW1LG4',
+  apiKey: 'AIzaSyBgwkuqdK32zkCSqWH9mMcqPBGOqbw8_xo',
+  authDomain: 'comment-movie.firebaseapp.com',
+  projectId: 'comment-movie',
+  storageBucket: 'comment-movie.appspot.com',
+  messagingSenderId: '775350638866',
+  appId: '1:775350638866:web:4ec12773773f2a6931fbcb',
+  measurementId: 'G-R58W88MWEM',
 };
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyBC-hoP6nVS7nlB7_yMC65D1ZlJYwCVUtA',
+//   authDomain: 'comment-movie-8e00c.firebaseapp.com',
+//   projectId: 'comment-movie-8e00c',
+//   storageBucket: 'comment-movie-8e00c.appspot.com',
+//   messagingSenderId: '760711066552',
+//   appId: '1:760711066552:web:1d1f9594a605153326554d',
+//   measurementId: 'G-WH7XVW1LG4',
+// };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
