@@ -80,7 +80,22 @@ const getMovie = async (idMovie) => {
   }
   return null;
 };
-
+// Get user profile
+const getUserProfile = async () => {
+  let querySnapShot = await getDocs(collection(db, 'profile'));
+  let userList = [];
+  querySnapShot.forEach((doc) => {
+    let user = {
+      id: doc.id,
+      hoTen: doc.data().hoTen,
+      email: doc.data().email,
+      taiKhoan: doc.data().taiKhoan,
+      avatar: doc.data().avatar,
+    };
+    userList.push(user);
+  });
+  return userList;
+};
 // Application movie 24h
 const getAppMovie = async () => {
   let querySnapShot = await getDocs(collection(db, 'movie'));
@@ -234,4 +249,5 @@ export {
   getAppDiscount,
   updateAppDiscount,
   deleteAppDiscount,
+  getUserProfile,
 };

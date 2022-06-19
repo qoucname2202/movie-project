@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-scroll';
 import { LOGOUT } from '../../configs/settings';
 import { Select } from 'antd';
 import './style.scss';
+import { getUserProfile } from '../../utils/db';
 
 // Using Hook translation
 import { useTranslation } from 'react-i18next';
 const { Option } = Select;
 const Header = () => {
   const { t, i18n } = useTranslation();
+  const user = JSON.parse(localStorage.getItem('taiKhoan'));
+  const [profile, setProfile] = useState([]);
+  useEffect(() => {
+    (async () => {
+      let data = await getUserProfile();
+      data = data.map((item) => {
+        return {
+          ...item,
+          key: item.id,
+        };
+      });
+      setProfile(data);
+    })();
+  }, []);
+
   let dispatch = useDispatch();
   const handleChange = (value) => {
     i18n.changeLanguage(value);
@@ -70,7 +86,12 @@ const Header = () => {
                   <div>
                     <span className="nav-link">
                       {' '}
-                      <img src="../images/avatar.png" alt="avatar" className="img-avatar" />
+                      <img
+                        src="../images/avatar.png"
+                        // src={profile.filter((item) => item.email === user.email) ? profile.filter((item) => item.email === user.email)[0].avatar : '../images/avatar.png'}
+                        alt="avatar"
+                        className="img-avatar"
+                      />
                       {taiKhoan}
                     </span>
                     <div className="logout">

@@ -1110,6 +1110,11 @@ a:hover {
 .block-news .block-news-img {
   margin-bottom: 15px;
 }
+.block-news .block-news-img img {
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+}
 .block-news .block-news-img .img-news {
   height: 300px;
 }
@@ -1123,21 +1128,31 @@ a:hover {
 .block-news .block-news-img .txt {
   font-size: 13px;
   margin-bottom: 10px;
+  text-align: justify;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .block-news .block-news-img .icon-comment {
-  color: #000;
+  color: #949494;
   cursor: pointer;
   font-size: 14px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
-.block-news .block-news-img .icon-comment .fa-thumbs-up {
-  margin-right: 5px;
-}
-.block-news .block-news-img .icon-comment img {
-  height: 15px;
-  margin-right: 5px;
+.block-news .block-news-img .icon-comment .fa-calendar-alt {
   margin-left: 5px;
+}
+.block-news .block-news-img .icon-comment .fa-calendar-alt:hover {
+  color: #ec7532;
+}
+.block-news .block-news-img .icon-comment .fa-clock {
+  margin-right: 5px;
+}
+.block-news .block-news-img .icon-comment .fa-clock:hover {
+  color: #ec7532;
 }
 .block-news .block-new-col .col-news {
   margin-bottom: 10px;

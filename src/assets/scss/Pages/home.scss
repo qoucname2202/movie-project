@@ -669,6 +669,11 @@ a:hover {
   }
   .block-news-img {
     margin-bottom: 15px;
+    img {
+      height: 300px;
+      width: 100%;
+      object-fit: cover;
+    }
     .img-news {
       height: 300px;
     }
@@ -682,20 +687,30 @@ a:hover {
     .txt {
       font-size: 13px;
       margin-bottom: 10px;
+      text-align: justify;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
     }
     .icon-comment {
-      color: #000;
+      color: #949494;
       cursor: pointer;
       font-size: 14px;
       display: flex;
       align-items: center;
-      .fa-thumbs-up {
-        margin-right: 5px;
-      }
-      img {
-        height: 15px;
-        margin-right: 5px;
+      justify-content: space-between;
+      .fa-calendar-alt {
         margin-left: 5px;
+        &:hover {
+          color: #ec7532;
+        }
+      }
+      .fa-clock {
+        margin-right: 5px;
+        &:hover {
+          color: #ec7532;
+        }
       }
     }
   }

@@ -9,15 +9,30 @@ import { useTranslation } from 'react-i18next';
 import { useRef } from 'react';
 import 'antd/dist/antd.min.css';
 import './style.scss';
-import { Button } from 'antd';
-import { CameraOutlined } from '@ant-design/icons';
+import { useState } from 'react';
+import Swal from 'sweetalert2';
+import { storage } from '../../utils/db';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { v4 as uuidv4 } from 'uuid';
+import firseabse from '../../utils/db';
+import { useForm } from 'react-hook-form';
 
 export default function Profile(props) {
+  const db = firseabse;
   const { thongTinUser } = useSelector((state) => state.UserReducer);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const i18Local = localStorage.getItem('i18nextLng');
   let counter = useRef(0);
+  const [poster, setPoster] = useState({});
+  const [singleImage, setSingleImage] = useState('');
 
   useEffect(() => {
     if (!localStorage.getItem(taiKhoan)) {
@@ -37,7 +52,7 @@ export default function Profile(props) {
   }, []);
 
   let updateUser = JSON.parse(localStorage.getItem(taiKhoan));
-  const { handleSubmit, handleChange } = useFormik({
+  const { handleChange } = useFormik({
     initialValues: {
       soDt: '',
       matKhau: '',
@@ -56,6 +71,58 @@ export default function Profile(props) {
     let number = counter.current;
     return number;
   };
+  const onImageChange = (e) => {
+    e.preventDefault();
+    let pickedFile;
+    if (e.target.files && e.target.files[0]) {
+      let reader = new FileReader();
+      pickedFile = e.target.files[0];
+      setSingleImage(pickedFile);
+      reader.onload = (e) => {
+        setPoster({ image: e.target.result });
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const metadata = {
+    contentType: 'image/jpeg',
+  };
+
+  const handleUpload = (value) => {
+    if (singleImage === null) return;
+    const storageRef = ref(storage, 'images/' + uuidv4());
+    const uploadTask = uploadBytesResumable(storageRef, singleImage, metadata);
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          await setDoc(doc(collection(db, 'profile')), {
+            taiKhoan: thongTinUser.taiKhoan,
+            hoTen: thongTinUser.hoTen,
+            email: thongTinUser.email,
+            avatar: downloadURL,
+          });
+          Swal.fire({
+            icon: 'success',
+            title: 'Cập nhật avatar thành công',
+            showConfirmButton: false,
+            timer: 1200,
+          });
+        });
+      },
+    );
+  };
+
+  console.log(thongTinUser);
   return (
     <div className="main-height admin-main profile-admin">
       <div className="container">
@@ -201,14 +268,40 @@ export default function Profile(props) {
             </form>
           </div>
           <div className="tab-pane fade" id="pills-avatar" role="tabpanel" aria-labelledby="pills-avatar-tab">
-            <div className="profile-mains">
-              <div className="profile-container">
-                <div className="profile-content">
-                  <img src="https://picsum.photos/seed/picsum/300/300" alt="avatar" />
-                  <Button type="primary" shape="circle" icon={<CameraOutlined />} size="large" />
+            <form onSubmit={handleSubmit(handleUpload)}>
+              <div className="form-group row" style={{ position: 'relative' }}>
+                <div className="col-md-12 d-flex justify-content-center">
+                  <img
+                    src={
+                      poster
+                        ? poster.image
+                        : 'https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=859&q=80'
+                    }
+                    alt=""
+                    style={{ width: '200px', height: '200px', borderRadius: '50%' }}
+                  />
                 </div>
+                <input
+                  type="file"
+                  className="form-control"
+                  onChange={onImageChange}
+                  style={{
+                    width: '40px',
+                    borderRadius: '100%',
+                    background: '#ec7532',
+                    position: 'absolute',
+                    top: '140px',
+                    left: '630px',
+                  }}
+                />
+                {errors?.thumb?.type === 'required' && <p className="text-danger">Vui lòng chọn hình</p>}
               </div>
-            </div>
+              <div className="form-group add-movie text-center">
+                <button type="submit" className="btn btn-add">
+                  Cập nhật avatar
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
