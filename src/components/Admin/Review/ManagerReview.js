@@ -7,11 +7,13 @@ import { getAppReview, deleteAppReview } from '../../../utils/db';
 import AddReview from './AddReview';
 import EditReview from './EditReview';
 import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
 
 const ManagerMovie24h = () => {
   const [table, setTable] = useState([]);
   const [filterTable, setFilterTable] = useState([]);
   const [movieNews, setMovieNews] = useState(null);
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     (async () => {
       let data = await getAppReview();
@@ -25,6 +27,14 @@ const ManagerMovie24h = () => {
       setFilterTable(data);
     })();
   }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('i18nextLng') !== '') {
+      i18n.changeLanguage(localStorage.getItem('i18nextLng'));
+    } else {
+      i18n.changeLanguage('en');
+    }
+  }, [i18n]);
 
   // reload page
   const reload = async () => {
@@ -65,12 +75,12 @@ const ManagerMovie24h = () => {
 
   const columns = [
     {
-      title: 'Tiêu đề',
+      title: t('reviews.title'),
       dataIndex: 'title',
       width: '20%',
     },
     {
-      title: 'Poster',
+      title: t('reviews.poster'),
       dataIndex: 'thumb',
       render: (item) => {
         return <Image key={item} width={100} src={item} />;
@@ -79,12 +89,12 @@ const ManagerMovie24h = () => {
     },
 
     {
-      title: 'Nội dung',
+      title: t('reviews.content'),
       dataIndex: 'content',
       width: '30%',
     },
     {
-      title: 'Thời gian',
+      title: t('reviews.timer'),
       dataIndex: 'release',
       render: (release) => {
         return <div>{moment(release.toDate()).format('DD-MM-YYYY HH:mm:ss')}</div>;
@@ -123,7 +133,7 @@ const ManagerMovie24h = () => {
               });
               Swal.fire({
                 icon: 'success',
-                title: 'Xóa đánh giá thành công',
+                title: t('reviews.delete'),
                 showConfirmButton: false,
                 timer: 1200,
               });
@@ -142,7 +152,7 @@ const ManagerMovie24h = () => {
       <div className="inner-add row">
         <div className="col-md-6">
           <button className="btn btn-add" type="button" data-toggle="modal" data-target="#addreview">
-            Thêm đánh giá phim
+            {t('reviews.add')}
           </button>
         </div>
         <div className="col-md-6">
@@ -150,7 +160,7 @@ const ManagerMovie24h = () => {
             <input
               className="form-control"
               type="text"
-              placeholder="Tìm kiếm thông tin đánh giá"
+              placeholder={t('reviews.search')}
               aria-label="Search"
               aria-describedby="basic-addon2"
               onChange={handleChangeSearch}

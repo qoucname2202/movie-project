@@ -7,11 +7,13 @@ import { getAppDiscount, deleteAppDiscount } from '../../../utils/db';
 import AddPromotion from './AddPromotion';
 import EditPromotion from './EditPromotion';
 import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
 
 const ManagerPromotion = () => {
   const [table, setTable] = useState([]);
   const [filterTable, setFilterTable] = useState([]);
   const [movieNews, setMovieNews] = useState(null);
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     (async () => {
       let data = await getAppDiscount();
@@ -25,6 +27,14 @@ const ManagerPromotion = () => {
       setFilterTable(data);
     })();
   }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('i18nextLng') !== '') {
+      i18n.changeLanguage(localStorage.getItem('i18nextLng'));
+    } else {
+      i18n.changeLanguage('en');
+    }
+  }, [i18n]);
 
   // reload page
   const reload = async () => {
@@ -65,12 +75,12 @@ const ManagerPromotion = () => {
 
   const columns = [
     {
-      title: 'Tiêu đề',
+      title: t('discount.title'),
       dataIndex: 'title',
       width: '20%',
     },
     {
-      title: 'Poster',
+      title: t('discount.poster'),
       dataIndex: 'thumb',
       render: (item) => {
         return <Image key={item} width={100} src={item} />;
@@ -79,12 +89,12 @@ const ManagerPromotion = () => {
     },
 
     {
-      title: 'Nội dung',
+      title: t('discount.content'),
       dataIndex: 'content',
       width: '30%',
     },
     {
-      title: 'Thời gian',
+      title: t('discount.timer'),
       dataIndex: 'release',
       render: (release) => {
         return <div>{moment(release.toDate()).format('DD-MM-YYYY HH:mm:ss')}</div>;
@@ -123,7 +133,7 @@ const ManagerPromotion = () => {
               });
               Swal.fire({
                 icon: 'success',
-                title: 'Xóa tin khuyến mãi thành công',
+                title: t('discount.delete'),
                 showConfirmButton: false,
                 timer: 1200,
               });
@@ -142,7 +152,7 @@ const ManagerPromotion = () => {
       <div className="inner-add row">
         <div className="col-md-6">
           <button className="btn btn-add" type="button" data-toggle="modal" data-target="#addpromotion">
-            Thêm tin khuyễn mãi
+            {t('discount.add')}
           </button>
         </div>
         <div className="col-md-6">
@@ -150,7 +160,7 @@ const ManagerPromotion = () => {
             <input
               className="form-control"
               type="text"
-              placeholder="Tìm kiếm thông tin đánh giá"
+              placeholder={t('discount.search')}
               aria-label="Search"
               aria-describedby="basic-addon2"
               onChange={handleChangeSearch}

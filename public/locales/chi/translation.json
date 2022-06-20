@@ -143,5 +143,56 @@
     "filmAlia": "电影别名",
     "filmDesc": "请输入电影描述"
   },
-  "inputEmpty": "不能为空"
+  "inputEmpty": "不能为空",
+  "movieNews": {
+    "title": "标题",
+    "poster": "海报",
+    "content": "内容",
+    "timer": "发布日期",
+    "add": "24小时添加电影新闻",
+    "delete": "删除电影新闻成功",
+    "update": "成功更新电影新闻",
+    "error": "更新电影新闻时出错",
+    "search": "搜索标题电影新闻 24h...",
+    "addTitle": "24小时添加电影新闻",
+    "updateTitle": "Update movie news 24h",
+    "emptyTitle": "请输入标题名称",
+    "emptyPoster": "请输入海报",
+    "emptyContent": "请输入内容",
+    "manager": "电影新闻管理"
+  },
+  "reviews": {
+    "title": "标题",
+    "poster": "海报",
+    "content": "内容",
+    "timer": "发布日期",
+    "add": "添加评论电影",
+    "delete": "成功删除评论影片",
+    "update": "成功更新评论",
+    "error": "更新评论时出错",
+    "search": "搜索评论信息...",
+    "addTitle": "添加评论电影",
+    "updateTitle": "更新评论电影",
+    "emptyTitle": "请输入标题名称",
+    "emptyPoster": "请输入海报",
+    "emptyContent": "请输入内容",
+    "manager": "评论管理"
+  },
+  "discount": {
+    "title": "标题",
+    "poster": "海报",
+    "content": "内容",
+    "timer": "发布日期",
+    "add": "添加折扣电影",
+    "delete": "成功删除折扣影片",
+    "update": "成功更新折扣",
+    "error": "更新折扣时出错",
+    "search": "搜索折扣信息...",
+    "addTitle": "添加折扣电影",
+    "updateTitle": "更新折扣电影",
+    "emptyTitle": "请输入标题名称",
+    "emptyPoster": "请输入海报",
+    "emptyContent": "请输入内容",
+    "manager": "折扣管理"
+  }
 }

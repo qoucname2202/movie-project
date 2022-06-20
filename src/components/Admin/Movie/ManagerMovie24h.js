@@ -6,11 +6,14 @@ import 'antd/dist/antd.min.css';
 import { getAppMovie, deleteAppMovie } from '../../../utils/db';
 import AddMovie24h from './AddMovie24h';
 import EditMovie24h from './EditMovie24h';
+import { useTranslation } from 'react-i18next';
+import Swal from 'sweetalert2';
 
 const ManagerMovie24h = () => {
   const [table, setTable] = useState([]);
   const [filterTable, setFilterTable] = useState([]);
   const [movieNews, setMovieNews] = useState(null);
+  const { t, i18n } = useTranslation();
   useEffect(() => {
     (async () => {
       let data = await getAppMovie();
@@ -24,6 +27,14 @@ const ManagerMovie24h = () => {
       setFilterTable(data);
     })();
   }, []);
+  // translation
+  useEffect(() => {
+    if (localStorage.getItem('i18nextLng') !== '') {
+      i18n.changeLanguage(localStorage.getItem('i18nextLng'));
+    } else {
+      i18n.changeLanguage('en');
+    }
+  }, [i18n]);
 
   // reload page
   const reload = async () => {
@@ -64,12 +75,12 @@ const ManagerMovie24h = () => {
 
   const columns = [
     {
-      title: 'Tiêu đề',
+      title: t('movieNews.title'),
       dataIndex: 'title',
       width: '20%',
     },
     {
-      title: 'Poster',
+      title: t('movieNews.poster'),
       dataIndex: 'thumb',
       render: (item) => {
         return <Image key={item} width={100} src={item} />;
@@ -78,12 +89,12 @@ const ManagerMovie24h = () => {
     },
 
     {
-      title: 'Nội dung',
+      title: t('movieNews.content'),
       dataIndex: 'content',
       width: '30%',
     },
     {
-      title: 'Thời gian',
+      title: t('movieNews.timer'),
       dataIndex: 'release',
       render: (release) => {
         return <div>{moment(release.toDate()).format('DD-MM-YYYY HH:mm:ss')}</div>;
@@ -120,6 +131,12 @@ const ManagerMovie24h = () => {
                   key: item.id,
                 };
               });
+              Swal.fire({
+                icon: 'success',
+                title: t('movieNews.delete'),
+                showConfirmButton: false,
+                timer: 1200,
+              });
               setTable(data);
               setFilterTable(data);
             }}
@@ -135,7 +152,7 @@ const ManagerMovie24h = () => {
       <div className="inner-add row">
         <div className="col-md-6">
           <button className="btn btn-add" type="button" data-toggle="modal" data-target="#addmovie24h">
-            Thêm tin tức phim 24h
+            {t('movieNews.add')}
           </button>
         </div>
         <div className="col-md-6">
@@ -143,7 +160,7 @@ const ManagerMovie24h = () => {
             <input
               className="form-control"
               type="text"
-              placeholder="Tìm kiếm tiêu đề phim 24h...."
+              placeholder={t('movieNews.search')}
               aria-label="Search"
               aria-describedby="basic-addon2"
               onChange={handleChangeSearch}

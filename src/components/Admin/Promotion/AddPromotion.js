@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import 'react-datepicker/dist/react-datepicker.css';
 import { storage } from '../../../utils/db';
@@ -7,6 +7,7 @@ import firseabse from '../../../utils/db';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
 const AddPromotion = (props) => {
   const { reload } = props;
   const db = firseabse;
@@ -19,15 +20,15 @@ const AddPromotion = (props) => {
   const [poster, setPoster] = useState({});
   const [singleImage, setSingleImage] = useState('');
 
-  // const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  // useEffect(() => {
-  //   if (localStorage.getItem('i18nextLng') !== '') {
-  //     i18n.changeLanguage(localStorage.getItem('i18nextLng'));
-  //   } else {
-  //     i18n.changeLanguage('en');
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (localStorage.getItem('i18nextLng') !== '') {
+      i18n.changeLanguage(localStorage.getItem('i18nextLng'));
+    } else {
+      i18n.changeLanguage('en');
+    }
+  }, []);
 
   const onImageChange = (e) => {
     e.preventDefault();
@@ -71,7 +72,7 @@ const AddPromotion = (props) => {
           });
           Swal.fire({
             icon: 'success',
-            title: 'Thêm thông tin khuyến mãi thành công',
+            title: t('discount.add'),
             showConfirmButton: false,
             timer: 1200,
           });
@@ -99,7 +100,7 @@ const AddPromotion = (props) => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                Thêm thông tin khuyến mãi
+                {t('discount.addTitle')}
               </h5>
               <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
@@ -109,23 +110,23 @@ const AddPromotion = (props) => {
               <form onSubmit={handleSubmit(handleUpload)}>
                 <div className="form-group row">
                   <label htmlFor="title" className="col-md-2">
-                    Tiêu đề
+                    {t('discount.title')}
                   </label>
                   <div className="col-md-10">
                     <input
                       type="text"
-                      placeholder="Nhập tiêu đề tin tức"
+                      placeholder={t('discount.addTitle')}
                       {...register('title', {
                         required: true,
                       })}
                       className="form-control"
                     />
-                    {errors?.title?.type === 'required' && <p className="text-danger">Vui lòng nhập tên tiêu đề</p>}
+                    {errors?.title?.type === 'required' && <p className="text-danger">{t('discount.addTitle')}</p>}
                   </div>
                 </div>
                 <div className="form-group row">
                   <label htmlFor="poster" className="col-md-2">
-                    Poster
+                    {t('discount.title')}
                   </label>
                   <div className="col-md-10">
                     <img
@@ -138,28 +139,30 @@ const AddPromotion = (props) => {
                       style={{ width: '200px', height: '250px', marginBottom: '10px' }}
                     />
                     <input type="file" className="form-control" onChange={onImageChange} />
-                    {errors?.thumb?.type === 'required' && <p className="text-danger">Vui lòng chọn hình</p>}
+                    {errors?.thumb?.type === 'required' && <p className="text-danger">{t('discount.emptyTitle')}</p>}
                   </div>
                 </div>
                 <div className="form-group row">
                   <label htmlFor="content" className="col-md-2">
-                    Nội dung
+                    {t('discount.poster')}
                   </label>
                   <div className="col-md-10">
                     <textarea
                       type="text"
-                      placeholder="Nội dung"
+                      placeholder={t('discount.content')}
                       {...register('content', {
                         required: true,
                       })}
                       className="form-control"
                     />
-                    {errors?.content?.type === 'required' && <p className="text-danger">Vui lòng nhập nội dung</p>}
+                    {errors?.content?.type === 'required' && (
+                      <p className="text-danger">{t('discount.emptyContent')}</p>
+                    )}
                   </div>
                 </div>
                 <div className="form-group add-movie text-center">
                   <button type="submit" className="btn btn-add">
-                    Thêm khuyến mãi
+                    {t('discount.addTitle')}
                   </button>
                 </div>
               </form>

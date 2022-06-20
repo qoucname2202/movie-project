@@ -78,7 +78,7 @@ export default function Admin() {
               aria-controls="v-pill-movie"
               aria-selected="false"
             >
-              Quản lý phim 24h
+              {t('movieNews.manager')}
             </a>
             <a
               className="nav-link"
@@ -89,7 +89,7 @@ export default function Admin() {
               aria-controls="v-pill-review"
               aria-selected="false"
             >
-              Quản lý đánh giá
+              {t('reviews.manager')}
             </a>
             <a
               className="nav-link"
@@ -100,7 +100,7 @@ export default function Admin() {
               aria-controls="v-pill-promotion"
               aria-selected="false"
             >
-              Quản lý khuyến mãi
+              {t('discount.manager')}
             </a>
           </div>
         </div>

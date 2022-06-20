@@ -6,7 +6,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import firseabse from '../../../utils/db';
 import { v4 as uuidv4 } from 'uuid';
 import Swal from 'sweetalert2';
-
+import { useTranslation } from 'react-i18next';
 const EditMovie24h = (props) => {
   const { movieNews, reload } = props;
   const db = firseabse;
@@ -19,15 +19,15 @@ const EditMovie24h = (props) => {
   const [poster, setPoster] = useState({});
   const [singleImage, setSingleImage] = useState('');
 
-  // const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  // useEffect(() => {
-  //   if (localStorage.getItem('i18nextLng') !== '') {
-  //     i18n.changeLanguage(localStorage.getItem('i18nextLng'));
-  //   } else {
-  //     i18n.changeLanguage('en');
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (localStorage.getItem('i18nextLng') !== '') {
+      i18n.changeLanguage(localStorage.getItem('i18nextLng'));
+    } else {
+      i18n.changeLanguage('en');
+    }
+  }, []);
 
   useEffect(() => {
     reset(movieNews);
@@ -60,7 +60,7 @@ const EditMovie24h = (props) => {
       });
       Swal.fire({
         icon: 'success',
-        title: 'Cập nhật phim thành công',
+        title: t('movieNews.update'),
         showConfirmButton: false,
         timer: 1200,
       });
@@ -89,7 +89,7 @@ const EditMovie24h = (props) => {
             });
             Swal.fire({
               icon: 'success',
-              title: 'Cập nhật phim thành công',
+              title: t('movieNews.update'),
               showConfirmButton: false,
               timer: 1200,
             });
@@ -108,7 +108,7 @@ const EditMovie24h = (props) => {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title" id="exampleModalLabel">
-                  Cập nhật tin tức phim 24h
+                  {t('movieNews.updateTitle')}
                 </h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
@@ -118,23 +118,25 @@ const EditMovie24h = (props) => {
                 <form onSubmit={handleSubmit(handleUpload)}>
                   <div className="form-group row">
                     <label htmlFor="tieuDe" className="col-md-2">
-                      Tiêu đề
+                      {t('movieNews.title')}
                     </label>
                     <div className="col-md-10">
                       <input
                         type="text"
-                        placeholder="Nhập tiêu đề tin tức"
+                        placeholder={t('movieNews.title')}
                         {...register('title', {
                           required: true,
                         })}
                         className="form-control"
                       />
-                      {errors?.biDanh?.type === 'required' && <p className="text-danger">Vui lòng nhập tên tiêu đề</p>}
+                      {errors?.biDanh?.type === 'required' && (
+                        <p className="text-danger">{t('movieNews.emptyTitle')}</p>
+                      )}
                     </div>
                   </div>
                   <div className="form-group row">
                     <label htmlFor="poster" className="col-md-2">
-                      Poster
+                      {t('movieNews.poster')}
                     </label>
                     <div className="col-md-10">
                       <img
@@ -143,28 +145,32 @@ const EditMovie24h = (props) => {
                         style={{ width: '200px', height: '250px', marginBottom: '10px' }}
                       />
                       <input type="file" className="form-control" onChange={onImageChange} />
-                      {/* {errors?.hinhAnh?.type === 'required' && <p className="text-danger">Vui lòng chọn</p>} */}
+                      {errors?.poster?.type === 'required' && (
+                        <p className="text-danger">{t('movieNews.emptyPoster')}</p>
+                      )}
                     </div>
                   </div>
                   <div className="form-group row">
                     <label htmlFor="content" className="col-md-2">
-                      Nội dung
+                      {t('movieNews.content')}
                     </label>
                     <div className="col-md-10">
                       <textarea
                         type="text"
-                        placeholder="Nội dung"
+                        placeholder={t('movieNews.emptyContent')}
                         {...register('content', {
                           required: true,
                         })}
                         className="form-control"
                       />
-                      {errors?.moTa?.type === 'required' && <p className="text-danger">Vui lòng nhập nội dung</p>}
+                      {errors?.moTa?.type === 'required' && (
+                        <p className="text-danger">{t('movieNews.emptyContent')}</p>
+                      )}
                     </div>
                   </div>
                   <div className="form-group add-movie text-center">
                     <button type="submit" className="btn btn-add">
-                      Cập nhật tin tức phim
+                      {t('movieNews.updateTitle')}
                     </button>
                   </div>
                 </form>
