@@ -5,26 +5,32 @@ import { Link } from 'react-scroll';
 import { LOGOUT } from '../../configs/settings';
 import { Select } from 'antd';
 import './style.scss';
-import { getUserProfile } from '../../utils/db';
+import firseabse from '../../utils/db';
+import { collection, onSnapshot } from 'firebase/firestore';
 
 // Using Hook translation
 import { useTranslation } from 'react-i18next';
 const { Option } = Select;
 const Header = () => {
+  const db = firseabse;
   const { t, i18n } = useTranslation();
   const user = JSON.parse(localStorage.getItem('taiKhoan'));
-  const [profile, setProfile] = useState([]);
+  const [profile, setProfile] = useState({});
   useEffect(() => {
-    (async () => {
-      let data = await getUserProfile();
-      data = data.map((item) => {
-        return {
-          ...item,
-          key: item.id,
-        };
+    const q = collection(db, 'profile');
+    onSnapshot(q, (querySnapshot) => {
+      const users = [];
+      querySnapshot.forEach((doc) => {
+        users.push({
+          id: doc.id,
+          ...doc.data(),
+        });
       });
-      setProfile(data);
-    })();
+      let idx = users.findIndex((item) => item.taiKhoan === user.taiKhoan);
+      if (idx !== -1) {
+        setProfile(users[idx]);
+      }
+    });
   }, []);
 
   let dispatch = useDispatch();
@@ -86,12 +92,7 @@ const Header = () => {
                   <div>
                     <span className="nav-link">
                       {' '}
-                      <img
-                        src="../images/avatar.png"
-                        // src={profile.filter((item) => item.email === user.email) ? profile.filter((item) => item.email === user.email)[0].avatar : '../images/avatar.png'}
-                        alt="avatar"
-                        className="img-avatar"
-                      />
+                      <img src={profile.avatar} alt="avatar" className="img-avatar" />
                       {taiKhoan}
                     </span>
                     <div className="logout">

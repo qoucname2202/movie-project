@@ -17,6 +17,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import firseabse from '../../utils/db';
 import { useForm } from 'react-hook-form';
+import { getUserProfile } from '../../utils/db';
 
 export default function Profile(props) {
   const db = firseabse;
@@ -33,6 +34,7 @@ export default function Profile(props) {
   let counter = useRef(0);
   const [poster, setPoster] = useState({});
   const [singleImage, setSingleImage] = useState('');
+  const [profile, setProfile] = useState([]);
 
   useEffect(() => {
     if (!localStorage.getItem(taiKhoan)) {
@@ -71,6 +73,32 @@ export default function Profile(props) {
     let number = counter.current;
     return number;
   };
+
+  useEffect(() => {
+    (async () => {
+      let data = await getUserProfile();
+      data = data.map((item) => {
+        return {
+          ...item,
+          key: item.id,
+        };
+      });
+      setProfile(data);
+      console.log(data);
+      let idx = data.findIndex((item) => item.taiKhoan === updateUser.taiKhoan);
+      if (idx !== -1) {
+        setPoster({
+          image: data[idx].avatar,
+        });
+      } else {
+        setPoster({
+          image:
+            'https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=859&q=80',
+        });
+      }
+    })();
+  }, []);
+
   const onImageChange = (e) => {
     e.preventDefault();
     let pickedFile;
@@ -105,24 +133,38 @@ export default function Profile(props) {
       () => {
         // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          await setDoc(doc(collection(db, 'profile')), {
-            taiKhoan: thongTinUser.taiKhoan,
-            hoTen: thongTinUser.hoTen,
-            email: thongTinUser.email,
-            avatar: downloadURL,
-          });
-          Swal.fire({
-            icon: 'success',
-            title: 'Cập nhật avatar thành công',
-            showConfirmButton: false,
-            timer: 1200,
-          });
+          let idx = profile.findIndex((item) => item.taiKhoan === thongTinUser.taiKhoan);
+          if (idx !== -1) {
+            await setDoc(doc(collection(db, 'profile'), profile[idx].id), {
+              taiKhoan: thongTinUser.taiKhoan,
+              hoTen: thongTinUser.hoTen,
+              email: thongTinUser.email,
+              avatar: downloadURL,
+            });
+            Swal.fire({
+              icon: 'success',
+              title: 'Cập nhật avatar thành công',
+              showConfirmButton: false,
+              timer: 1200,
+            });
+          } else {
+            await setDoc(doc(collection(db, 'profile')), {
+              taiKhoan: thongTinUser.taiKhoan,
+              hoTen: thongTinUser.hoTen,
+              email: thongTinUser.email,
+              avatar: downloadURL,
+            });
+            Swal.fire({
+              icon: 'success',
+              title: 'Add avatar thành công',
+              showConfirmButton: false,
+              timer: 1200,
+            });
+          }
         });
       },
     );
   };
-
-  console.log(thongTinUser);
   return (
     <div className="main-height admin-main profile-admin">
       <div className="container">
@@ -271,15 +313,11 @@ export default function Profile(props) {
             <form onSubmit={handleSubmit(handleUpload)}>
               <div className="form-group row" style={{ position: 'relative' }}>
                 <div className="col-md-12 d-flex justify-content-center">
-                  <img
-                    src={
-                      poster
-                        ? poster.image
-                        : 'https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=859&q=80'
-                    }
-                    alt=""
-                    style={{ width: '200px', height: '200px', borderRadius: '50%' }}
-                  />
+                  {poster ? (
+                    <img src={poster.image} alt="" style={{ width: '200px', height: '200px', borderRadius: '50%' }} />
+                  ) : (
+                    ''
+                  )}
                 </div>
                 <input
                   type="file"

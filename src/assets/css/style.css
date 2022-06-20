@@ -99,6 +99,7 @@ a {
 }
 .header .img-avatar {
   width: 30px;
+  height: 28px;
   margin-right: 10px;
   border-radius: 50%;
   -webkit-border-radius: 50%;
