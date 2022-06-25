@@ -11,7 +11,7 @@ import { Link } from 'react-scroll';
 import MomentTZ from 'moment-timezone';
 import { history } from '../../App';
 import { addNewComment, getComment, getMovie, addMovie } from '../../utils/db';
-import { Rate } from 'antd';
+import { Progress, Rate } from 'antd';
 import { v4 as uuidv4 } from 'uuid';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../utils/db';
@@ -23,7 +23,8 @@ const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
 export default function Details(props) {
   // const API_KEY = 'k_0a2a2lmq';
   // const API_KEY = 'k_lsttjwzi';
-  const API_KEY = 'k_geqj8l6b';
+  // const API_KEY = 'k_geqj8l6b';
+  const API_KEY = 'k_0t05o5eh';
   const { detailsMovies } = useSelector((state) => state.ListMovieReducer);
   const [date, setDate] = useState(Date.now());
   const [detailFilm, setDetailFilm] = useState({});
@@ -82,6 +83,7 @@ export default function Details(props) {
         getDetailFilm()
           .then((res) => {
             const listMovie = res.data.results;
+            console.log(listMovie);
             const idFilm = listMovie[0].id;
             (async () => {
               try {
@@ -184,7 +186,9 @@ export default function Details(props) {
     offset: -90,
     duration: 400,
   };
-
+  const caculatorPercent = () => {
+    return (+renderTotalRating() * 100) / 5;
+  };
   return (
     <div>
       <section className="detail-mv">
@@ -218,10 +222,14 @@ export default function Details(props) {
               </div>
               <div className="col-md-2 circle-custom my-auto">
                 <div className="percent">
-                  <svg>
-                    <circle cx={60} cy={60} r={40} />
-                    <circle cx={60} cy={60} r={40} />
-                  </svg>
+                  <Progress
+                    type="dashboard"
+                    percent={caculatorPercent()}
+                    gapDegree={30}
+                    status="normal"
+                    width="100%"
+                    strokeColor={'orange'}
+                  ></Progress>
                   <div className="number">
                     <h2>{renderTotalRating()}</h2>
                   </div>

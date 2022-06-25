@@ -1735,8 +1735,8 @@ body.sb-sidenav-toggled .wrapper .sidebar-wrapper {
 }
 .inner-detail-mv-banner .circle-custom .percent .number {
   position: absolute;
-  top: 60%;
-  left: 58%;
+  top: 52%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 .inner-detail-mv-banner .circle-custom .percent .number h2 {

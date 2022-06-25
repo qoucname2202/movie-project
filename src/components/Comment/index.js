@@ -12,8 +12,9 @@ export default function Comment(props) {
     if (localStorage.getItem('taiKhoan')) {
       setLike(!likeCmt);
       updateLike(props.idMovie, idComment);
+    } else {
+      history('/login');
     }
-    history('/login');
   };
   // Rendering star
   const handelRenderStart = (rating) => {

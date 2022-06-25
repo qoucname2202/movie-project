@@ -152,7 +152,7 @@ const ManagerMovie24h = () => {
       <div className="inner-add row">
         <div className="col-md-6">
           <button className="btn btn-add" type="button" data-toggle="modal" data-target="#addmovie24h">
-            {t('movieNews.add')}
+            {t('movieNews.addTitle')}
           </button>
         </div>
         <div className="col-md-6">

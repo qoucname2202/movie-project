@@ -1,16 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-scroll';
 import { LOGOUT } from '../../configs/settings';
 import { Select } from 'antd';
 import './style.scss';
+import firseabse from '../../utils/db';
+import { collection, onSnapshot } from 'firebase/firestore';
 
 // Using Hook translation
 import { useTranslation } from 'react-i18next';
 const { Option } = Select;
 const Header = () => {
+  const db = firseabse;
   const { t, i18n } = useTranslation();
+  const user = JSON.parse(localStorage.getItem('taiKhoan'));
+  const [profile, setProfile] = useState({});
+  useEffect(() => {
+    const q = collection(db, 'profile');
+    onSnapshot(q, (querySnapshot) => {
+      const users = [];
+      querySnapshot.forEach((doc) => {
+        users.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      let idx = users.findIndex((item) => item.taiKhoan === user.taiKhoan);
+      if (idx !== -1) {
+        setProfile(users[idx]);
+      }
+    });
+  }, []);
+
   let dispatch = useDispatch();
   const handleChange = (value) => {
     i18n.changeLanguage(value);
@@ -70,7 +92,7 @@ const Header = () => {
                   <div>
                     <span className="nav-link">
                       {' '}
-                      <img src="../images/avatar.png" alt="avatar" className="img-avatar" />
+                      <img src={profile.avatar} alt="avatar" className="img-avatar" />
                       {taiKhoan}
                     </span>
                     <div className="logout">

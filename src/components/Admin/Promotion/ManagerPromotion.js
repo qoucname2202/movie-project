@@ -152,7 +152,7 @@ const ManagerPromotion = () => {
       <div className="inner-add row">
         <div className="col-md-6">
           <button className="btn btn-add" type="button" data-toggle="modal" data-target="#addpromotion">
-            {t('discount.add')}
+            {t('discount.addTitle')}
           </button>
         </div>
         <div className="col-md-6">
