@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 // import { getAppMovie, getAppReview, getAppDiscount } from '../../utils/db';
 import moment from 'moment';
@@ -16,38 +16,40 @@ const News = ({ reful }) => {
   const queryDiscounts = collection(db, 'discount');
   // View more items
   const [visible, setVisible] = useState(4);
-  onSnapshot(queryMovieNews, (querySnapshot) => {
-    const movies = [];
-    querySnapshot.forEach((doc) => {
-      movies.push({
-        id: doc.id,
-        ...doc.data(),
+  useEffect(() => {
+    onSnapshot(queryMovieNews, (querySnapshot) => {
+      const movies = [];
+      querySnapshot.forEach((doc) => {
+        movies.push({
+          id: doc.id,
+          ...doc.data(),
+        });
       });
+      setMovieNews(movies);
     });
-    setMovieNews(movies);
-  });
 
-  onSnapshot(queryReviews, (querySnapshot) => {
-    const reviews = [];
-    querySnapshot.forEach((doc) => {
-      reviews.push({
-        id: doc.id,
-        ...doc.data(),
+    onSnapshot(queryReviews, (querySnapshot) => {
+      const reviews = [];
+      querySnapshot.forEach((doc) => {
+        reviews.push({
+          id: doc.id,
+          ...doc.data(),
+        });
       });
+      setReviews(reviews);
     });
-    setReviews(reviews);
-  });
 
-  onSnapshot(queryDiscounts, (querySnapshot) => {
-    const discounts = [];
-    querySnapshot.forEach((doc) => {
-      discounts.push({
-        id: doc.id,
-        ...doc.data(),
+    onSnapshot(queryDiscounts, (querySnapshot) => {
+      const discounts = [];
+      querySnapshot.forEach((doc) => {
+        discounts.push({
+          id: doc.id,
+          ...doc.data(),
+        });
       });
+      setDiscounts(discounts);
     });
-    setDiscounts(discounts);
-  });
+  }, []);
 
   // useEffect(() => {
   //   (async () => {

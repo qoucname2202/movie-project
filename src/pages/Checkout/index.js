@@ -63,14 +63,14 @@ export default function Checkout(props) {
       type: 'CAP_NHAT_LICH_CHIEU_DANG_DAT',
       maLichChieu: id,
     });
-    let gheDangDat = localStorage.getItem('gheDangDat');
-    if (gheDangDat) {
-      dispatch({
-        type: 'CAP_NHAT_DANH_SACH_DANG_DAT',
-        danhSachGheDangDat: JSON.parse(gheDangDat),
-        maLichChieu: id,
-      });
-    }
+    // let gheDangDat = localStorage.getItem('gheDangDat');
+    // if (gheDangDat) {
+    //   dispatch({
+    //     type: 'CAP_NHAT_DANH_SACH_DANG_DAT',
+    //     danhSachGheDangDat: JSON.parse(gheDangDat),
+    //     maLichChieu: id,
+    //   });
+    // }
   }, []);
   useEffect(() => {
     handleTime();
@@ -82,11 +82,11 @@ export default function Checkout(props) {
     socket.on('SEND_DISABLE_SEAT_NOW', (data) => {
       let { maLichChieu, listDisablesCurrent } = data;
       if (maLichChieu === id) {
-        console.log(danhSachGheDangDat);
-        let temp = [...listDisablesCurrent].filter(
-          (item) => danhSachGheDangDat.findIndex((ghe) => ghe.maGhe === item.maGhe) === -1,
-        );
-        setdisableSeats([...temp]);
+        // console.log(danhSachGheDangDat);
+        // let temp = [...listDisablesCurrent].filter(
+        //   (item) => danhSachGheDangDat.findIndex((ghe) => ghe.maGhe === item.maGhe) === -1,
+        // );
+        setdisableSeats([...listDisablesCurrent]);
       }
     });
     socket.on('SEND_REMOVE_SELECT_SEAT', (data) => {
@@ -106,7 +106,7 @@ export default function Checkout(props) {
       let listSeat = danhSachGheDangDat.map((item) => item.maGhe);
       socket.emit('REMOVE_SELECT_SEAT', { taiKhoan: taiKhoan.taiKhoan, maLichChieu: id, listSeat });
     };
-  }, [danhSachGheDangDat]);
+  }, []);
   useEffect(() => {
     //Nguoi khac bat dau chon ghe
     socket.on('RECEIVE_CHON_GHE_SELECT', (data) => {
@@ -318,7 +318,12 @@ export default function Checkout(props) {
                   <span>{bookTicket.thongTinPhim?.tenRap}</span>
                 </p>
               </div>
-              <form className="form-buy">
+              <form
+                className="form-buy"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                }}
+              >
                 <div className="form-group">
                   <label htmlFor="" className="lable">
                     {t('username.title')}
@@ -355,6 +360,14 @@ export default function Checkout(props) {
                 <button
                   className="btn btn-buy"
                   onClick={() => {
+                    if (danhSachGheDangDat.length === 0) {
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Bạn vui lòng chọn ghế',
+                        showConfirmButton: false,
+                        timer: 1500,
+                      });
+                    }
                     let userLogin = JSON.parse(localStorage.getItem(taiKhoan));
                     let danhSachVe = danhSachGheDangDat.map((ghe) => {
                       return { maGhe: ghe.maGhe, giaVe: ghe.giaVe };
