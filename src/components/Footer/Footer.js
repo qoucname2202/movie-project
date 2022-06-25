@@ -177,13 +177,8 @@ const Footer = () => {
                   </p>
                 </div>
                 <div className="col-md-4 text-center mt-5">
-                  <a
-                    href="http://online.gov.vn/Home/WebDetails/62782"
-                    target="_blank"
-                    className="img-fluid"
-                    rel="noreferrer"
-                  >
-                    <img src="../images/logo_1.png" alt="bocongthuong" className="img-fluid" />
+                  <a href="!#" className="img-fluid" rel="noreferrer">
+                    <img src="../images/logo_1.png" alt="logo" className="img-fluid" />
                   </a>
                 </div>
               </div>
